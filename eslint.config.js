@@ -11,7 +11,7 @@ export default [
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
 	pluginReact.configs.flat.recommended,
-	prettier, // prettier 추가
+	prettier,
 	{
 		rules: {
 			'react/react-in-jsx-scope': 'off',
