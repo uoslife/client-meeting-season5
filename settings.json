@@ -18,16 +18,6 @@
 		"typescriptreact"
 	],
 
-	// Prettier 설정과 일관성 있게 적용
-	"prettier.printWidth": 100,
-	"prettier.tabWidth": 2,
-	"prettier.singleQuote": true,
-	"prettier.trailingComma": "all",
-	"prettier.bracketSpacing": true,
-	"prettier.semi": true,
-	"prettier.useTabs": true,
-	"prettier.endOfLine": "lf",
-
 	// 터미널 및 기타 파일에서의 개행 문자
 	"files.eol": "\n",
 
