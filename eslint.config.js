@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
 	{ ignores: ['dist'] },
 	{
-		extends: ['airbnb-base', 'plugin:prettier/recommended'],
+		extends: ['plugin:prettier/recommended'],
 		files: ['**/*.{ts,tsx}'],
 		languageOptions: {
 			ecmaVersion: 2020,
