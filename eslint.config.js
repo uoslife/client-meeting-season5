@@ -2,7 +2,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
-import prettier from 'eslint-config-prettier'; // prettier 설정 추가
+import prettier from 'eslint-config-prettier';
 
 export default [
 	{ files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
