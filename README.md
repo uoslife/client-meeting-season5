@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# 시대팅5 프론트 엔드 개발 문서
+해당 문서는 시대팅5 개발 과정을 정리한 문서로, 시간 순으로 나열하였습니다. 각 작업의 필요성과 해당 작업을 선택한 이유에 대해서 서술하고 정리했습니다. 프로젝트를 처음 시작 할때 드는 의문을 정리하고 여러 방법들을 찾아본 후 프로젝트 성격에 맞는 방법을 선택했습니다. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 프로젝트를 시작하기 전
+프로젝트를 시작할때 목표는 모든 개발자가 깃허브를 사용하면서 똑같은 환경에서 개발하며, 개발 이외의 것들을 신경쓰지 않도록 하는 것으로 설정하였습니다. 
 
-Currently, two official plugins are available:
+### .gitignore
+깃를 사용하다보면 종종 필요없는 파일(시스템 파일 등등)이 들어가곤 합니다. 이를 사전에 방지하기 위해서 [gitignore.io](https://www.toptal.com/developers/gitignore)를 활용했습니다. 키워드로는 `windows`,`mac`을 입력하여 파일을 생성했습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### git convention
+모든 개발자가 커밋 내용을 일관되게 작성할 수 있도록 컨벤션을 정의하였습니다. 이를 통해 작업 내용을 쉽게 파악할 수 있으며, 의도적으로 작업 단위를 분리할 수 있도록 하였습니다. [Conventional Commits](https://www.conventionalcommits.org/)을 기반으로 하였고 세부 내용은 다음과 같습니다.
+```text
 
-## Expanding the ESLint configuration
+<type>[optional scope]: <description>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[optional body]
 
-- Configure the top-level `parserOptions` property like this:
+[optional footer(s)]
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+#### type
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+|타입|의미|
+|---|---|
+|`build`|빌드 관련 작업 수행 (배포 파일 생성 등)|
+|`chore`|프로젝트 설정 관련 작업 수행|
+|`ci`|CI/CD 파이프라인 관련 작업 수행|
+|`docs`|문서 작성 또는 수정|
+|`feat`|새로운 기능 추가|
+|`fix`|버그 수정|
+|`refactor`|코드 리팩토링|
+|`style`|스타일 변경|
+|`test`|테스트|
+|`rename`|파일 및 폴더 이름 재설정 및 이동|
+|`!HOTFIX`|릴리즈 버전 치명적인 버그 수정|
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+#### extra
+header-max-length: 100
+body-max-length: 100
+
+### git branch 전략
+위 작업까지 다 완료했다면 이제 깃을 효율적으로 사용하기 위해서 깃 브랜치 전략에 대해서 정해야합니다. git flow, github flow 등등 여러 방법이 있지만 그 중 git flow를 선택하였습니다. 사실 이것은 팀원이 2명이기 때문에 팀과 맞지 않는 전략이지만 연습삼아 사용해보기로 하였습니다. 특히 이벤트성 프로젝트를 진행할때도 적합하지는 않다고 생각합니다.
+
+#### git-flow
+
+해당 프로젝트에서 쓸 브랜치를 정의하겠습니다.
+
+|부모 브랜치|브랜치 명|역할|병합 브랜치|
+|---|---|---|---|
+||`main`|product 서버에 배포 및 버전 관리||
+|`master`|`develop`|각각의 기능 개발이 끝난 후 취합||
+|`develop`|`feature/*`|기능 개발|`develop`|
+|`develop`|`release`|배포 테스트 및 QA 진행|`develop`,`main`|
+|`main`|`hotfix`|product 서버에서 문제가 생겼을 시에 처리|—|
+
+## 프로젝트 셋업
+프론트 개발은 기본적으로 REACT로 진행하며 typescript로 개발합니다. CRA대신 VITE를 사용합니다. 
+```text
+vite: 5.4.8
+react: 18.3.1
+typescript: 5.5.3
 ```
+
+### prettier
+### eslint
+### settings
