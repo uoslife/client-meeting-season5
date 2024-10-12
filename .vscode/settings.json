@@ -1,19 +1,19 @@
 {
-	"editor.tabSize": 2,
-	"editor.formatOnSave": true,
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
-	},
-	// ESLint에 의한 자동 수정 활성화
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  // ESLint에 의한 자동 수정 활성화
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-	// ESLint 플러그인 사용
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact"
-	],
-	// 터미널 및 기타 파일에서의 개행 문자
-	"files.eol": "\n"
+  // ESLint 플러그인 사용
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  // 터미널 및 기타 파일에서의 개행 문자
+  "files.eol": "\n"
 }
