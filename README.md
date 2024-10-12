@@ -62,6 +62,29 @@ react: 18.3.1
 typescript: 5.5.3
 ```
 
-### prettier
-### eslint
-### settings
+### ESLint
+ESLint는 코드의 문제 패턴 식별을, Prettier는 코드 포맷팅을 담당합니다.
+이 때 ESLint와 Prettier의 포맷팅 충돌을 방지하기 위해 `eslint-config-prettier` 라이브러리를 활용했습니다.
+`eslint-config-prettier` 라이브러리는 Prettier와 충돌하는 ESLint 포맷팅 규칙을 off 처리합니다.
+
+나머지 규칙은 ESLint 초기화 시 추천하는 규칙입니다.
+
+### Prettier
+```
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "semi": true,
+  "useTabs": false,
+  "endOfLine": "lf"
+}
+```
+`prettier` 설정은 다음과 같습니다. `useTabs` 속성을 true로 설정하면 editor 상에서 `tabWidth` 설정이 적용안되는 것처럼 보이는 이슈가 있으므로 default 값인 false를 유지합니다.
+
+### Settings
+`settings.json` 파일에서는에는 git clone 시 모든 개발자가 동일한 개발환경을 갖출 수 있도록 editor를 수정합니다.
+
+json 내부 속성은 editor에서 파일 저장 시 코드를 자동 포맷팅하도록 설정합니다.
