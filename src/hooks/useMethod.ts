@@ -24,19 +24,19 @@ const useMethod = () => {
     }
   };
 
-  const get = async (url: string, config: AxiosRequestConfig = {}) => {
+  const get = async (url: string, config: AxiosRequestConfig) => {
     return request('get', url, config);
   };
 
-  const post = async (url: string, config: AxiosRequestConfig = {}) => {
+  const post = async (url: string, config: AxiosRequestConfig) => {
     return request('post', url, config);
   };
 
-  const put = async (url: string, config: AxiosRequestConfig = {}) => {
+  const put = async (url: string, config: AxiosRequestConfig) => {
     return request('put', url, config);
   };
 
-  const del = async (url: string, config: AxiosRequestConfig = {}) => {
+  const del = async (url: string, config: AxiosRequestConfig) => {
     return request('delete', url, config);
   };
 
