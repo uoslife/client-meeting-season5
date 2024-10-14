@@ -36,7 +36,9 @@ const useToken = () => {
       return axios.get('/refreshGetURL', config);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        navigate('/');
+        //status에 따른 수정 필요
+        console.log(error);
+        return error;
       }
     }
   };
