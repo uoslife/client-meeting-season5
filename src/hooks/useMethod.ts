@@ -2,11 +2,13 @@ import axios, { isAxiosError } from 'axios';
 import useToken from './useToken';
 import { AxiosRequestConfig } from 'axios';
 
+export type HttpMethodType = 'get' | 'post' | 'put' | 'delete';
+
 const useMethod = () => {
   const { addAccessToHeader, getAccessByRefresh } = useToken();
 
   const request = async (
-    method: 'get' | 'post' | 'put' | 'delete',
+    method: HttpMethodType,
     url: string,
     config: AxiosRequestConfig = {},
   ) => {
