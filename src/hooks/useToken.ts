@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, isAxiosError } from 'axios';
 import { useAtom } from 'jotai';
-import { useNavigate } from 'react-router-dom';
 import { accessTokenAtom } from '../store/atom/refreshTokenAtom';
 
 export type TokenType = {
@@ -11,7 +10,6 @@ export type TokenType = {
 const useToken = () => {
   const [accessToken, setAccessToken] = useAtom(accessTokenAtom);
   const refreshToken = localStorage.getItem('refreshToken');
-  const navigate = useNavigate();
 
   const setToken = async () => {
     try {
