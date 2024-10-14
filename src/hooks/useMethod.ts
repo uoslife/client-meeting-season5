@@ -14,8 +14,10 @@ const useMethod = () => {
     try {
       return await axios[method](url, config);
     } catch (error) {
-      if (isAxiosError(error) && config.headers) {
+      if (isAxiosError(error)) {
+        //error status에 따라 처리 필요
         const newAccessToken = await getAccessByRefresh();
+        config.headers = config.headers || {};
         config.headers['Authorization'] = `Bearer ${newAccessToken}`;
         return await axios[method](url, config);
       }
