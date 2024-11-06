@@ -88,3 +88,28 @@ ESLint는 코드의 문제 패턴 식별을, Prettier는 코드 포맷팅을 담
 `settings.json` 파일에서는에는 git clone 시 모든 개발자가 동일한 개발환경을 갖출 수 있도록 editor를 수정합니다.
 
 json 내부 속성은 editor에서 파일 저장 시 코드를 자동 포맷팅하도록 설정합니다.
+
+## 프로젝트 시작하며
+### 폴더 구조 
+
+```text
+src/
+├── assets/
+│   ├── fonts/
+│   ├── images/
+│   └── styles/
+├── components/
+├── hooks/
+├── mappers/
+├── pages/
+├── store/
+└── utils/
+```
+
++ `assets`: 프로젝트에 필요한 이미지, 폰트, 디자인 파일이 위치한 폴더입니다.
++ `components`: 컴포넌트가 위치한 폴더입니다.
++ `hooks`: 커스텀 훅이 위치한 폴더입니다.
++ `mappers`: 서버의 데이터 변환을 위한 인코더, 디코더 파일이 위치한 폴더입니다.
++ `pages`: 페이지가 위치한 폴더입니다.
++ `store`: 전역 상태를 관리하는 폴더입니다.
++ `utils`: 자주 쓰는 함수 혹은 상수가 정의되어 있습니다.
