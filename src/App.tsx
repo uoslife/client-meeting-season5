@@ -1,4 +1,20 @@
+import { RouterProvider } from 'react-router-dom';
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    loader: rootLoader,
+    children: [
+      {
+        path: 'team',
+        element: <Team />,
+        loader: teamLoader,
+      },
+    ],
+  },
+]);
+
 const App = () => {
-  return <>시대팅5</>;
+  <RouterProvider router={router} />;
 };
 export default App;
