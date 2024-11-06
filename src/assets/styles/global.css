@@ -1,0 +1,9 @@
+.body {
+  max-width: 767px;
+}
+@font-face {
+  font-family: 'XmasFont';
+  src: url('../fonts/Xmas Sweater Stitch.woff');
+  font-weight: 400;
+  font-style: normal;
+}
