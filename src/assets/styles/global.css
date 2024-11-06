@@ -1,5 +1,6 @@
-.body {
+body {
   max-width: 767px;
+  margin: 0 auto;
 }
 @font-face {
   font-family: 'XmasFont';
