@@ -6,7 +6,6 @@ import UsagePolicy from './pages/UsagePolicy';
 import NoAuthLayout from './components/NoAuthLayout';
 import WebMailPage from './pages/WebMailPage';
 import AuthLayout from './components/AuthLayout';
-import BasicPofilePage from './pages/BasicPofilePage';
 import MainPage from './pages/MainPage';
 import PersonalDetailProfilePage from './pages/PersonalDetailProfilePage';
 import SummaryPage from './pages/SummaryPage';
@@ -15,6 +14,7 @@ import PaymentPage from './pages/PaymentPage';
 import InvitationPage from './pages/InvitationPage';
 import GroupDetailProfilePage from './pages/GroupDetailProfilePage';
 import EditProfilePage from './pages/EditProfilePage';
+import BasicProfilePage from './pages/BasicProfilePage';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -50,43 +50,41 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <BasicPofilePage />,
+        element: <BasicProfilePage />,
+      },
+      {
+        path: '/',
+        element: <MainPage />,
         children: [
           {
             path: '/',
-            element: <MainPage />,
-            children: [
-              {
-                path: '/',
-                element: <PersonalDetailProfilePage />,
-              },
-              {
-                path: '/',
-                element: <GroupDetailProfilePage />,
-              },
-              {
-                path: '/',
-                element: <SummaryPage />,
-              },
-              {
-                path: '/',
-                element: <InvitationPage />,
-              },
-              {
-                path: '/',
-                element: <PrivatePolicyPage />,
-              },
-              {
-                path: '/',
-                element: <PaymentPage />,
-              },
-            ],
+            element: <PersonalDetailProfilePage />,
           },
           {
             path: '/',
-            element: <EditProfilePage />,
+            element: <GroupDetailProfilePage />,
+          },
+          {
+            path: '/',
+            element: <SummaryPage />,
+          },
+          {
+            path: '/',
+            element: <InvitationPage />,
+          },
+          {
+            path: '/',
+            element: <PrivatePolicyPage />,
+          },
+          {
+            path: '/',
+            element: <PaymentPage />,
           },
         ],
+      },
+      {
+        path: '/',
+        element: <EditProfilePage />,
       },
     ],
   },
