@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { accessTokenAtom } from '../store/accessTokenAtom';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -10,7 +10,7 @@ const postRefresh = () => {
 };
 
 const useRefresh = () => {
-  const [, setAccessToken] = useAtom(accessTokenAtom);
+  const setAccessToken = useSetAtom(accessTokenAtom);
   const navigate = useNavigate();
 
   return useMutation({
