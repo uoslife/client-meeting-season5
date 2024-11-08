@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { accessTokenAtom } from '../store/accessTokenAtom';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -6,11 +6,11 @@ import { postFetcher } from '../utils/api';
 import axios, { AxiosError } from 'axios';
 
 const postRefresh = () => {
-  return postFetcher<string>('/account/refresh/');
+  return postFetcher<string>({ url: '/account/refresh/' });
 };
 
 const useRefresh = () => {
-  const [, setAccessToken] = useAtom(accessTokenAtom);
+  const setAccessToken = useSetAtom(accessTokenAtom);
   const navigate = useNavigate();
 
   return useMutation({

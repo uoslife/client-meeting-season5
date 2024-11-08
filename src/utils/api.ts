@@ -88,10 +88,13 @@ const axiosInstance: AxiosInstance = axios.create({
 
 setupInterceptors(axiosInstance);
 
-export const getFetcher = async <T>(
-  url: string,
-  headers?: Record<string, string>,
-): Promise<T> => {
+export const getFetcher = async <T>({
+  url,
+  headers,
+}: {
+  url: string;
+  headers?: Record<string, string>;
+}): Promise<T> => {
   const response = await axiosInstance.get<T>(url, {
     responseType: 'json',
     headers,
@@ -99,11 +102,15 @@ export const getFetcher = async <T>(
   return response.data;
 };
 
-export const postFetcher = async <T>(
-  url: string,
-  data?: unknown,
-  headers?: Record<string, string>,
-): Promise<T> => {
+export const postFetcher = async <T>({
+  url,
+  data,
+  headers,
+}: {
+  url: string;
+  data?: unknown;
+  headers?: Record<string, string>;
+}): Promise<T> => {
   const response = await axiosInstance.post<T>(url, data, {
     responseType: 'json',
     headers: { ...headers, 'Content-Type': 'application/json' },
@@ -111,11 +118,15 @@ export const postFetcher = async <T>(
   return response.data;
 };
 
-export const putFetcher = async <T>(
-  url: string,
-  data?: unknown,
-  headers?: Record<string, string>,
-): Promise<T> => {
+export const putFetcher = async <T>({
+  url,
+  data,
+  headers,
+}: {
+  url: string;
+  data?: unknown;
+  headers?: Record<string, string>;
+}): Promise<T> => {
   const response = await axiosInstance.put<T>(url, data, {
     responseType: 'json',
     headers: { ...headers, 'Content-Type': 'application/json' },
