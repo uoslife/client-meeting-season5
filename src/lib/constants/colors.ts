@@ -1,4 +1,4 @@
-export const color = {
+export const colors = {
   Blue2: '#F6F8FE',
   Blue10: '#E8EDFC',
   Blue20: '#C8D1EA',
@@ -20,7 +20,3 @@ export const color = {
   Red80: '#540D16',
   Red90: '#28060B',
 } as const;
-
-export type ColorKey = keyof typeof color;
-export type ColorValue = (typeof color)[ColorKey];
-export type Color = typeof color;
