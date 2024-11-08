@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import BasicLayout from './components/Common/BasicLayout';
+import BasicLayout from './components/common/BasicLayout';
 import SplashPage from './pages/SplashPage';
 import StarterPage from './pages/StarterPage';
 import UsagePolicy from './pages/UsagePolicy';
-import NoAuthLayout from './components/Common/NoAuthLayout';
+import NoAuthLayout from './components/common/NoAuthLayout';
 import WebMailPage from './pages/WebMailPage';
-import AuthLayout from './components/Common/AuthLayout';
+import AuthLayout from './components/common/AuthLayout';
 import MainPage from './pages/MainPage';
 import PersonalDetailProfilePage from './pages/PersonalDetailProfilePage';
 import SummaryPage from './pages/SummaryPage';
