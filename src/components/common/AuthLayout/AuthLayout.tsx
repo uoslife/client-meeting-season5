@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { InnerStyle, OuterStyle } from '../BasicLayout/style';
 import { useAtomValue } from 'jotai';
-import { accessTokenAtom } from '../../store/accessTokenAtom';
+import { accessTokenAtom } from '../../../store/accessTokenAtom';
 import { useEffect } from 'react';
-import { useRefresh } from '../../hooks/useAuth';
+import { useRefresh } from '../../../hooks/useAuth';
 
 const AuthLayout = () => {
   const accessToken = useAtomValue(accessTokenAtom);
