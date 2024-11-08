@@ -101,6 +101,7 @@ src/
 ├── components/
 │   ├── common/
 │   └── feature/
+├── constants/
 ├── hooks/
 ├── mappers/
 ├── pages/
