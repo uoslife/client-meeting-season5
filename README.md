@@ -99,6 +99,8 @@ src/
 │   ├── images/
 │   └── styles/
 ├── components/
+│   ├── common/
+│   └── feature/
 ├── hooks/
 ├── mappers/
 ├── pages/
