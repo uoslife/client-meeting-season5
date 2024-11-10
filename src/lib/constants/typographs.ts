@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-export const typographs = {
+export const TYPOGRAPHS = {
   headlineLarge: css`
     font-size: 2.8rem;
     line-height: 3.6rem;
