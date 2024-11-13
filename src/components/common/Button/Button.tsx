@@ -28,9 +28,9 @@ const Button = ({
       case 'secondary':
         return 'Red60';
       case 'black':
-        return 'Blue90';
+        return 'White';
       case 'yellow':
-        return 'yellow';
+        return 'Red80';
       default:
         return 'White';
     }

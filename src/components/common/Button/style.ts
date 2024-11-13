@@ -19,6 +19,10 @@ const S = {
           return COLORS.Red60;
         case 'secondary':
           return COLORS.Red2;
+        case 'black':
+          return COLORS.Blue90;
+        case 'yellow':
+          return COLORS.Yellow;
         default:
           return COLORS.Red60;
       }
