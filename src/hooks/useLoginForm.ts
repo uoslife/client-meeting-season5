@@ -13,6 +13,7 @@ const useLoginForm = () => {
     control,
     register,
     handleSubmit: handleSubmitWrapper,
+    formState: { errors },
   } = useForm<LoginForm>();
 
   const handleSubmit: SubmitHandler<LoginForm> = ({
@@ -22,6 +23,7 @@ const useLoginForm = () => {
     phoneNumber,
     kakaoID,
   }) => {
+    console.log('asdf');
     const data = { name, gender, age, phoneNumber, kakaoID };
     const checkValues = Object.values(data).some(
       (value) => value === undefined || value === '',
@@ -54,6 +56,7 @@ const useLoginForm = () => {
     kakaoID: {
       ...register('kakaoID', { required: true }),
     },
+    errors,
   };
 };
 
