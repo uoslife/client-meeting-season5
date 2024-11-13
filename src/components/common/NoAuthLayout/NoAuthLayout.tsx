@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { InnerStyle, OuterStyle } from '../BasicLayout/style';
 import { useAtomValue } from 'jotai';
-import { accessTokenAtom } from '../../store/accessTokenAtom';
+import { accessTokenAtom } from '../../../store/accessTokenAtom';
 
 const NoAuthLayout = () => {
   const accessToken = useAtomValue(accessTokenAtom);
