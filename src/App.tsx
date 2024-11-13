@@ -15,17 +15,18 @@ import InvitationPage from './pages/InvitationPage';
 import GroupDetailProfilePage from './pages/GroupDetailProfilePage';
 import EditProfilePage from './pages/EditProfilePage';
 import BasicProfilePage from './pages/BasicProfilePage';
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <BasicLayout />,
     children: [
       {
-        path: '/',
+        path: 'splash',
         element: <SplashPage />,
       },
       {
-        path: '/',
+        path: 'start',
         element: <StarterPage />,
       },
     ],
@@ -35,55 +36,55 @@ const router = createBrowserRouter([
     element: <NoAuthLayout />,
     children: [
       {
-        path: '/',
+        path: 'policy',
         element: <UsagePolicy />,
       },
       {
-        path: '/',
+        path: 'webmail',
         element: <WebMailPage />,
       },
     ],
   },
   {
-    path: '/',
+    path: '/auth',
     element: <AuthLayout />,
     children: [
       {
-        path: '/',
+        path: 'profile',
         element: <BasicProfilePage />,
       },
       {
-        path: '/',
+        path: 'main',
         element: <MainPage />,
         children: [
           {
-            path: '/',
+            path: 'detail/personal',
             element: <PersonalDetailProfilePage />,
           },
           {
-            path: '/',
+            path: 'detail/group',
             element: <GroupDetailProfilePage />,
           },
           {
-            path: '/',
+            path: 'summary',
             element: <SummaryPage />,
-          },
-          {
-            path: '/',
-            element: <InvitationPage />,
-          },
-          {
-            path: '/',
-            element: <PrivatePolicyPage />,
-          },
-          {
-            path: '/',
-            element: <PaymentPage />,
           },
         ],
       },
       {
-        path: '/',
+        path: 'invite',
+        element: <InvitationPage />,
+      },
+      {
+        path: 'private-policy',
+        element: <PrivatePolicyPage />,
+      },
+      {
+        path: 'payment',
+        element: <PaymentPage />,
+      },
+      {
+        path: 'edit-profile',
         element: <EditProfilePage />,
       },
     ],
@@ -93,4 +94,5 @@ const router = createBrowserRouter([
 const App = () => {
   return <RouterProvider router={router} />;
 };
+
 export default App;
