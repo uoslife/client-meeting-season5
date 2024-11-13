@@ -9,7 +9,7 @@ export interface UseBottomSheetPropsType {
   mainButtonText: string;
   mainButtonDisabled?: boolean;
   mainButtonCallback?: () => void;
-  isSideButton?: boolean;
+  isSideButton: boolean;
   sideButtonText?: string;
   sideButtonDisabled?: boolean;
   sideButtonCallback?: () => void;
@@ -19,7 +19,6 @@ interface UseBottomSheetReturn {
   render: (children: ReactNode) => ReactNode;
   open: () => void;
   close: () => void;
-  setIsPending: Dispatch<SetStateAction<boolean>>;
 }
 
 const useBottomSheet = ({
@@ -34,15 +33,21 @@ const useBottomSheet = ({
   sideButtonCallback = () => {},
 }: UseBottomSheetPropsType): UseBottomSheetReturn => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isPending, setIsPending] = useState<boolean>(false);
+  const [isMainPending, setIsMainPending] = useState<boolean>(false);
+  const [isSidePending, setIsSidePending] = useState<boolean>(false);
 
   const open = () => setIsOpen(true);
   const close = () => {
     setIsOpen(false);
-    setIsPending(false);
+    setIsMainPending(false);
+    setIsSidePending(false);
   };
 
-  const onClickButton = (buttonCallback: () => void) => {
+  const onClickButton = (
+    buttonCallback: () => void,
+    isPending: boolean,
+    setIsPending: (isPending: boolean) => void,
+  ) => {
     if (!isSideButton && isPending) return;
     setIsPending(true);
     buttonCallback();
@@ -55,11 +60,13 @@ const useBottomSheet = ({
     description,
     mainButtonText,
     mainButtonDisabled,
-    mainButtonCallback: () => onClickButton(mainButtonCallback),
+    mainButtonCallback: () =>
+      onClickButton(mainButtonCallback, isMainPending, setIsMainPending),
     isSideButton,
     sideButtonText,
     sideButtonDisabled,
-    sideButtonCallback: () => onClickButton(sideButtonCallback),
+    sideButtonCallback: () =>
+      onClickButton(sideButtonCallback, isSidePending, setIsSidePending),
     close,
   };
 
@@ -72,7 +79,7 @@ const useBottomSheet = ({
     );
   };
 
-  return { render, open, close, setIsPending };
+  return { render, open, close };
 };
 
 export default useBottomSheet;
