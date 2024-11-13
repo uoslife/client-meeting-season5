@@ -5,10 +5,10 @@ import S from '../components/common/BottomSheet/style';
 
 export interface UseBottomSheetPropsType {
   title: string;
-  description: string;
+  description?: string;
   mainButtonText: string;
   mainButtonDisabled?: boolean;
-  mainButtonCallback: () => void;
+  mainButtonCallback?: () => void;
   isSideButton?: boolean;
   sideButtonText?: string;
   sideButtonDisabled?: boolean;
