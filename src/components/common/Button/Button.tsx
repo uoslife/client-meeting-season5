@@ -6,9 +6,15 @@ export interface ButtonProps {
   buttonType: 'primary' | 'secondary';
   disabled?: boolean;
   children: string;
+  onClick: () => void;
 }
 
-const Button = ({ buttonType, disabled = false, children }: ButtonProps) => {
+const Button = ({
+  buttonType,
+  disabled = false,
+  children,
+  onClick,
+}: ButtonProps) => {
   const textColor = (
     buttonType: ButtonProps['buttonType'],
     disabled: ButtonProps['disabled'],
@@ -27,7 +33,12 @@ const Button = ({ buttonType, disabled = false, children }: ButtonProps) => {
   };
 
   return (
-    <S.Wrapper type="button" buttonType={buttonType} disabled={disabled}>
+    <S.Wrapper
+      type="button"
+      buttonType={buttonType}
+      disabled={disabled}
+      onClick={onClick}
+    >
       <Text
         typograph="bodyMediumMedium"
         color={textColor(buttonType, disabled)}
