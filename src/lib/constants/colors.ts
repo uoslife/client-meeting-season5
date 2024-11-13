@@ -21,4 +21,5 @@ export const COLORS = {
   Red90: '#28060B',
   White: '#ffffff',
   Black: '#000000',
+  yellow: '#FFF6DD',
 } as const;

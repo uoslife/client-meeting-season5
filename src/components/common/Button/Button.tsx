@@ -3,12 +3,18 @@ import { ColorsType } from '../../../lib/types';
 import S from './style';
 
 export interface ButtonProps {
-  buttonType: 'primary' | 'secondary';
+  buttonType: 'primary' | 'secondary' | 'black' | 'yellow';
   disabled?: boolean;
   children: string;
+  onClick: () => void;
 }
 
-const Button = ({ buttonType, disabled = false, children }: ButtonProps) => {
+const Button = ({
+  buttonType,
+  disabled = false,
+  children,
+  onClick,
+}: ButtonProps) => {
   const textColor = (
     buttonType: ButtonProps['buttonType'],
     disabled: ButtonProps['disabled'],
@@ -21,13 +27,22 @@ const Button = ({ buttonType, disabled = false, children }: ButtonProps) => {
         return 'White';
       case 'secondary':
         return 'Red60';
+      case 'black':
+        return 'Blue90';
+      case 'yellow':
+        return 'yellow';
       default:
         return 'White';
     }
   };
 
   return (
-    <S.Wrapper type="button" buttonType={buttonType} disabled={disabled}>
+    <S.Wrapper
+      type="button"
+      buttonType={buttonType}
+      disabled={disabled}
+      onClick={onClick}
+    >
       <Text
         typograph="bodyMediumMedium"
         color={textColor(buttonType, disabled)}
