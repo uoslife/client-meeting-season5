@@ -3,7 +3,7 @@ import { ColorsType } from '../../../lib/types';
 import S from './style';
 
 export interface ButtonProps {
-  buttonType: 'primary' | 'secondary';
+  buttonType: 'primary' | 'secondary' | 'black' | 'yellow';
   disabled?: boolean;
   children: string;
   onClick: () => void;
@@ -27,6 +27,10 @@ const Button = ({
         return 'White';
       case 'secondary':
         return 'Red60';
+      case 'black':
+        return 'Blue90';
+      case 'yellow':
+        return 'yellow';
       default:
         return 'White';
     }
