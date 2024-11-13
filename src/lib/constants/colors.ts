@@ -19,4 +19,6 @@ export const COLORS = {
   Red70: '#801422',
   Red80: '#540D16',
   Red90: '#28060B',
+  White: '#ffffff',
+  Black: '#000000',
 } as const;
