@@ -17,7 +17,7 @@ const useRefresh = () => {
     mutationFn: postRefresh,
     onSuccess: (data: string) => {
       console.log(data);
-      // 여기서 encoder 들어가야함
+      // 여기서 decoder 들어가야함
       setAccessToken(data);
     },
     onError: (error: AxiosError | Error) => {

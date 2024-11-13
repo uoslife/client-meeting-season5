@@ -1,4 +1,4 @@
-import { useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import { useState, ReactNode } from 'react';
 import { BlackScreen } from '../components/common/BlackScreen/BlackScreen';
 import BottomSheet from '../components/common/BottomSheet/BottomSheet';
 import S from '../components/common/BottomSheet/style';
@@ -15,7 +15,7 @@ export interface UseBottomSheetPropsType {
   sideButtonCallback?: () => void;
 }
 
-interface UseBottomSheetReturn {
+interface UseBottomSheetReturnType {
   render: (children: ReactNode) => ReactNode;
   open: () => void;
   close: () => void;
@@ -31,7 +31,7 @@ const useBottomSheet = ({
   sideButtonText = '상관 없음',
   sideButtonDisabled = false,
   sideButtonCallback = () => {},
-}: UseBottomSheetPropsType): UseBottomSheetReturn => {
+}: UseBottomSheetPropsType): UseBottomSheetReturnType => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMainPending, setIsMainPending] = useState<boolean>(false);
   const [isSidePending, setIsSidePending] = useState<boolean>(false);

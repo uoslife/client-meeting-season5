@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-export interface LoginForm {
+export interface LoginFormPropsType {
   name: string;
   gender: string;
   age: string;
@@ -14,9 +14,9 @@ const useLoginForm = () => {
     register,
     handleSubmit: handleSubmitWrapper,
     formState: { errors },
-  } = useForm<LoginForm>();
+  } = useForm<LoginFormPropsType>();
 
-  const handleSubmit: SubmitHandler<LoginForm> = ({
+  const handleSubmit: SubmitHandler<LoginFormPropsType> = ({
     name,
     gender,
     age,

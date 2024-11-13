@@ -2,7 +2,7 @@ import Text from '../Text';
 import { ColorsType } from '../../../lib/types';
 import S from './style';
 
-export interface ButtonProps {
+export interface ButtonPropsType {
   buttonType: 'primary' | 'secondary' | 'black' | 'yellow';
   disabled?: boolean;
   children: string;
@@ -14,10 +14,10 @@ const Button = ({
   disabled = false,
   children,
   onClick,
-}: ButtonProps) => {
+}: ButtonPropsType) => {
   const textColor = (
-    buttonType: ButtonProps['buttonType'],
-    disabled: ButtonProps['disabled'],
+    buttonType: ButtonPropsType['buttonType'],
+    disabled: ButtonPropsType['disabled'],
   ): ColorsType => {
     if (disabled) {
       return 'Blue20';

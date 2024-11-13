@@ -1,12 +1,12 @@
 import { forwardRef } from 'react';
 import { S } from './style';
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface RadioPropsType extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: JSX.Element | string;
   value: string;
 }
 
-const Radio = forwardRef<HTMLInputElement, Props>(
+const Radio = forwardRef<HTMLInputElement, RadioPropsType>(
   ({ label, ...props }, ref) => {
     return (
       <S.RadioLabel>

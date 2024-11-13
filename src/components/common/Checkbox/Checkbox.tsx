@@ -1,12 +1,13 @@
 import { forwardRef } from 'react';
 import { S } from './style';
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface CheckboxPropsType
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: JSX.Element | string;
   value: string;
 }
 
-const Checkbox = forwardRef<HTMLInputElement, Props>(
+const Checkbox = forwardRef<HTMLInputElement, CheckboxPropsType>(
   ({ label, ...props }, ref) => {
     return (
       <S.RadioLabel>

@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
-import { ButtonProps } from './Button';
+import { ButtonPropsType } from './Button';
 import { COLORS } from '../../../lib/constants';
 
 const S = {
-  Wrapper: styled.button<Pick<ButtonProps, 'buttonType'>>`
+  Wrapper: styled.button<Pick<ButtonPropsType, 'buttonType'>>`
     width: 100%;
     padding: 14px 10px;
     outline: none;
