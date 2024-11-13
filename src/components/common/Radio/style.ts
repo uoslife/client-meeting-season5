@@ -1,11 +1,24 @@
 import styled from 'styled-components';
+import { COLORS } from '../../../lib/constants';
 
-export const RadioContainer = styled.label`
+export const S = {
+  RadioLabel: styled.label`
     display: flex;
     position: relative;
-`;
+  `,
 
-export const RadioInput = styled.input`
+  RadioButton: styled.span`
+    position: relative;
+    font-size: 2rem;
+    display: flex;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+    border-radius: 8px;
+    border: 1px solid ${COLORS.Blue10};
+  `,
+  RadioInput: styled.input`
     position: absolute;
     opacity: 0;
     width: 100%;
@@ -15,25 +28,16 @@ export const RadioInput = styled.input`
     margin: 0px;
     padding: 0px;
     z-index: 1;
-    &:checked + span .unchecked {
-        display: none;
-    }
-    &:not(:checked) + span .checked {
-        display: none;
-    }
-`;
 
-export const RadioButton = styled.span`
-    position: relative;
-    display: flex;
-    width: 24px;
-    height: 24px;
-    & > img {
-        position: absolute;
+    &:checked + span {
+      border: 1.5px solid ${COLORS.Red60};
+      color: ${COLORS.Red60};
+      background: ${COLORS.Red2};
     }
-`;
 
-export const RadioLabel = styled.div`
-    margin-left: 27px;
-    font-size: 2rem;
-`;
+    &:not(:checked) + span {
+      border: 1px solid ${COLORS.Blue10};
+      color: ${COLORS.Blue40};
+    }
+  `,
+};
