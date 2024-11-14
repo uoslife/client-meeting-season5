@@ -23,19 +23,10 @@ const S = {
           return COLORS.Blue90;
         case 'yellow':
           return COLORS.Yellow;
+        case 'blue':
+          return COLORS.Blue50;
         default:
           return COLORS.Red60;
-      }
-    }};
-
-    color: ${(props) => {
-      switch (props.buttonType) {
-        case 'primary':
-          return COLORS.White;
-        case 'secondary':
-          return COLORS.Red60;
-        default:
-          return COLORS.White;
       }
     }};
 
