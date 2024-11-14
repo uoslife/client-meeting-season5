@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import BasicLayout from './components/common/BasicLayout';
 import SplashPage from './pages/SplashPage';
 import StarterPage from './pages/StarterPage';
@@ -13,6 +13,7 @@ import PrivatePolicyPage from './pages/PrivatePolicyPage';
 import PaymentPage from './pages/PaymentPage';
 import InvitationPage from './pages/InvitationPage';
 import GroupDetailProfilePage from './pages/GroupDetailProfilePage';
+import Recruit from './pages/Recruit';
 import EditProfilePage from './pages/EditProfilePage';
 import BasicProfilePage from './pages/BasicProfilePage';
 
@@ -56,20 +57,28 @@ const router = createBrowserRouter([
       {
         path: 'main',
         element: <MainPage />,
+      },
+      {
+        path: 'detail',
+        element: <Outlet />,
         children: [
           {
-            path: 'detail/personal',
+            path: 'personal',
             element: <PersonalDetailProfilePage />,
           },
           {
-            path: 'detail/group',
+            path: 'group',
             element: <GroupDetailProfilePage />,
           },
-          {
-            path: 'summary',
-            element: <SummaryPage />,
-          },
         ],
+      },
+      {
+        path: 'recruit',
+        element: <Recruit />,
+      },
+      {
+        path: 'summary',
+        element: <SummaryPage />,
       },
       {
         path: 'invite',
