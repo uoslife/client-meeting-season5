@@ -1,9 +1,8 @@
-import styled, { css } from 'styled-components';
 import { UseModalPropsType } from '../../../hooks/useModal';
-import { COLORS } from '../../../lib/constants';
 import Text from '../Text';
 import { ReactNode } from 'react';
 import Button from '../Button';
+import S from './style';
 
 interface ModalProps extends UseModalPropsType {
   isOpen: boolean;
@@ -53,31 +52,4 @@ const Modal = ({
 };
 export default Modal;
 
-type ModalWrapperType = Pick<ModalProps, 'isOpen'>;
-
-const S = {
-  Wrapper: styled.div<ModalWrapperType>`
-    z-index: 3;
-    opacity: 0;
-    width: 100%;
-    margin: 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-
-    background-color: ${COLORS.White};
-    padding: 20px;
-    border-radius: 12px;
-    pointer-events: none;
-
-    ${(props) =>
-      props.isOpen &&
-      css`
-        opacity: 1;
-        pointer-events: auto;
-      `}
-  `,
-};
+export type ModalWrapperPropsType = Pick<ModalProps, 'isOpen'>;
