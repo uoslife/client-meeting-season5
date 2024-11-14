@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { COLORS } from '../../../lib/constants';
 
 export const S = {
-  RadioLabel: styled.label`
+  CheckLabel: styled.label`
     position: relative;
   `,
 
-  RadioButton: styled.span`
+  CheckButton: styled.span`
     display: flex;
     width: 20px;
     height: 20px;
@@ -14,7 +14,7 @@ export const S = {
     align-items: center;
     border-radius: 5px;
   `,
-  RadioInput: styled.input`
+  CheckInput: styled.input`
     position: absolute;
     opacity: 0;
     width: 100%;

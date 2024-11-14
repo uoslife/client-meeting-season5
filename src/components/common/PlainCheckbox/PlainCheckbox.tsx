@@ -9,16 +9,13 @@ interface PlainCheckboxPropsType
 
 const PlainCheckbox = forwardRef<HTMLInputElement, PlainCheckboxPropsType>(
   ({ ...props }, ref) => {
-    useEffect(() => {
-      console.log('asdf');
-    }, []);
     return (
-      <S.RadioLabel>
-        <S.RadioInput type="checkbox" {...props} ref={ref} />
-        <S.RadioButton className="unchecked">
+      <S.CheckLabel>
+        <S.CheckInput type="checkbox" {...props} ref={ref} />
+        <S.CheckButton className="unchecked">
           <img src={checkIconSVG} />
-        </S.RadioButton>
-      </S.RadioLabel>
+        </S.CheckButton>
+      </S.CheckLabel>
     );
   },
 );
