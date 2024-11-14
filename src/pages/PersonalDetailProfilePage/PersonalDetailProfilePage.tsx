@@ -1,9 +1,9 @@
 import { useFunnel } from '@use-funnel/react-router-dom';
-import First from '../../step/Detail/First';
-import Second from '../../step/Detail/Second';
-import Third from '../../step/Detail/Third';
-import Fourth from '../../step/Detail/Fourth';
-import Fifth from '../../step/Detail/Fifth';
+import First from '../../step/PersonalDatail/First';
+import Second from '../../step/PersonalDatail/Second';
+import Third from '../../step/PersonalDatail/Third';
+import Fourth from '../../step/PersonalDatail/Fourth';
+import Fifth from '../../step/PersonalDatail/Fifth';
 
 export interface BaseProfileType {
   myMbti: string;
