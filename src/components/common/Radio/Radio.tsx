@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 import { S } from './style';
 
-interface RadioPropsType extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface RadioPropsType
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: JSX.Element | string;
   value: string;
 }
