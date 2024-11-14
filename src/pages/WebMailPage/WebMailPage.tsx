@@ -1,7 +1,7 @@
 import { useFunnel } from '@use-funnel/react-router-dom';
-import First from '../../step/webmail/First';
-import Second from '../../step/webmail/Second';
-import Third from '../../step/webmail/Third';
+import First from '../../step/Webmail/First';
+import Second from '../../step/Webmail/Second';
+import Third from '../../step/Webmail/Third';
 
 type FirstType = { webmail?: string; code?: string };
 type SecondType = { webmail: string; code?: string };
