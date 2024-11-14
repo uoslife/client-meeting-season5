@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { BlackScreenProps } from './BlackScreen';
+import { BlackScreenPropsType } from './BlackScreen';
 
 const S = {
-  BlackScreenContainer: styled.div<BlackScreenProps>`
-    z-index: 200;
+  BlackScreenContainer: styled.div<BlackScreenPropsType>`
+    z-index: 2;
     position: fixed;
     top: 0;
     left: 0;
