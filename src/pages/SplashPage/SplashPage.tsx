@@ -27,6 +27,7 @@ const SplashPage = () => {
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeUntilChristmas());
@@ -34,7 +35,6 @@ const SplashPage = () => {
 
     return () => clearInterval(timer);
   }, []);
-
   return (
     <S.SplashPageContainer className="layout-padding">
       <S.SplashContentWrapper
