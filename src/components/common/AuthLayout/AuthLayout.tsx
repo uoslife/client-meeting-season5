@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { InnerStyle, OuterStyle } from '../BasicLayout/style';
+import { S } from '../BasicLayout/style';
 // import { useAtomValue } from 'jotai';
 // import { accessTokenAtom } from '../../../store/accessTokenAtom';
 // import { useEffect } from 'react';
@@ -18,11 +18,11 @@ const AuthLayout = () => {
 
   return (
     <>
-      <OuterStyle>
-        <InnerStyle>
+      <S.OuterStyle>
+        <S.InnerStyle>
           <Outlet />
-        </InnerStyle>
-      </OuterStyle>
+        </S.InnerStyle>
+      </S.OuterStyle>
     </>
   );
 };

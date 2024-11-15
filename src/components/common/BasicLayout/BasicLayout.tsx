@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { InnerStyle, OuterStyle } from './style';
+import { S } from './style';
 const BasicLayout = () => {
   return (
     <>
-      <OuterStyle>
-        <InnerStyle>
+      <S.OuterStyle>
+        <S.InnerStyle>
           <Outlet />
-        </InnerStyle>
-      </OuterStyle>
+        </S.InnerStyle>
+      </S.OuterStyle>
     </>
   );
 };
