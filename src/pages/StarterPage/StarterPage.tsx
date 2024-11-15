@@ -73,14 +73,14 @@ const StarterPage = () => {
         </S.HeaderWrapper>
         <S.ButtonWrapper className="layout-padding">
           <Button
-            buttonType={'primary'}
+            buttonColor={'primary'}
             onClick={() => {
               navigate('/policy');
             }}
           >
             시대팅 시작하기
           </Button>
-          <Button buttonType={'blue'} onClick={CopybuttonHandler}>
+          <Button buttonColor={'blue'} onClick={CopybuttonHandler}>
             친구에게 공유하기
           </Button>
         </S.ButtonWrapper>

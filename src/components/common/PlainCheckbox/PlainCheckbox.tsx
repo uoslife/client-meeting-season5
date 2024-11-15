@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef } from 'react';
 import { S } from './style';
 import checkIconSVG from '../../../lib/assets/images/checkIcon.svg';
 

@@ -3,7 +3,7 @@ import { ButtonPropsType } from './Button';
 import { COLORS } from '../../../lib/constants';
 
 const S = {
-  Wrapper: styled.button<Pick<ButtonPropsType, 'buttonType'>>`
+  Wrapper: styled.button<Pick<ButtonPropsType, 'buttonColor'>>`
     width: 100%;
     padding: 14px 10px;
     outline: none;
@@ -14,7 +14,7 @@ const S = {
     cursor: pointer;
 
     background-color: ${(props) => {
-      switch (props.buttonType) {
+      switch (props.buttonColor) {
         case 'primary':
           return COLORS.Red60;
         case 'secondary':

@@ -1,28 +1,31 @@
 import Text from '../Text';
 import { ColorsType } from '../../../lib/types';
 import S from './style';
+import { ButtonHTMLAttributes } from 'react';
 
 export interface ButtonPropsType {
-  buttonType: 'primary' | 'secondary' | 'black' | 'yellow' | 'blue';
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  buttonColor: 'primary' | 'secondary' | 'black' | 'yellow' | 'blue';
   disabled?: boolean;
   children: string;
   onClick: () => void;
 }
 
 const Button = ({
-  buttonType,
+  type = 'button',
+  buttonColor,
   disabled = false,
   children,
   onClick,
 }: ButtonPropsType) => {
   const textColor = (
-    buttonType: ButtonPropsType['buttonType'],
+    buttonColor: ButtonPropsType['buttonColor'],
     disabled: ButtonPropsType['disabled'],
   ): ColorsType => {
     if (disabled) {
       return 'Blue20';
     }
-    switch (buttonType) {
+    switch (buttonColor) {
       case 'primary':
         return 'White';
       case 'secondary':
@@ -40,14 +43,14 @@ const Button = ({
 
   return (
     <S.Wrapper
-      type="button"
-      buttonType={buttonType}
+      type={type}
+      buttonColor={buttonColor}
       disabled={disabled}
       onClick={onClick}
     >
       <Text
         typograph="bodyMediumMedium"
-        color={textColor(buttonType, disabled)}
+        color={textColor(buttonColor, disabled)}
       >
         {children}
       </Text>
