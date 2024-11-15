@@ -3,17 +3,20 @@ import { COLORS } from '../../lib/constants';
 
 export const S = {
   SplashPageContainer: styled.div`
-    position: relative;
+    height: 100vh;
+    width: 100%;
+    background: ${COLORS.Red60};
+
     display: flex;
     flex-direction: column;
     align-items: center;
+  `,
+  SplashContentWrapper: styled.div`
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-
-    gap: 120px;
-
-    width: 100%;
-    height: 100vh;
-    background: ${COLORS.Red60};
   `,
   TitleWrapper: styled.div`
     display: flex;
