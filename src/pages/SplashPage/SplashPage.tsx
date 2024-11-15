@@ -27,7 +27,6 @@ const SplashPage = () => {
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeUntilChristmas());
@@ -75,7 +74,7 @@ const SplashPage = () => {
         style={{ width: '100%', bottom: 36, position: 'absolute' }}
       >
         <Button
-          buttonType={'yellow'}
+          buttonColor={'yellow'}
           onClick={() => {
             navigate('/start');
           }}

@@ -50,7 +50,7 @@ const BottomSheet = ({
       <div style={{ display: 'flex', gap: 8 }}>
         {isSideButton && sideButtonText && (
           <Button
-            buttonType="secondary"
+            buttonColor="secondary"
             disabled={sideButtonDisabled}
             onClick={sideButtonCallback ? sideButtonCallback : () => {}}
           >
@@ -58,7 +58,7 @@ const BottomSheet = ({
           </Button>
         )}
         <Button
-          buttonType="primary"
+          buttonColor="primary"
           disabled={mainButtonDisabled}
           onClick={mainButtonCallback ? mainButtonCallback : () => {}}
         >
