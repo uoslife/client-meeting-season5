@@ -15,6 +15,7 @@ import {
 import Picker from '../../../components/common/Picker';
 
 const First = (props: {
+  context: BaseProfileType;
   onNext: ({
     name,
     genderType,
@@ -39,7 +40,13 @@ const First = (props: {
       {
         title: '이름',
         type: 'text',
-        inputs: [{ ...name, placeholder: '실명을 입력해주세요.' }],
+        inputs: [
+          {
+            ...name,
+            placeholder: '실명을 입력해주세요.',
+            defaultValue: props.context.name,
+          },
+        ],
         error: errors.name?.message,
       },
       {
@@ -49,6 +56,7 @@ const First = (props: {
           {
             ...genderReadOnly,
             placeholder: '성별을 선택해주세요.',
+            defaultValue: props.context.genderType,
           },
         ],
         error: errors.gender?.message,
@@ -56,8 +64,18 @@ const First = (props: {
           title: '성별',
           type: 'radio',
           inputs: [
-            { ...gender, value: '남성', label: '남성' },
-            { ...gender, value: '여성', label: '여성' },
+            {
+              ...gender,
+              value: '남성',
+              label: '남성',
+              defaultChecked: props.context.genderType === '남성',
+            },
+            {
+              ...gender,
+              value: '여성',
+              label: '여성',
+              defaultChecked: props.context.genderType === '여성',
+            },
           ],
           error: errors.gender?.message,
         },
@@ -69,6 +87,7 @@ const First = (props: {
           {
             ...age,
             placeholder: '태어난 연도를 선택해주세요.',
+            defaultValue: props.context.age,
           },
         ],
         error: errors.age?.message,
@@ -76,13 +95,25 @@ const First = (props: {
       {
         title: '전화번호',
         type: 'text',
-        inputs: [{ ...phoneNumber, placeholder: '01012345678' }],
+        inputs: [
+          {
+            ...phoneNumber,
+            placeholder: '01012345678',
+            defaultValue: props.context.phoneNumber,
+          },
+        ],
         error: errors.phoneNumber?.message,
       },
       {
         title: '카카오톡 ID',
         type: 'text',
-        inputs: [{ ...kakaoID, placeholder: '카카오톡 ID를 입력해 주세요.' }],
+        inputs: [
+          {
+            ...kakaoID,
+            placeholder: '카카오톡 ID를 입력해 주세요.',
+            defaultValue: props.context.kakaoTalkId,
+          },
+        ],
         error: errors.kakaoID?.message,
       },
     ];
@@ -155,48 +186,50 @@ const First = (props: {
         >
           기본 정보를 입력해주세요
         </Text>
-        {profileMemo.map(({ title, type, inputs, error, content }) => {
-          return (
-            <S.BasicProfileFirstInputWrapper key={title}>
-              <Text typograph={'bodyMediumSemiBold'} color={'Blue70'}>
-                {title}
-              </Text>
-              {type === 'text' &&
-                inputs.map((input) => (
-                  <BasicInput
-                    key={input.name}
-                    {...input}
-                    style={{
-                      fontSize: '1.6rem',
-                      fontWeight: 500,
-                      lineHeight: '2.4rem',
-                    }}
-                  />
-                ))}
-              {type === 'readOnly' &&
-                inputs.map((input) => (
-                  <BasicInput
-                    readOnly
-                    key={input.name}
-                    {...input}
-                    onClick={() => {
-                      if (content) {
-                        setRenderContent(content);
-                        genderBottomSheet.open();
-                      } else {
-                        ageBottomSheet.open();
-                      }
-                    }}
-                  />
-                ))}
-              {error && (
-                <Text typograph={'labelMediumSemiBold'} color={'Red60'}>
-                  {error}
+        <div style={{ marginTop: 40 }}>
+          {profileMemo.map(({ title, type, inputs, error, content }) => {
+            return (
+              <S.BasicProfileFirstInputWrapper key={title}>
+                <Text typograph={'bodyMediumSemiBold'} color={'Blue70'}>
+                  {title}
                 </Text>
-              )}
-            </S.BasicProfileFirstInputWrapper>
-          );
-        })}
+                {type === 'text' &&
+                  inputs.map((input) => (
+                    <BasicInput
+                      key={input.name}
+                      {...input}
+                      style={{
+                        fontSize: '1.6rem',
+                        fontWeight: 500,
+                        lineHeight: '2.4rem',
+                      }}
+                    />
+                  ))}
+                {type === 'readOnly' &&
+                  inputs.map((input) => (
+                    <BasicInput
+                      readOnly
+                      key={input.name}
+                      {...input}
+                      onClick={() => {
+                        if (content) {
+                          setRenderContent(content);
+                          genderBottomSheet.open();
+                        } else {
+                          ageBottomSheet.open();
+                        }
+                      }}
+                    />
+                  ))}
+                {error && (
+                  <Text typograph={'labelMediumSemiBold'} color={'Red60'}>
+                    {error}
+                  </Text>
+                )}
+              </S.BasicProfileFirstInputWrapper>
+            );
+          })}
+        </div>
       </S.Container>
       <S.ButtonContainer>
         <Button

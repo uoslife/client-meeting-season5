@@ -3,10 +3,12 @@ import First from '../../step/BasicProfile/First';
 import Second from '../../step/BasicProfile/Second';
 import Third from '../../step/BasicProfile/Third';
 import Fourth from '../../step/BasicProfile/Fourth';
+import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
 
 export interface BaseProfileType {
   name: string;
-  genderType: 'MALE' | 'FEMALE';
+  genderType: '남성' | '여성';
   age: number;
   phoneNumber: string;
   kakaoTalkId: string;
@@ -42,28 +44,46 @@ const BasicProfilePage = () => {
   switch (funnel.step) {
     case 'first':
       return (
-        <First
-          onNext={({ name, genderType, age, phoneNumber, kakaoTalkId }) =>
-            funnel.history.push('second', {
-              name,
-              genderType,
-              age,
-              phoneNumber,
-              kakaoTalkId,
-            })
-          }
-        />
+        <>
+          <Header title="내 프로필 만들기" isGoBackButton={false} />
+          <First
+            context={{
+              name: funnel.context.name as string,
+              genderType: funnel.context.genderType as '남성' | '여성',
+              age: funnel.context.age as number,
+              phoneNumber: funnel.context.phoneNumber as string,
+              kakaoTalkId: funnel.context.kakaoTalkId as string,
+            }}
+            onNext={({ name, genderType, age, phoneNumber, kakaoTalkId }) =>
+              funnel.history.push('second', {
+                name,
+                genderType,
+                age,
+                phoneNumber,
+                kakaoTalkId,
+              })
+            }
+          />
+        </>
       );
     case 'second':
       return (
-        <Second
-          onNext={({ department, studentId }) =>
-            funnel.history.push('third', {
-              department,
-              studentId,
-            })
-          }
-        />
+        <>
+          <Header
+            title="내 프로필 만들기"
+            leftButtonCallback={() =>
+              funnel.history.push('first', funnel.context)
+            }
+          />
+          <Second
+            onNext={({ department, studentId }) =>
+              funnel.history.push('third', {
+                department,
+                studentId,
+              })
+            }
+          />
+        </>
       );
     case 'third':
       return (
