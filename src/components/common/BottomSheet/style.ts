@@ -8,30 +8,32 @@ import { COLORS } from '../../../lib/constants';
 
 const SlideUp = keyframes`
   from {
-    transform: translateY(100%);
+    transform: translate(-50%,100%);
   }
   to {
-    transform: none;
+    transform: translate(-50%,0);
   }
 `;
 
 const SlideDown = keyframes`
   from {
-    transform: none;
+    transform: translate(-50%,0);
   }
   to {
-    transform: translateY(100%);
+    transform: translate(-50%,100%);
   }
 `;
 
 const S = {
   TotalWrapper: styled.div``,
   Wrapper: styled.div<WrapperProps>`
-    position: fixed;
+    position: absolute;
     opacity: 0;
     z-index: 400;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 767px;
+    width: 100%;
     bottom: 0;
     padding: 36px 20px;
 
