@@ -1,7 +1,8 @@
 import { useFunnel } from '@use-funnel/react-router-dom';
-import First from '../../step/Webmail/First';
-import Second from '../../step/Webmail/Second';
-import Third from '../../step/Webmail/Third';
+import First from '../../step/webmail/First';
+import Second from '../../step/webmail/Second';
+import Third from '../../step/webmail/Third';
+import Header from '../../components/common/Header';
 
 type FirstType = { webmail?: string; code?: string };
 type SecondType = { webmail: string; code?: string };
@@ -23,16 +24,28 @@ const WebMailPage = () => {
   switch (funnel.step) {
     case 'first':
       return (
-        <First
-          onNext={(webmail) => funnel.history.push('second', { webmail })}
-        />
+        <>
+          <Header
+            title="웹메일 인증하기"
+            leftButtonCallback={() => funnel.history.back()}
+          />
+          <First
+            onNext={(webmail) => funnel.history.push('second', { webmail })}
+          />
+        </>
       );
     case 'second':
       return (
-        <Second
-          webmail={funnel.context.webmail}
-          onNext={(code) => funnel.history.push('third', { code })}
-        />
+        <>
+          <Header
+            title="웹메일 인증하기"
+            leftButtonCallback={() => funnel.history.back()}
+          />
+          <Second
+            webmail={funnel.context.webmail}
+            onNext={(code) => funnel.history.push('third', { code })}
+          />
+        </>
       );
     case 'third':
       return <Third />;
