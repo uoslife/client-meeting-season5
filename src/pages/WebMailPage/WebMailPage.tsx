@@ -1,13 +1,16 @@
 import { useFunnel } from '@use-funnel/react-router-dom';
-import First from '../../step/Webmail/First';
-import Second from '../../step/Webmail/Second';
-import Third from '../../step/Webmail/Third';
+import First from '../../step/webmail/First';
+import Second from '../../step/webmail/Second';
+import Third from '../../step/webmail/Third';
+import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
 
 type FirstType = { webmail?: string; code?: string };
 type SecondType = { webmail: string; code?: string };
 type ThirdType = { webmail: string; code: string };
 
 const WebMailPage = () => {
+  const navigate = useNavigate();
   const funnel = useFunnel<{
     first: FirstType;
     second: SecondType;
@@ -23,16 +26,31 @@ const WebMailPage = () => {
   switch (funnel.step) {
     case 'first':
       return (
-        <First
-          onNext={(webmail) => funnel.history.push('second', { webmail })}
-        />
+        <>
+          <Header
+            title="웹메일 인증하기"
+            leftButtonCallback={() => navigate('/start')}
+          />
+          <First
+            webmail={funnel.context.webmail as string}
+            onNext={(webmail) => funnel.history.push('second', { webmail })}
+          />
+        </>
       );
     case 'second':
       return (
-        <Second
-          webmail={funnel.context.webmail}
-          onNext={(code) => funnel.history.push('third', { code })}
-        />
+        <>
+          <Header
+            title="웹메일 인증하기"
+            leftButtonCallback={() =>
+              funnel.history.push('first', funnel.context)
+            }
+          />
+          <Second
+            webmail={funnel.context.webmail}
+            onNext={(code) => funnel.history.push('third', { code })}
+          />
+        </>
       );
     case 'third':
       return <Third />;

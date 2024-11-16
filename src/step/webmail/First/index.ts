@@ -1,2 +1,2 @@
-import First from './first';
+import First from './First';
 export default First;
