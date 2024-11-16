@@ -1,15 +1,14 @@
-import styled from 'styled-components';
-import Indicator from '../../../components/common/Indicator';
-import Text from '../../../components/common/Text';
-import Button from '../../../components/common/Button';
+import Indicator from '../../common/Indicator';
+import Text from '../../common/Text';
+import Button from '../../common/Button';
 import useDepartmentForm from '../../../hooks/useDepartmentForm';
-import BasicInput from '../../../components/common/BasicInput';
-
+import BasicInput from '../../common/BasicInput';
 import { useMemo, useState } from 'react';
 import useBottomSheet from '../../../hooks/useBottomSheet';
-import Picker from '../../../components/common/Picker';
-import DepartmentPicker from './DepartmentPicker';
+import Picker from '../../common/Picker';
+import DepartmentPicker from '../DepartmentPicker';
 import { OptionalProfileType } from '../../../pages/BasicProfilePage/BasicProfilePage';
+import S from './style';
 
 const SecondDepartmentPage = (props: {
   onNext: ({
@@ -27,7 +26,7 @@ const SecondDepartmentPage = (props: {
 
   const departmentForm = useDepartmentForm();
   const departmentMemo = useMemo(() => {
-    const { department, studentId, errors } = departmentForm;
+    const { department, studentId } = departmentForm;
     return [
       {
         title: '학과',
@@ -86,7 +85,7 @@ const SecondDepartmentPage = (props: {
           학적 정보를 입력해요.
         </Text>
         <div style={{ marginTop: 40 }}>
-          {departmentMemo.map(({ title, type, inputs, errors }) => {
+          {departmentMemo.map(({ title, type, inputs }) => {
             return (
               <S.BasicProfileFirstInputWrapper key={title}>
                 <Text typograph={'bodyMediumSemiBold'} color={'Blue70'}>
@@ -142,40 +141,3 @@ const SecondDepartmentPage = (props: {
 };
 
 export default SecondDepartmentPage;
-
-const S = {
-  Wrapper: styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  `,
-  Container: styled.div`
-    width: 100%;
-    min-height: calc(100vh - 88px - 4rem);
-  `,
-  IndicatorBox: styled.div`
-    width: 100%;
-    margin: 20px 0px;
-  `,
-  TitleWrapper: styled.div`
-    display: flex;
-    width: 100%;
-
-    flex-direction: column;
-    padding-top: 20px;
-    min-height: calc(100vh - 88px - 4rem);
-  `,
-  ButtonContainer: styled.div`
-    width: 100%;
-    height: 88px;
-  `,
-  BasicProfileFirstInputWrapper: styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  `,
-  BottomSheet: styled.div``,
-};
