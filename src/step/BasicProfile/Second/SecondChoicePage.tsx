@@ -22,22 +22,19 @@ const SecondChoicePage = ({
     setAcademicStatus(undefined);
   }, []);
   return (
-    <S.Wrapper className="layout-padding">
-      <S.TitleWrapper>
-        <Indicator depth={3} currentLevel={2} />
-        <S.TextWrapper>
-          <Text color={'Blue90'} typograph={'headlineMedium'}>
-            신분을 선택해주세요
-          </Text>
-        </S.TextWrapper>
-        <form
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            paddingTop: 40,
-          }}
+    <S.Form className="layout-padding">
+      <S.Container>
+        <S.IndicatorBox>
+          <Indicator depth={3} currentLevel={2} />
+        </S.IndicatorBox>
+        <Text
+          typograph={'headlineMedium'}
+          color={'Blue90'}
+          style={{ fontWeight: 700, width: '100%' }}
         >
+          기본 정보를 입력해주세요
+        </Text>
+        <S.RadioWrapper>
           <Radio
             label={'학부생'}
             name="academic-status"
@@ -62,9 +59,9 @@ const SecondChoicePage = ({
               setAcademicStatus('대학원생');
             }}
           />
-        </form>
-      </S.TitleWrapper>
-      <div style={{ paddingBottom: 36 }}>
+        </S.RadioWrapper>
+      </S.Container>
+      <S.ButtonContainer>
         <Button
           type="submit"
           buttonColor={'primary'}
@@ -73,28 +70,39 @@ const SecondChoicePage = ({
         >
           다음
         </Button>
-      </div>
-    </S.Wrapper>
+      </S.ButtonContainer>
+    </S.Form>
   );
 };
 
 export default SecondChoicePage;
 
 const S = {
-  Wrapper: styled.div`
+  Form: styled.form`
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+  `,
+  Container: styled.div`
+    width: 100%;
+    min-height: calc(100vh - 88px - 4rem);
+  `,
+  IndicatorBox: styled.div`
+    width: 100%;
+    margin: 20px 0px;
   `,
   TitleWrapper: styled.div`
     display: flex;
     width: 100%;
+
     flex-direction: column;
     padding-top: 20px;
+    min-height: calc(100vh - 88px - 4rem);
   `,
-  Form: styled.form`
+  RadioWrapper: styled.div`
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -106,5 +114,9 @@ const S = {
     justify-content: center;
     gap: 1.2rem;
     padding-top: 2rem;
+  `,
+  ButtonContainer: styled.div`
+    width: 100%;
+    height: 88px;
   `,
 };

@@ -27,7 +27,7 @@ const Second = (props: {
       handleNextButtonClick={handleNextButtonClick}
     />
   ) : (
-    <SecondDepartmentPage />
+    <SecondDepartmentPage onNext={props.onNext} />
   );
 };
 export default Second;

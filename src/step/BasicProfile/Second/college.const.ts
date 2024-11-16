@@ -1,4 +1,4 @@
-export const departmentLsit = [
+export const collegeList = [
   {
     college: '정경대학',
     department: [
