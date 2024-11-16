@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { OptionalProfileType } from '../../../pages/BasicProfilePage/BasicProfilePage';
-import SecondChoicePage from './SecondChoicePage';
-import SecondDepartmentPage from './SecondDepartmentPage';
+import SecondDepartmentPage from '../../../components/feature/SecondDepartmentPage';
+import SecondChoicePage from '../../../components/feature/SecondChoicePage';
 
 type AcademicStatusType = '학부생' | '대학원생' | '졸업생' | undefined;
 

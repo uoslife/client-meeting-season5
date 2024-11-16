@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { collegeList } from './college.const';
-import { COLORS } from '../../../lib/constants';
+import { collegeList } from '../../../lib/constants/college.const';
 import Text from '../../../components/common/Text';
 import { useState } from 'react';
+import S from './style';
 
 interface DepartmentPickerPropsType {
   setDepartment: (value: string) => void;
@@ -97,36 +96,3 @@ const DepartmentPicker = ({
   );
 };
 export default DepartmentPicker;
-
-type BoxPropsType = {
-  isClicked: boolean;
-};
-
-const S = {
-  Wrapper: styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  `,
-  TitleWrapper: styled.div`
-    display: flex;
-    width: 100%;
-    border-bottom: 1px solid ${COLORS.Blue10};
-  `,
-  Box: styled.div<BoxPropsType>`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 0;
-    border-radius: 4px;
-    background: ${(props) => props.isClicked && COLORS.Blue2};
-  `,
-  ItemsWrapper: styled.div`
-    display: flex;
-    width: 100%;
-  `,
-  ItemWrapper: styled.div`
-    width: 100%;
-  `,
-};
