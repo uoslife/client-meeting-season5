@@ -13,6 +13,7 @@ export const S = {
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    background: ${COLORS.White};
   `,
   CheckInput: styled.input`
     position: absolute;
