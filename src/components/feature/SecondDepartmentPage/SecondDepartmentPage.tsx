@@ -1,11 +1,11 @@
-import Indicator from '../../../components/common/Indicator';
-import Text from '../../../components/common/Text';
-import Button from '../../../components/common/Button';
+import Indicator from '../../common/Indicator';
+import Text from '../../common/Text';
+import Button from '../../common/Button';
 import useDepartmentForm from '../../../hooks/useDepartmentForm';
-import BasicInput from '../../../components/common/BasicInput';
+import BasicInput from '../../common/BasicInput';
 import { useMemo, useState } from 'react';
 import useBottomSheet from '../../../hooks/useBottomSheet';
-import Picker from '../../../components/common/Picker';
+import Picker from '../../common/Picker';
 import DepartmentPicker from '../DepartmentPicker';
 import { OptionalProfileType } from '../../../pages/BasicProfilePage/BasicProfilePage';
 import S from './style';
