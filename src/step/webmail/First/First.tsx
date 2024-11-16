@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { COLORS } from '../../../lib/constants';
 import { useForm } from 'react-hook-form';
@@ -11,9 +11,13 @@ type WebmailType = {
   webmail: string;
 };
 
-const First = (props: { onNext: (email: string) => void }): ReactNode => {
-  const [isExceedRequest, setIsExceedRequest] = useState<boolean>(false);
+const First = (props: {
+  webmail: string;
+  onNext: (email: string) => void;
+}): ReactNode => {
+  const [isExceedRequest, _] = useState<boolean>(false);
   const {
+    setValue,
     watch,
     register,
     handleSubmit: handleSubmitWrapper,
@@ -29,6 +33,10 @@ const First = (props: { onNext: (email: string) => void }): ReactNode => {
 
     props.onNext(data.webmail);
   };
+
+  useEffect(() => {
+    if (props.webmail) setValue('webmail', props.webmail);
+  }, [props.webmail]);
 
   return (
     <S.Wrapper>
