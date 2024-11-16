@@ -87,13 +87,21 @@ const BasicProfilePage = () => {
       );
     case 'third':
       return (
-        <Third
-          onNext={({ interest }) =>
-            funnel.history.push('fourth', {
-              interest,
-            })
-          }
-        />
+        <>
+          <Header
+            title="내 프로필 만들기"
+            leftButtonCallback={() =>
+              funnel.history.push('second', funnel.context)
+            }
+          />
+          <Third
+            onNext={({ interest }) =>
+              funnel.history.push('fourth', {
+                interest,
+              })
+            }
+          />
+        </>
       );
     case 'fourth':
       return <Fourth />;
