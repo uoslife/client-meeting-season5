@@ -46,7 +46,7 @@ const Header = ({
           alt="뒤로가기"
           width={20}
           height={20}
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 1, cursor: 'pointer' }}
           onClick={leftButtonCallback && leftButtonCallback}
         />
       )}
@@ -69,7 +69,7 @@ const Header = ({
           alt="오른쪽버튼"
           width={20}
           height={20}
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 1, cursor: 'pointer' }}
           onClick={rightButtonCallback && rightButtonCallback}
         />
       )}
