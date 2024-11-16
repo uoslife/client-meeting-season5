@@ -18,3 +18,11 @@ export const calculateTimeUntilChristmas = () => {
 
   return { days, hours, minutes, seconds };
 };
+
+export const getAgeFromYear = (year: number | string) => {
+  if (typeof year === 'string') year = parseInt(year);
+  if (!year) return '';
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  return (currentYear - year + 1).toString();
+};

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const S = {
-  Form: styled.form`
+const S = {
+  Wrapper: styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -12,13 +12,21 @@ export const S = {
     width: 100%;
     min-height: calc(100vh - 88px - 4rem);
   `,
-  ButtonContainer: styled.div`
-    width: 100%;
-    height: 88px;
-  `,
   IndicatorBox: styled.div`
     width: 100%;
     margin: 20px 0px;
+  `,
+  TitleWrapper: styled.div`
+    display: flex;
+    width: 100%;
+
+    flex-direction: column;
+    padding-top: 20px;
+    min-height: calc(100vh - 88px - 4rem);
+  `,
+  ButtonContainer: styled.div`
+    width: 100%;
+    height: 88px;
   `,
   BasicProfileFirstInputWrapper: styled.div`
     width: 100%;
@@ -28,3 +36,4 @@ export const S = {
   `,
   BottomSheet: styled.div``,
 };
+export default S;

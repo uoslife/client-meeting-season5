@@ -4,6 +4,7 @@ import { COLORS } from '../../../lib/constants';
 export const S = {
   RadioLabel: styled.label`
     display: flex;
+    flex: 1 0;
     position: relative;
   `,
 

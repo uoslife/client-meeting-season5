@@ -3,14 +3,18 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 export interface LoginFormPropsType {
   name: string;
   gender: string;
+  genderReadOnly: string;
   age: string;
   phoneNumber: string;
   kakaoID: string;
 }
 
-const useLoginForm = () => {
+const useProfileForm = () => {
   const {
     control,
+    watch,
+    setValue,
+    getValues,
     register,
     handleSubmit: handleSubmitWrapper,
     formState: { errors },
@@ -23,7 +27,6 @@ const useLoginForm = () => {
     phoneNumber,
     kakaoID,
   }) => {
-    console.log('asdf');
     const data = { name, gender, age, phoneNumber, kakaoID };
     const checkValues = Object.values(data).some(
       (value) => value === undefined || value === '',
@@ -33,24 +36,37 @@ const useLoginForm = () => {
       alert('항목을 모두 채워주세요.');
       return;
     }
-
     console.log(data);
   };
 
   return {
     control,
+    watch,
     handleSubmit: handleSubmitWrapper(handleSubmit),
+    setValue,
+    getValues,
     name: {
       ...register('name', { required: true }),
+    },
+    genderReadOnly: {
+      ...register('genderReadOnly', { required: true }),
     },
     gender: {
       ...register('gender', { required: true }),
     },
     age: {
-      ...register('age', { required: true }),
+      ...register('age', {
+        required: true,
+      }),
     },
     phoneNumber: {
-      ...register('phoneNumber', { required: true }),
+      ...register('phoneNumber', {
+        required: true,
+        pattern: {
+          value: /^01[0-9]\d{3,4}\d{4}$/,
+          message: '10자이상 11자 이하 숫자여야 합니다.',
+        },
+      }),
     },
 
     kakaoID: {
@@ -60,4 +76,4 @@ const useLoginForm = () => {
   };
 };
 
-export default useLoginForm;
+export default useProfileForm;

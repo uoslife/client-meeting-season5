@@ -3,8 +3,8 @@ import { S } from './style';
 import Text from '../Text';
 
 interface ScrollPickerProps {
-  list: (string | number)[];
-  onSelectedChange?: (selected: string | number) => void;
+  list: string[];
+  onSelectedChange?: (selected: string) => void;
 }
 
 const Picker = ({ list, onSelectedChange }: ScrollPickerProps) => {
@@ -19,18 +19,14 @@ const Picker = ({ list, onSelectedChange }: ScrollPickerProps) => {
 
   const handleScroll = () => {
     if (ref.current) {
-      console.log(ref.current.scrollTop);
       clearTimeout(timerRef.current!);
-      console.log(ref.current.scrollTop);
       if (ref.current.scrollTop <= ITEM_HEIGHT) {
         ref.current.scrollTop = ITEM_HEIGHT;
       }
       timerRef.current = setTimeout(() => {
-        console.log(ref.current!.scrollTop);
         const index = Math.round(
           (ref.current!.scrollTop - 48) / ITEM_HEIGHT + 2,
         );
-        console.log(index, typeof index);
         if (list[index] !== '') {
           setSelected(index);
           itemRefs.current[index]?.scrollIntoView({
