@@ -27,7 +27,7 @@ const SlideDown = keyframes`
 const S = {
   TotalWrapper: styled.div``,
   Wrapper: styled.div<WrapperProps>`
-    position: absolute;
+    position: fixed;
     opacity: 0;
     z-index: 400;
     left: 50%;
