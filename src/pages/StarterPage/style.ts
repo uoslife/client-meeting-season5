@@ -16,15 +16,17 @@ export const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     gap: 60px;
 
     width: 100%;
-    min-height: calc(100vh - 112px);
+    min-height: 100vh;
   `,
   HeaderWrapper: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
     padding-top: 40px;
   `,
   CustomTextWrapper: styled.div`
