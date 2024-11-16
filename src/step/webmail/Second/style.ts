@@ -18,7 +18,7 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 3.6rem;
+    padding-bottom: 36px;
   `,
   CodeWrapper: styled.div`
     width: 100%;

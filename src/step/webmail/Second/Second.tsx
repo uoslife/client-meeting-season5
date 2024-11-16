@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import refresh from '../../../lib/assets/icon/refresh.svg';
 import Button from '../../../components/common/Button';
@@ -21,6 +21,28 @@ const Second = (props: {
     reset,
   } = useForm<CodeType>();
 
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [errorText, setErrorText] = useState('');
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setErrorText('인증 시간이 만료되었습니다.');
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
   const handleSubmit: SubmitHandler<CodeType> = (data) => {
     const checkValues = Object.values(data).some(
       (value) =>
@@ -36,6 +58,12 @@ const Second = (props: {
   const isButtonDisabled = (): boolean => {
     if (watch('code')) return !(watch('code').length === 4);
     return true;
+  };
+
+  const handleResendCode = () => {
+    reset({ code: '' });
+    setErrorText('');
+    setTimeLeft(180);
   };
 
   return (
@@ -64,8 +92,11 @@ const Second = (props: {
             <Text color={'Blue70'} typograph={'bodyMediumSemiBold'}>
               인증코드
             </Text>
+            <Text color={'ErrorLight'} typograph={'titleMedium'}>
+              {errorText}
+            </Text>
             <Text color={'Blue70'} typograph={'titleMedium'}>
-              3:00
+              {formatTime(timeLeft)}
             </Text>
             <S.InputWrapper>
               {Array(4)
@@ -83,7 +114,12 @@ const Second = (props: {
                 {...register('code', {
                   required: true,
                   max: 9999,
+                  min: 0,
                   setValueAs: (value) => {
+                    if (value === '-') return '';
+                    if (parseInt(value) > 9999) return value.slice(0, 4);
+                    if (parseInt(value) < 0 || parseInt(value) > 9999)
+                      return '';
                     if (value.length > 4) return value.slice(0, 4);
                     return value;
                   },
@@ -92,9 +128,7 @@ const Second = (props: {
             </S.InputWrapper>
             <div
               style={{ display: 'flex', cursor: 'pointer' }}
-              onClick={() => {
-                reset({ code: '' });
-              }}
+              onClick={handleResendCode}
             >
               <Text color={'Blue70'} typograph={'bodyMediumSemiBold'}>
                 코드 재전송
@@ -116,4 +150,5 @@ const Second = (props: {
     </S.Wrapper>
   );
 };
+
 export default Second;
