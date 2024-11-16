@@ -16,6 +16,7 @@ import GroupDetailProfilePage from './pages/GroupDetailProfilePage';
 import Recruit from './pages/Recruit';
 import EditProfilePage from './pages/EditProfilePage';
 import BasicProfilePage from './pages/BasicProfilePage';
+import PaymentResultPage from './pages/PaymentResultPage';
 
 const router = createBrowserRouter([
   {
@@ -90,7 +91,17 @@ const router = createBrowserRouter([
       },
       {
         path: 'payment',
-        element: <PaymentPage />,
+        element: <Outlet />,
+        children: [
+          {
+            path: '/',
+            element: <PaymentPage />,
+          },
+          {
+            path: 'result',
+            element: <PaymentResultPage />,
+          },
+        ],
       },
       {
         path: 'edit-profile',
