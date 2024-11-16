@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import BasicLayout from './components/common/BasicLayout';
 import SplashPage from './pages/SplashPage';
 import StarterPage from './pages/StarterPage';
-import UsagePolicy from './pages/UsagePolicy';
+import UsagePolicyPage from './pages/UsagePolicyPage';
 import NoAuthLayout from './components/common/NoAuthLayout';
 import WebMailPage from './pages/WebMailPage';
 import AuthLayout from './components/common/AuthLayout';
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'policy',
-        element: <UsagePolicy />,
+        element: <UsagePolicyPage />,
       },
       {
         path: 'webmail',
