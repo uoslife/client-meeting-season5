@@ -64,7 +64,7 @@ const useProfileForm = () => {
         required: true,
         pattern: {
           value: /^01[0-9]\d{3,4}\d{4}$/,
-          message: '10자이상 11자 이하 숫자여야 합니다.',
+          message: '전화번호 형식이 아닙니다.',
         },
       }),
     },
