@@ -1,6 +1,5 @@
 import Text from '../../components/common/Text';
 import { S } from './style';
-import MainTextSVG from '../../lib/assets/images/starter_main_text.svg';
 import Button from '../../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/feature/Footer';
