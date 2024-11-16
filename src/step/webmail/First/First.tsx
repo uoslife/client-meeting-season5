@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { COLORS } from '../../../lib/constants';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ type WebmailType = {
 };
 
 const First = (props: { onNext: (email: string) => void }): ReactNode => {
+  const [isExceedRequest, setIsExceedRequest] = useState<boolean>(false);
   const {
     watch,
     register,
@@ -21,7 +22,6 @@ const First = (props: { onNext: (email: string) => void }): ReactNode => {
   } = useForm<WebmailType>();
 
   const handleSubmit: SubmitHandler<WebmailType> = (data) => {
-    console.log(data);
     const checkValues = Object.values(data).some(
       (value) => value === undefined || value === '' || errors.webmail,
     );
@@ -50,33 +50,40 @@ const First = (props: { onNext: (email: string) => void }): ReactNode => {
               일일 인증 코드 전송 및 인증 횟수는 5회로 제한됩니다.
             </Text>
           </S.TextWrapper>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              borderBottom: `1px solid ${COLORS.Blue20}`,
-            }}
-          >
-            <S.WebmailInput
-              placeholder="안내텍스트"
-              {...register('webmail', { required: true })}
-            />
-            <S.UOSAdress>
-              {watch('webmail') && (
-                <img
-                  src={close}
-                  alt="close"
-                  width={20}
-                  height={20}
-                  onClick={() => {
-                    reset({ webmail: '' });
-                  }}
-                />
-              )}
-              <Text color={'Blue50'} typograph={'titleSmall'}>
-                @uos.ac.kr
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: `1px solid ${COLORS.Blue20}`,
+              }}
+            >
+              <S.WebmailInput
+                placeholder="안내텍스트"
+                {...register('webmail', { required: true })}
+              />
+              <S.UOSAdress>
+                {watch('webmail') && (
+                  <img
+                    src={close}
+                    alt="close"
+                    width={20}
+                    height={20}
+                    onClick={() => {
+                      reset({ webmail: '' });
+                    }}
+                  />
+                )}
+                <Text color={'Blue50'} typograph={'titleSmall'}>
+                  @uos.ac.kr
+                </Text>
+              </S.UOSAdress>
+            </div>
+            {isExceedRequest && (
+              <Text color={'ErrorLight'} typograph={'labelMediumMedium'}>
+                일일 전송 횟수를 초과했습니다.(5/5)
               </Text>
-            </S.UOSAdress>
+            )}
           </div>
         </div>
 
