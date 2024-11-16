@@ -3,12 +3,14 @@ import First from '../../step/webmail/First';
 import Second from '../../step/webmail/Second';
 import Third from '../../step/webmail/Third';
 import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
 
 type FirstType = { webmail?: string; code?: string };
 type SecondType = { webmail: string; code?: string };
 type ThirdType = { webmail: string; code: string };
 
 const WebMailPage = () => {
+  const navigate = useNavigate();
   const funnel = useFunnel<{
     first: FirstType;
     second: SecondType;
@@ -27,9 +29,10 @@ const WebMailPage = () => {
         <>
           <Header
             title="웹메일 인증하기"
-            leftButtonCallback={() => funnel.history.back()}
+            leftButtonCallback={() => navigate('/start')}
           />
           <First
+            webmail={funnel.context.webmail as string}
             onNext={(webmail) => funnel.history.push('second', { webmail })}
           />
         </>
@@ -39,7 +42,9 @@ const WebMailPage = () => {
         <>
           <Header
             title="웹메일 인증하기"
-            leftButtonCallback={() => funnel.history.back()}
+            leftButtonCallback={() =>
+              funnel.history.push('first', funnel.context)
+            }
           />
           <Second
             webmail={funnel.context.webmail}
