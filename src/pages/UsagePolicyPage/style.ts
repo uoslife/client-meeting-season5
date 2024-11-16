@@ -30,6 +30,7 @@ export const S = {
   TextWrapper: styled.div`
     display: flex;
     align-items: center;
+    cursor: pointer;
   `,
   SecurityWrapper: styled.div`
     width: 100%;
@@ -41,6 +42,7 @@ export const S = {
 
     border-radius: 8px;
     background: ${COLORS.Blue2};
+    margin-bottom: 8px;
   `,
   ColumnWrapper: styled.div`
     display: flex;

@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const UsagePolicy = () => {
-  const checkbox3 = useRef<HTMLInputElement>(null);
+  const check3 = useRef<HTMLInputElement>(null);
+  const check4 = useRef<HTMLInputElement>(null);
   const usagePolicyForm = useUsagePolicyForm();
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ const UsagePolicy = () => {
     check1: false,
     check2: false,
     check3: false,
+    check4: false,
   });
 
   const handleCheckboxChange = (name: string, value: boolean) => {
@@ -28,7 +30,10 @@ const UsagePolicy = () => {
   };
 
   const isFormValid =
-    checkedState.check1 && checkedState.check2 && checkedState.check3;
+    checkedState.check1 &&
+    checkedState.check2 &&
+    checkedState.check3 &&
+    checkedState.check4;
 
   const handleSubmit = async () => {
     await usagePolicyForm.handleSubmit();
@@ -36,9 +41,9 @@ const UsagePolicy = () => {
   };
 
   return (
-    <S.Container className="layout-padding" onSubmit={handleSubmit}>
-      <S.MainContainer>
-        <Header title="약관 동의하기" />
+    <S.Container onSubmit={handleSubmit}>
+      <Header title="약관 동의하기" />
+      <S.MainContainer className="layout-padding">
         <S.PolicyHeaderWrapper>
           <Text typograph={'titleLarge'} color={'Blue90'}>
             이용 약관
@@ -92,9 +97,9 @@ const UsagePolicy = () => {
         </Text>
         <S.SecurityWrapper
           onClick={() => {
-            if (checkbox3.current) {
-              checkbox3.current.checked = !checkbox3.current.checked;
-              handleCheckboxChange('check3', checkbox3.current.checked);
+            if (check3.current) {
+              check3.current.checked = !check3.current.checked;
+              handleCheckboxChange('check3', check3.current.checked);
             }
           }}
         >
@@ -109,12 +114,38 @@ const UsagePolicy = () => {
           <PlainCheckbox
             value="3"
             checked={checkedState.check3}
-            ref={checkbox3}
-            onChange={(e) => handleCheckboxChange('check3', e.target.checked)}
+            ref={check3}
+            onChange={(e) => {
+              handleCheckboxChange('check3', !e.target.checked);
+              console.log(e.target.checked);
+            }}
+          />
+        </S.SecurityWrapper>
+        <S.SecurityWrapper
+          onClick={() => {
+            if (check4.current) {
+              check4.current.checked = !check4.current.checked;
+              handleCheckboxChange('check4', check4.current.checked);
+            }
+          }}
+        >
+          <S.ColumnWrapper>
+            <Text typograph={'bodyLargeMedium'} color={'Grey190'}>
+              타인에게 나의 웹메일, 카카오톡 ID,
+            </Text>
+            <Text typograph={'bodyLargeMedium'} color={'Grey190'}>
+              전화번호를 도용 및 대여하지 않겠습니다.
+            </Text>
+          </S.ColumnWrapper>
+          <PlainCheckbox
+            value="4"
+            checked={checkedState.check4}
+            ref={check4}
+            onChange={(e) => handleCheckboxChange('check4', !e.target.checked)}
           />
         </S.SecurityWrapper>
       </S.MainContainer>
-      <S.ButtonWrapper>
+      <S.ButtonWrapper className="layout-padding">
         <Button
           buttonColor="primary"
           type="submit"
