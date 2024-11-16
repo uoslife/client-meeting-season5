@@ -13,8 +13,8 @@ export interface BaseProfileType {
 }
 
 export interface OptionalProfileType {
-  department?: string;
-  studentId?: number;
+  department?: string | null;
+  studentId?: number | null;
   interest?: string[];
 }
 
@@ -78,7 +78,5 @@ const BasicProfilePage = () => {
     case 'fourth':
       return <Fourth />;
   }
-
-  return <>BasicProfilePage</>;
 };
 export default BasicProfilePage;
