@@ -24,4 +24,6 @@ export const COLORS = {
   Grey40: '#E1DFDD',
   Grey190: '#201F1E',
   Yellow: '#FFF6DD',
+  Error: '#E5212A',
+  ErrorLight: '#FF6B73',
 } as const;
