@@ -1,9 +1,10 @@
+import BasicInput from '../../components/common/BasicInput';
 import Button from '../../components/common/Button';
 import Header from '../../components/common/Header';
 import Text from '../../components/common/Text';
 import { S } from './style';
 
-const PaymentPage = () => {
+const PaymentTestPage = () => {
   const paymentHandler = () => {};
 
   return (
@@ -15,7 +16,7 @@ const PaymentPage = () => {
           color={'Blue90'}
           style={{ marginBottom: '8px', fontWeight: 700 }}
         >
-          참가비를 결제해 주세요.
+          테스트 페이지입니다.
         </Text>
         <Text
           typograph={'bodyMediumMedium'}
@@ -34,7 +35,7 @@ const PaymentPage = () => {
               color={'Blue90'}
               style={{ fontWeight: 600 }}
             >
-              상품명
+              1대1 미팅
             </Text>
           </S.ProductItem>
           <S.ProductItem>
@@ -50,6 +51,12 @@ const PaymentPage = () => {
             </Text>
           </S.ProductItem>
         </S.ProductWrapper>
+        <S.InputWrapper>
+          <Text typograph={'bodyMediumMedium'} color={'Blue90'}>
+            accessToken 입력
+          </Text>
+          <BasicInput style={{ flex: '1 0', marginLeft: '20px' }} />
+        </S.InputWrapper>
       </S.MainContainer>
       <S.ButtonWrapper className="layout-padding">
         <Button buttonColor="primary" type="button" onClick={paymentHandler}>
@@ -59,4 +66,4 @@ const PaymentPage = () => {
     </S.Container>
   );
 };
-export default PaymentPage;
+export default PaymentTestPage;
