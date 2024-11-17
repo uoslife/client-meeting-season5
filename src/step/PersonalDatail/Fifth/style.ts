@@ -18,4 +18,13 @@ export const S = {
     width: 100%;
     margin: 20px 0px;
   `,
+  TextContainer: styled.div`
+    margin-top: 40px;
+  `,
+  BasicProfileFirstInputWrapper: styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  `,
 };
