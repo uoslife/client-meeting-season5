@@ -78,10 +78,19 @@ const PaymentTestPage = () => {
         <Button
           buttonColor="primary"
           type="button"
-          onClick={() => {
-            verifyPayment({
+          onClick={async () => {
+            //결제 전 결제 여부 확인
+            await verifyPayment({
               teamType: teamTypeRef.current!.value as 'SINGLE' | 'TRIPLE',
+              accessToken: accessTokenRef.current!.value,
             });
+            //분기
+            //결제 정보 없는 경우 : 서버에서 에러 throw
+            //결제 pending 상태인 경우 PENDING
+            //결제 success 상태인 경우 SUCCESS
+            //만약 결제중이라면 IMP에 결제 안보냄
+
+            //결제
             requestPayment({
               teamType: teamTypeRef.current!.value as 'SINGLE' | 'TRIPLE',
               accessToken: accessTokenRef.current!.value,

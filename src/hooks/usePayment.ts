@@ -4,62 +4,47 @@ import { AxiosResponse, isAxiosError } from 'axios';
 import { RequestPayParams } from '../lib/types/Payment';
 
 type GetMerchantUidPropsType = {
+  teamType: 'TRIPLE' | 'SINGLE';
   accessToken: string;
 };
 
-// const requestMerchantUid = async ({
-//   accessToken,
-// }: Pick<RequestPaymentPropsType, 'accessToken'>) => {
-//   const {
-//     merchant_uid: merchantUid,
-//     amount: price,
-//     buyer_tel: phonenumber,
-//     buyer_name: name,
-//     name: productName,
-//   } = await getMerchantUid({ accessToken });
-//   console.log('reqMerch');
-//   console.log({
-//     merchantUid,
-//     price,
-//     phonenumber,
-//     name,
-//     productName,
-//   });
-//   return { merchantUid, price, phonenumber, name, productName };
-// };
-
 const requestMerchantUid = async ({
+  teamType,
   accessToken,
 }: Pick<RequestPaymentPropsType, 'accessToken'>) => {
   const {
     merchantUid: merchant_uid,
     price: amount,
-    phonenumber: buyer_tel,
+    phoneNumber: buyer_tel,
     name: buyer_name,
     productName: name,
-  } = await getMerchantUid({ accessToken });
-  console.log('reqMerch');
+  } = await getMerchantUid({ teamType, accessToken });
 
   return { merchant_uid, amount, buyer_tel, buyer_name, name };
 };
 
 const verifyPayment = async ({
   teamType,
+  accessToken,
 }: {
   teamType: 'SINGLE' | 'TRIPLE';
 }) => {
   const res = await getFetcher({
     url: `/api/payment/${teamType}/verify`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
   console.log('verify', res);
   return res;
 };
 
 const getMerchantUid = async ({
+  teamType,
   accessToken,
 }: GetMerchantUidPropsType): Promise<Partial<RequestPayParams>> => {
-  const teamType = 'SINGLE';
   try {
+    console.log(teamType, accessToken);
     const res = await postFetcher<Partial<RequestPayParams>>({
       url: `/api/payment/${teamType}/request`,
       data: {
@@ -111,7 +96,7 @@ const usePayment = () => {
     accessToken,
   }: RequestPaymentPropsType) => {
     const { merchant_uid, amount, buyer_tel, buyer_name, name } =
-      await requestMerchantUid({ accessToken });
+      await requestMerchantUid({ teamType, accessToken });
 
     const data: RequestPayParams = {
       pg: 'welcome',
@@ -128,7 +113,8 @@ const usePayment = () => {
     return new Promise((resolve, reject) => {
       IMP?.request_pay(data, async (res: any) => {
         if (res.error_code != null) {
-          alert('문제 발생: ' + res.error_msg);
+          console.log(res.error_code);
+          alert('문제 발생: ' + res.error_code + ' : ' + res.error_msg);
           reject(res.error_msg);
         } else {
           try {
@@ -136,6 +122,9 @@ const usePayment = () => {
               url: `/api/payment/${teamType}/check`,
               data: {
                 impUid: res.imp_uid,
+              },
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
               },
             });
             resolve(notified);
