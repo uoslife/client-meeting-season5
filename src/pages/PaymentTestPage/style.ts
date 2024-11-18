@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLORS } from '../../lib/constants';
 
-export const S = {
+const S = {
   Container: styled.div`
     width: 100%;
     display: flex;
@@ -38,3 +38,5 @@ export const S = {
     justify-content: space-between;
   `,
 };
+
+export default S;

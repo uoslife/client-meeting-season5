@@ -1,11 +1,15 @@
+import { useRef } from 'react';
 import BasicInput from '../../components/common/BasicInput';
 import Button from '../../components/common/Button';
 import Header from '../../components/common/Header';
 import Text from '../../components/common/Text';
-import { S } from './style';
+import usePayment from '../../hooks/usePayment';
+import S from './style';
 
 const PaymentTestPage = () => {
-  const paymentHandler = () => {};
+  const { requestPayment, verifyPayment } = usePayment();
+  const accessTokenRef = useRef<HTMLInputElement>(null);
+  const teamTypeRef = useRef<HTMLInputElement>(null);
 
   return (
     <S.Container>
@@ -55,11 +59,35 @@ const PaymentTestPage = () => {
           <Text typograph={'bodyMediumMedium'} color={'Blue90'}>
             accessToken 입력
           </Text>
-          <BasicInput style={{ flex: '1 0', marginLeft: '20px' }} />
+          <BasicInput
+            style={{ flex: '1 0', marginLeft: '20px' }}
+            ref={accessTokenRef}
+          />
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <Text typograph={'bodyMediumMedium'} color={'Blue90'}>
+            TeamType 입력 - SINGLE, TRIPLE
+          </Text>
+          <BasicInput
+            style={{ flex: '1 0', marginLeft: '20px' }}
+            ref={teamTypeRef}
+          />
         </S.InputWrapper>
       </S.MainContainer>
       <S.ButtonWrapper className="layout-padding">
-        <Button buttonColor="primary" type="button" onClick={paymentHandler}>
+        <Button
+          buttonColor="primary"
+          type="button"
+          onClick={() => {
+            verifyPayment({
+              teamType: teamTypeRef.current!.value as 'SINGLE' | 'TRIPLE',
+            });
+            requestPayment({
+              teamType: teamTypeRef.current!.value as 'SINGLE' | 'TRIPLE',
+              accessToken: accessTokenRef.current!.value,
+            });
+          }}
+        >
           결제하기
         </Button>
       </S.ButtonWrapper>
