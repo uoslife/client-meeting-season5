@@ -8,7 +8,7 @@ import Header from '../../components/common/Header';
 
 export interface BaseProfileType {
   myMbti: string;
-  myHeight: number;
+  myHeight: string;
   myAppearanceType: string;
   mySmoking: string;
 }

@@ -12,6 +12,8 @@ import useMbtiForm from '../../../hooks/useMbtiForm';
 import MbtiBottomSheet from '../../../components/feature/MbtiBottomSheet';
 import useAppearanceForm from '../../../hooks/useAppearance';
 import AppearanceBottomSheet from '../../../components/feature/AppearanceBottomSheet';
+import useSmokingForm from '../../../hooks/useSmokingForm';
+import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
 const First = (props: {
   onNext: ({
     myMbti,
@@ -31,6 +33,7 @@ const First = (props: {
   const personalDetailForm = usePersonalDetailForm();
   const mbtiForm = useMbtiForm();
   const appearancForm = useAppearanceForm();
+  const smokingForm = useSmokingForm();
   const mbtiDetailBottomSheet = useBottomSheet({
     title: 'MBTI',
     mainButtonText: '선택',
@@ -70,6 +73,16 @@ const First = (props: {
       const face = appearancForm.getValues('face');
       const appearance = eyelid + ' / ' + face;
       personalDetailForm.setValue('myAppearanceType', appearance);
+    },
+    isSideButton: false,
+  });
+  const smokingBottomSheet = useBottomSheet({
+    title: '흡연 여부',
+    mainButtonText: '선택',
+    mainButtonDisabled: !smokingForm.watch('cigarette'),
+    mainButtonCallback: () => {
+      const cigarette = smokingForm.getValues('cigarette');
+      personalDetailForm.setValue('mySmoking', cigarette);
     },
     isSideButton: false,
   });
@@ -278,6 +291,34 @@ const First = (props: {
     ];
   }, [appearancForm]);
 
+  const smokingMemo = useMemo(() => {
+    const { cigarette, errors } = smokingForm;
+    return [
+      {
+        title: '',
+        type: 'radio',
+        inputs: [
+          {
+            ...cigarette,
+            value: '연초',
+            label: '연초',
+          },
+          {
+            ...cigarette,
+            value: '전자담배',
+            label: '전자담배',
+          },
+          {
+            ...cigarette,
+            value: '비흡연',
+            label: '비흡연',
+          },
+        ],
+        errors: errors.cigarette?.message,
+      },
+    ];
+  }, [smokingForm]);
+
   return (
     <S.FormContainer className="layout-padding" onSubmit={submitHandler}>
       <S.MainContainer>
@@ -308,7 +349,7 @@ const First = (props: {
                       if (title === '키') heightBottomSheet.open();
                       if (title === '외모') appearanceBottomSheet.open();
                       console.log('asdf');
-                      // if (title === '흡연 여부') smokingBottomSheet.open();
+                      if (title === '흡연 여부') smokingBottomSheet.open();
                     }}
                   />
                 ))}
@@ -328,6 +369,7 @@ const First = (props: {
       {appearanceBottomSheet.render(
         <AppearanceBottomSheet memo={appearanceMemo} />,
       )}
+      {smokingBottomSheet.render(<SmokingBottomSheet memo={smokingMemo} />)}
       <S.ButtonWrapper>
         <Button
           buttonColor="primary"
