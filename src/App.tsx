@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         element: <Outlet />,
         children: [
           {
-            path: '/',
+            path: '',
             element: <PaymentPage />,
           },
           {

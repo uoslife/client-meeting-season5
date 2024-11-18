@@ -4,6 +4,7 @@ import Second from '../../step/PersonalDatail/Second';
 import Third from '../../step/PersonalDatail/Third';
 import Fourth from '../../step/PersonalDatail/Fourth';
 import Fifth from '../../step/PersonalDatail/Fifth';
+import Header from '../../components/common/Header';
 
 export interface BaseProfileType {
   myMbti: string;
@@ -18,8 +19,8 @@ export interface OptionalProfileType {
   targetAppearanceType?: string;
   targetSmoking?: string;
   prefer?: string;
-  avoidDepartment?: string;
-  avoidStudentId?: number;
+  avoidDepartment?: string | null;
+  avoidStudentId?: string | null;
   course?: string;
 }
 
@@ -52,70 +53,84 @@ const PersonalDetailProfilePage = () => {
       context: {},
     },
   });
+
   switch (funnel.step) {
     case 'first':
       return (
-        <First
-          onNext={({ myMbti, myHeight, myAppearanceType, mySmoking }) =>
-            funnel.history.push('second', {
-              myMbti,
-              myHeight,
-              myAppearanceType,
-              mySmoking,
-            })
-          }
-        />
+        <>
+          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <First
+            onNext={({ myMbti, myHeight, myAppearanceType, mySmoking }) =>
+              funnel.history.push('second', {
+                myMbti,
+                myHeight,
+                myAppearanceType,
+                mySmoking,
+              })
+            }
+          />
+        </>
       );
     case 'second':
       return (
-        <Second
-          onNext={({
-            targetAge,
-            targetHeight,
-            targetMbti,
-            targetAppearanceType,
-            targetSmoking,
-          }) =>
-            funnel.history.push('third', {
+        <>
+          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Second
+            onNext={({
               targetAge,
               targetHeight,
               targetMbti,
               targetAppearanceType,
               targetSmoking,
-            })
-          }
-        />
+            }) =>
+              funnel.history.push('third', {
+                targetAge,
+                targetHeight,
+                targetMbti,
+                targetAppearanceType,
+                targetSmoking,
+              })
+            }
+          />
+        </>
       );
     case 'third':
       return (
-        <Third
-          onNext={({ prefer }) =>
-            funnel.history.push('fourth', {
-              prefer,
-            })
-          }
-        />
+        <>
+          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Third
+            onNext={({ prefer }) =>
+              funnel.history.push('fourth', {
+                prefer,
+              })
+            }
+          />
+        </>
       );
     case 'fourth':
       return (
-        <Fourth
-          onNext={({ avoidDepartment, avoidStudentId }) =>
-            funnel.history.push('fifth', {
-              avoidDepartment,
-              avoidStudentId,
-            })
-          }
-        />
+        <>
+          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Fourth
+            context={{
+              avoidDepartment: funnel.context.avoidDepartment as string,
+              avoidStudentId: funnel.context.avoidStudentId as string,
+            }}
+            onNext={({ avoidDepartment, avoidStudentId }) =>
+              funnel.history.push('fifth', {
+                avoidDepartment,
+                avoidStudentId,
+              })
+            }
+          />
+        </>
       );
     case 'fifth':
       return (
-        <Fifth
-          onNext={({ course }) =>
-            funnel.history.push('fifth', {
-              course,
-            })
-          }
-        />
+        <>
+          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Fifth context={funnel.context} />
+        </>
       );
   }
 };
