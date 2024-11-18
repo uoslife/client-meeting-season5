@@ -99,6 +99,7 @@ const PersonalDetailProfilePage = () => {
         <>
           <Header title="1대1 신청하기" isGoBackButton={false} />
           <Third
+            context={funnel.context}
             onNext={({ prefer }) =>
               funnel.history.push('fourth', {
                 prefer,
