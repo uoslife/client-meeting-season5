@@ -129,14 +129,7 @@ const PersonalDetailProfilePage = () => {
       return (
         <>
           <Header title="1대1 신청하기" isGoBackButton={false} />
-          <Fifth
-            context={{ course: funnel.context.course as string }}
-            onNext={({ course }) =>
-              funnel.history.push('fifth', {
-                course,
-              })
-            }
-          />
+          <Fifth context={funnel.context} />
         </>
       );
   }

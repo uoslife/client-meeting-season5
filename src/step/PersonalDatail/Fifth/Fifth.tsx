@@ -8,10 +8,7 @@ import Text from '../../../components/common/Text';
 import useDateCourse from '../../../hooks/useDateCourse';
 import BasicInput from '../../../components/common/BasicInput';
 import { COLORS } from '../../../lib/constants';
-const Fifth = (props: {
-  context: OptionalProfileType;
-  onNext: ({ course }: Pick<OptionalProfileType, 'course'>) => void;
-}): ReactNode => {
+const Fifth = (props: { context: OptionalProfileType }): ReactNode => {
   const dateCourseForm = useDateCourse();
 
   const dateCourseMemo = useMemo(() => {
@@ -33,11 +30,13 @@ const Fifth = (props: {
   }, [dateCourseForm]);
 
   const navigate = useNavigate();
-  const submitHandler = async () => {
-    // 여기서 hook form handlesubmit
-    props.onNext({
-      course: dateCourseForm.getValues('course'),
-    });
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    //추후에 soure req post body에 추가
+    const source = {
+      ...props.context,
+      coursre: dateCourseForm.getValues('course'),
+    };
     navigate('/auth/summary');
   };
 
@@ -55,7 +54,7 @@ const Fifth = (props: {
           미리 짜보는 데이트 코스
         </Text>
         <S.TextContainer></S.TextContainer>
-        {dateCourseMemo.map(({ title, inputs, error }) => {
+        {dateCourseMemo.map(({ title, inputs }) => {
           return (
             <S.BasicProfileFirstInputWrapper key={title}>
               <Text
