@@ -19,8 +19,8 @@ export interface OptionalProfileType {
   targetAppearanceType?: string;
   targetSmoking?: string;
   prefer?: string;
-  avoidDepartment?: string;
-  avoidStudentId?: number;
+  avoidDepartment?: string | null;
+  avoidStudentId?: string | null;
   course?: string;
 }
 
@@ -53,6 +53,7 @@ const PersonalDetailProfilePage = () => {
       context: {},
     },
   });
+
   switch (funnel.step) {
     case 'first':
       return (
@@ -111,6 +112,10 @@ const PersonalDetailProfilePage = () => {
         <>
           <Header title="1대1 신청하기" isGoBackButton={false} />
           <Fourth
+            context={{
+              avoidDepartment: funnel.context.avoidDepartment as string,
+              avoidStudentId: funnel.context.avoidStudentId as string,
+            }}
             onNext={({ avoidDepartment, avoidStudentId }) =>
               funnel.history.push('fifth', {
                 avoidDepartment,
