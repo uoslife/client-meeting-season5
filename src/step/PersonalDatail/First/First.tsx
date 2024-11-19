@@ -89,10 +89,10 @@ const First = (props: {
   const submitHandler = async () => {
     // 여기서 hook form handlesubmit
     props.onNext({
-      myMbti: 'ENTJ',
-      myHeight: '175cm',
-      myAppearanceType: 'GOOD',
-      mySmoking: 'TRUE',
+      myMbti: personalDetailForm.getValues('myMbti'),
+      myHeight: personalDetailForm.getValues('myHeight'),
+      myAppearanceType: personalDetailForm.getValues('myAppearanceType'),
+      mySmoking: personalDetailForm.getValues('mySmoking'),
     });
   };
 

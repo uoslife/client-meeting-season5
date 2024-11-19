@@ -15,8 +15,8 @@ export interface BaseProfileType {
   mySmoking: string;
 }
 export interface OptionalProfileType {
-  targetAge?: number;
-  targetHeight?: number;
+  targetAge?: string;
+  targetHeight?: string;
   targetMbti?: string;
   targetAppearanceType?: string;
   targetSmoking?: string;

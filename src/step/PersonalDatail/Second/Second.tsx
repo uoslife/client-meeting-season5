@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { OptionalProfileType } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
 import { S } from './style';
 import Indicator from '../../../components/common/Indicator';
@@ -15,6 +15,7 @@ import useAppearanceForm from '../../../hooks/useAppearance';
 import AppearanceBottomSheet from '../../../components/feature/AppearanceBottomSheet';
 import useSmokingForm from '../../../hooks/useSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
+import HeightRangeSlider from '../../../components/common/RangeSlider';
 const Second = (props: {
   onNext: ({
     targetAge,
@@ -37,14 +38,16 @@ const Second = (props: {
   const appearanceForm = useAppearanceForm();
   const smokingForm = useSmokingForm();
 
+  const [heightValue, setHeightValue] = useState<number[]>([160, 190]);
+
   const submitHandler = async () => {
     // 여기서 hook form handlesubmit
     props.onNext({
-      targetAge: 25,
-      targetHeight: 165,
-      targetMbti: 'ENTJ',
-      targetAppearanceType: 'GOOD',
-      targetSmoking: 'FALSE',
+      targetAge: idealForm.getValues('counterAge'),
+      targetHeight: idealForm.getValues('counterHeight'),
+      targetMbti: idealForm.getValues('counterMbti'),
+      targetAppearanceType: idealForm.getValues('counterAppearanceType'),
+      targetSmoking: idealForm.getValues('counterSmoking'),
     });
   };
 
@@ -342,21 +345,50 @@ const Second = (props: {
       idealForm.setValue('counterAge', '상관없음');
     },
   });
+  const heightBottomSheet = useBottomSheet({
+    title: '키',
+    description: `${heightValue[0]} 이상 ~ ${heightValue[1]} 이하`,
+    mainButtonText: '선택',
+    mainButtonCallback: () => {
+      idealForm.setValue(
+        'counterHeight',
+        `${heightValue[0]} 이상 ~ ${heightValue[1]} 이하`,
+      );
+    },
+    isSideButton: false,
+  });
   const mbtiDetailBottomSheet = useBottomSheet({
     title: 'MBTI',
     mainButtonText: '선택',
     mainButtonDisabled: !(
-      mbtiForm.watch('mbtiFirst') &&
-      mbtiForm.watch('mbtiSecond') &&
-      mbtiForm.watch('mbtiThird') &&
-      mbtiForm.watch('mbtiFourth')
+      (mbtiForm.watch('mbtiFirst') && mbtiForm.watch('mbtiFirst').length > 0) ||
+      (mbtiForm.watch('mbtiSecond') &&
+        mbtiForm.watch('mbtiSecond').length > 0) ||
+      (mbtiForm.watch('mbtiThird') && mbtiForm.watch('mbtiThird').length > 0) ||
+      (mbtiForm.watch('mbtiFourth') && mbtiForm.watch('mbtiFourth').length > 0)
     ),
     mainButtonCallback: () => {
       const mbtiFirst = mbtiForm.getValues('mbtiFirst');
       const mbtiSecond = mbtiForm.getValues('mbtiSecond');
       const mbtiThird = mbtiForm.getValues('mbtiThird');
       const mbtiFourth = mbtiForm.getValues('mbtiFourth');
-      const mbti = mbtiFirst + mbtiSecond + mbtiThird + mbtiFourth;
+      let mbti = (
+        (mbtiFirst ? String(mbtiFirst) : '/') +
+        '/' +
+        (mbtiSecond ? String(mbtiSecond) : '/') +
+        '/' +
+        (mbtiThird ? String(mbtiThird) : '/') +
+        '/' +
+        (mbtiFourth ? String(mbtiFourth) : '/')
+      )
+        .replace('//', '/')
+        .replace('//', '/')
+        .replace('//', '/')
+        .replace('//', '/')
+        .replace('//', '/');
+
+      if (mbti[mbti.length - 1] === '/') mbti = mbti.slice(0, mbti.length - 1);
+      if (mbti[0] === '/') mbti = mbti.slice(1);
       idealForm.setValue('counterMbti', mbti);
     },
     isSideButton: true,
@@ -406,14 +438,14 @@ const Second = (props: {
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%' }}
         >
-          두근두근, 당신의 마음을
+          이제, 당신을 설레게 할 사람에
         </Text>
         <Text
           typograph={'headlineMedium'}
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%', marginBottom: '40px' }}
         >
-          설레게 할 사람은?
+          대해 알려주세요.
         </Text>
         {idealMemo.map(({ title, type, inputs, errors }) => {
           return (
@@ -430,7 +462,7 @@ const Second = (props: {
                     onClick={() => {
                       if (title === '나이') ageBottomSheet.open();
                       if (title === 'MBTI') mbtiDetailBottomSheet.open();
-                      // if (title === '키') heightBottomSheet.open();
+                      if (title === '키') heightBottomSheet.open();
                       if (title === '외모') appearanceBottomSheet.open();
                       if (title === '흡연 여부') smokingBottomSheet.open();
                     }}
@@ -447,13 +479,38 @@ const Second = (props: {
       </S.MainContainer>
 
       {ageBottomSheet.render(<AgeBottomSheet memo={ageMemo} />)}
+      {heightBottomSheet.render(
+        <div
+          style={{
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 10,
+            paddingBottom: 20,
+          }}
+        >
+          <HeightRangeSlider value={heightValue} setValue={setHeightValue} />
+        </div>,
+      )}
       {mbtiDetailBottomSheet.render(<MbtiBottomSheet memo={mbtiMemo} />)}
       {appearanceBottomSheet.render(
         <AppearanceBottomSheet memo={appearanceMemo} />,
       )}
       {smokingBottomSheet.render(<SmokingBottomSheet memo={smokingMemo} />)}
       <S.ButtonWrapper>
-        <Button buttonColor="primary" type="submit" onClick={() => {}}>
+        <Button
+          buttonColor="primary"
+          type="submit"
+          onClick={() => {}}
+          disabled={
+            !(
+              idealForm.watch('counterAge') &&
+              idealForm.watch('counterAppearanceType') &&
+              idealForm.watch('counterHeight') &&
+              idealForm.watch('counterMbti') &&
+              idealForm.watch('counterSmoking')
+            )
+          }
+        >
           다음
         </Button>
       </S.ButtonWrapper>
