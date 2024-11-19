@@ -10,8 +10,8 @@ import { COLORS } from '../../lib/constants';
 
 const StarterPage = () => {
   const navigate = useNavigate();
-  const [toastMessage, setToastMessage] = useState<string>('');
-  const { toast, render } = useToast();
+  // const [toastMessage, setToastMessage] = useState<string>('');
+  // const { toast, render } = useToast();
   // const CopybuttonHandler = () => {
   //   navigator.clipboard
   //     .writeText(import.meta.env.VITE_SHARE_LINK)
@@ -98,7 +98,7 @@ const StarterPage = () => {
         </S.UpperWrapper>
         <Footer />
       </S.StarterPageContainer>
-      {render(toastMessage)}
+      {/* {render(toastMessage)} */}
     </>
   );
 };
