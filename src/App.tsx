@@ -17,6 +17,7 @@ import Recruit from './pages/Recruit';
 import EditProfilePage from './pages/EditProfilePage';
 import BasicProfilePage from './pages/BasicProfilePage';
 import PaymentResultPage from './pages/PaymentResultPage';
+import PaymentTestPage from './pages/PaymentTestPage';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'start',
         element: <StarterPage />,
+      },
+      {
+        path: 'payment-test',
+        element: <PaymentTestPage />,
       },
     ],
   },

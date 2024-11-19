@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLORS } from '../../lib/constants';
 
-export const S = {
+const S = {
   Container: styled.div`
     width: 100%;
     display: flex;
@@ -26,6 +26,10 @@ export const S = {
     border-radius: 12px;
     background: ${COLORS.Blue2};
   `,
+  InputWrapper: styled.div`
+    display: flex;
+    align-items: center;
+  `,
   ProductItem: styled.div`
     width: 100%;
     padding: 20px;
@@ -34,3 +38,5 @@ export const S = {
     justify-content: space-between;
   `,
 };
+
+export default S;
