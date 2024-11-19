@@ -1,14 +1,19 @@
 import Checkbox from '../../common/Checkbox';
 import { S } from './style';
+import Text from '../../common/Text';
 
 interface InterestOptionsPropsType {
+  handler: () => void;
   interestOptions: string[];
+  customOptions: string[];
   onSelectedChange: (selected: string) => void;
 }
 
 const InterestOptions = ({
   onSelectedChange,
   interestOptions,
+  customOptions,
+  handler,
 }: InterestOptionsPropsType) => {
   const options = [
     '동아리',
@@ -52,23 +57,52 @@ const InterestOptions = ({
   ];
   return (
     <S.Container>
-      {options.map((option) => {
-        return (
-          <S.CheckboxWrapper key={option}>
-            <Checkbox
-              value={option}
-              label={option}
-              onChange={(e) => {
-                onSelectedChange(option);
-                if (interestOptions.length > 4) {
+      <S.FlexContainer>
+        <S.Button onClick={handler}>
+          <Text typograph={'bodyMediumMedium'} color={'Blue70'}>
+            + 나만의 항목 추가
+          </Text>
+        </S.Button>
+        <S.CheckboxContainer>
+          {customOptions.map((option) => {
+            return (
+              <S.CheckboxWrapper key={option}>
+                <Checkbox
+                  value={option}
+                  label={option}
+                  onChange={(e) => {
+                    onSelectedChange(option);
+                    if (interestOptions.length > 4) {
+                      onSelectedChange(option);
+                      e.currentTarget.checked = false;
+                    }
+                  }}
+                  checked={interestOptions.includes(option)}
+                />
+              </S.CheckboxWrapper>
+            );
+          })}
+        </S.CheckboxContainer>
+      </S.FlexContainer>
+      <S.CheckboxContainer>
+        {options.map((option) => {
+          return (
+            <S.CheckboxWrapper key={option}>
+              <Checkbox
+                value={option}
+                label={option}
+                onChange={(e) => {
                   onSelectedChange(option);
-                  e.currentTarget.checked = false;
-                }
-              }}
-            />
-          </S.CheckboxWrapper>
-        );
-      })}
+                  if (interestOptions.length > 4) {
+                    onSelectedChange(option);
+                    e.currentTarget.checked = false;
+                  }
+                }}
+              />
+            </S.CheckboxWrapper>
+          );
+        })}
+      </S.CheckboxContainer>
     </S.Container>
   );
 };
