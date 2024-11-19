@@ -4,7 +4,9 @@ import Second from '../../step/PersonalDatail/Second';
 import Third from '../../step/PersonalDatail/Third';
 import Fourth from '../../step/PersonalDatail/Fourth';
 import Fifth from '../../step/PersonalDatail/Fifth';
+import Sixth from '../../step/PersonalDatail/Sixth';
 import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
 
 export interface BaseProfileType {
   myMbti: string;
@@ -38,14 +40,17 @@ type ThirdType = SecondType & Pick<OptionalProfileType, 'prefer'>;
 type FourthType = ThirdType &
   Pick<OptionalProfileType, 'avoidStudentId' | 'avoidDepartment'>;
 type FifthType = BaseProfileType & OptionalProfileType;
+type SixthType = BaseProfileType & OptionalProfileType;
 
 const PersonalDetailProfilePage = () => {
+  const navigate = useNavigate();
   const funnel = useFunnel<{
     first: FirtstType;
     second: SecondType;
     third: ThirdType;
     fourth: FourthType;
     fifth: FifthType;
+    sixth: SixthType;
   }>({
     id: 'personal-detail-profile',
     initial: {
@@ -130,7 +135,25 @@ const PersonalDetailProfilePage = () => {
       return (
         <>
           <Header title="1대1 신청하기" isGoBackButton={false} />
-          <Fifth context={funnel.context} />
+          <Fifth
+            context={funnel.context}
+            onNext={({ course }) =>
+              funnel.history.push('sixth', {
+                course,
+              })
+            }
+          />
+        </>
+      );
+    case 'sixth':
+      return (
+        <>
+          <Header
+            title="1대1 신청하기"
+            rightButtonType={'close'}
+            rightButtonCallback={() => navigate('/auth/main')}
+          />
+          <Sixth context={funnel.context} />
         </>
       );
   }
