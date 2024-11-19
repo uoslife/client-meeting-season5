@@ -14,7 +14,10 @@ export const S = {
     flex-direction: column;
     align-items: center;
   `,
-  MbtiItem: styled.div``,
+  MbtiItem: styled.div`
+    border-radius: 4px;
+    overflow: hidden;
+  `,
   TextWrapper: styled.div`
     display: flex;
     flex-direction: column;
