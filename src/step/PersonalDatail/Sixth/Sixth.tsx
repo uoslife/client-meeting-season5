@@ -1,11 +1,14 @@
 import S from './style';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
-import { OptionalProfileType } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
+import {
+  BaseProfileType,
+  OptionalProfileType,
+} from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
 import { COLORS } from '../../../lib/constants';
 import { useNavigate } from 'react-router-dom';
 
-const Sixth = (props: { context: OptionalProfileType }) => {
+const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();
   return (
     <S.Container className="layout-padding">
@@ -35,7 +38,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
                 MBTI
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                {props.context.targetMbti ?? '-'}
+                {props.context.myMbti ?? '-'}
               </Text>
             </div>
             <div style={{ display: 'flex', gap: 20 }}>
@@ -47,9 +50,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
                 키
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                {props.context.targetHeight
-                  ? String(props.context.targetHeight)
-                  : '-'}
+                {props.context.myHeight ? String(props.context.myHeight) : '-'}
               </Text>
             </div>
             <div style={{ display: 'flex', gap: 20 }}>
@@ -61,7 +62,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
                 외모
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                {props.context.targetAppearanceType ?? '-'}
+                {props.context.myAppearanceType ?? '-'}
               </Text>
             </div>
             <div style={{ display: 'flex', gap: 20 }}>
@@ -73,7 +74,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
                 흡연여부
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                {props.context.targetSmoking ?? '-'}
+                {props.context.mySmoking ?? '-'}
               </Text>
             </div>
           </S.TextWrapper>
