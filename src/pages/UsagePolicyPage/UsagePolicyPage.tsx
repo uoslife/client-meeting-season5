@@ -50,7 +50,9 @@ const UsagePolicy = () => {
           </Text>
           <S.CheckboxWrapper>
             <S.TextWrapper
-              onClick={() => window.open('https://example.com/terms', '_blank')}
+              onClick={() =>
+                window.open(import.meta.env.VITE_TERMS_OF_USE_LINK, '_blank')
+              }
             >
               <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
                 서비스 이용 약관
@@ -66,7 +68,10 @@ const UsagePolicy = () => {
           <S.CheckboxWrapper>
             <S.TextWrapper
               onClick={() =>
-                window.open('https://example.com/privacy', '_blank')
+                window.open(
+                  import.meta.env.VITE_AGGREMENT_ON_PERSONAL_INFO_LINK,
+                  '_blank',
+                )
               }
             >
               <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
