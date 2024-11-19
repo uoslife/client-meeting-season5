@@ -1,17 +1,25 @@
 import { useMemo } from 'react';
 import { getFetcher, postFetcher } from '../utils/api';
 import { AxiosResponse, isAxiosError } from 'axios';
-import { RequestPayParams } from '../lib/types/Payment';
+import { RequestPayParams, RequestPayResponse } from '../lib/types/Payment';
 
 type GetMerchantUidPropsType = {
   teamType: 'TRIPLE' | 'SINGLE';
   accessToken: string;
 };
 
+interface RequestPaymentResopnseType {
+  merchantUid: string;
+  price: number;
+  phoneNumber: string;
+  name: string;
+  productName: 'SINGLE' | 'TRIPLE';
+}
+
 const requestMerchantUid = async ({
   teamType,
   accessToken,
-}: Pick<RequestPaymentPropsType, 'accessToken'>) => {
+}: RequestPaymentPropsType) => {
   const {
     merchantUid: merchant_uid,
     price: amount,
@@ -19,7 +27,7 @@ const requestMerchantUid = async ({
     name: buyer_name,
     productName: name,
   } = await getMerchantUid({ teamType, accessToken });
-
+  console.log(buyer_tel);
   return { merchant_uid, amount, buyer_tel, buyer_name, name };
 };
 
@@ -28,6 +36,7 @@ const verifyPayment = async ({
   accessToken,
 }: {
   teamType: 'SINGLE' | 'TRIPLE';
+  accessToken: string;
 }) => {
   const res = await getFetcher({
     url: `/api/payment/${teamType}/verify`,
@@ -42,10 +51,10 @@ const verifyPayment = async ({
 const getMerchantUid = async ({
   teamType,
   accessToken,
-}: GetMerchantUidPropsType): Promise<Partial<RequestPayParams>> => {
+}: GetMerchantUidPropsType): Promise<RequestPaymentResopnseType> => {
   try {
     console.log(teamType, accessToken);
-    const res = await postFetcher<Partial<RequestPayParams>>({
+    const res = await postFetcher<RequestPaymentResopnseType>({
       url: `/api/payment/${teamType}/request`,
       data: {
         pg: 'WELCOME_PAYMENTS',
@@ -85,7 +94,7 @@ const usePayment = () => {
 
   const IMP = useMemo(() => {
     if (typeof window !== 'undefined') {
-      return (window as any).IMP;
+      return window.IMP;
     }
   }, []);
 
@@ -111,7 +120,7 @@ const usePayment = () => {
     };
 
     return new Promise((resolve, reject) => {
-      IMP?.request_pay(data, async (res: any) => {
+      IMP?.request_pay(data, async (res: RequestPayResponse) => {
         if (res.error_code != null) {
           console.log(res.error_code);
           alert('문제 발생: ' + res.error_code + ' : ' + res.error_msg);
