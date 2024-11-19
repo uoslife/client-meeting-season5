@@ -15,7 +15,7 @@ import useAppearanceForm from '../../../hooks/useAppearance';
 import AppearanceBottomSheet from '../../../components/feature/AppearanceBottomSheet';
 import useSmokingForm from '../../../hooks/useSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
-import HeightRangeSlider from '../../../components/common/RangeSlider';
+import HeightRangeSlider from '../../../components/feature/HeightRangeSlider';
 const Second = (props: {
   onNext: ({
     targetAge,
