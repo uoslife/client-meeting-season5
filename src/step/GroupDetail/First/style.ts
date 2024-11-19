@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from '../../../lib/constants';
 
 export const S = {
   FormContainer: styled.form`
@@ -17,6 +18,30 @@ export const S = {
   IndicatorBox: styled.div`
     width: 100%;
     margin: 20px 0px;
+  `,
+
+  Input: styled.input`
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 1.2rem 0;
+    font-family: Pretendard;
+    font-size: 16px;
+    color: ${COLORS.Blue90};
+
+    &::placeholder {
+      color: ${COLORS.Blue20};
+    }
+  `,
+  DeleteWrapper: styled.div`
+    align-items: center;
+    gap: 1.2rem;
+    display: flex;
+    justify-content: end;
+    padding: 1.2rem 0;
+
+    text-align: end;
+    top: 0;
   `,
 };
 

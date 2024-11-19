@@ -55,7 +55,7 @@ const GroupDatailProfilePage = () => {
     sideButtonText: '닫기',
     mainButtonCallback: () => navigate('/auth/main'),
   });
-
+  console.log(funnel.context);
   const FunnelComponent = () => {
     switch (funnel.step) {
       case 'first':
