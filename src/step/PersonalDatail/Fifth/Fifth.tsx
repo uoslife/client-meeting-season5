@@ -1,6 +1,5 @@
 import { ReactNode, useMemo } from 'react';
 import { OptionalProfileType } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
-import { useNavigate } from 'react-router-dom';
 import { S } from './style';
 import Indicator from '../../../components/common/Indicator';
 import Button from '../../../components/common/Button';
@@ -8,7 +7,10 @@ import Text from '../../../components/common/Text';
 import useDateCourse from '../../../hooks/useDateCourse';
 import BasicInput from '../../../components/common/BasicInput';
 import { COLORS } from '../../../lib/constants';
-const Fifth = (props: { context: OptionalProfileType }): ReactNode => {
+const Fifth = (props: {
+  context: OptionalProfileType;
+  onNext: ({ course }: Pick<OptionalProfileType, 'course'>) => void;
+}): ReactNode => {
   const dateCourseForm = useDateCourse();
 
   const dateCourseMemo = useMemo(() => {
@@ -29,15 +31,11 @@ const Fifth = (props: { context: OptionalProfileType }): ReactNode => {
     ];
   }, [dateCourseForm]);
 
-  const navigate = useNavigate();
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    //추후에 soure req post body에 추가
-    const source = {
-      ...props.context,
-      coursre: dateCourseForm.getValues('course'),
-    };
-    navigate('/auth/summary');
+  const submitHandler = async () => {
+    await dateCourseForm.handleSubmit();
+    props.onNext({
+      course: dateCourseForm.getValues().course,
+    });
   };
 
   return (
