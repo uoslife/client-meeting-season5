@@ -118,7 +118,7 @@ const Fourth = (props: {
           style={{ fontWeight: 500, width: '100%' }}
         >
           선택 학과의 선택 학번이 매칭 상대에서 제외돼요.
-        </Text>{' '}
+        </Text>
         <div style={{ marginTop: 40 }}>
           {avoidDepartmentMemo.map(({ title, type, inputs }) => {
             return (
