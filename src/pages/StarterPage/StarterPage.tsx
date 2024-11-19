@@ -14,7 +14,7 @@ const StarterPage = () => {
   const { toast, render } = useToast();
   const CopybuttonHandler = () => {
     navigator.clipboard
-      .writeText('http://localhost:5173/')
+      .writeText(import.meta.env.VITE_SHARE_LINK)
       .then(() => {
         console.log('성공');
         setToastMessage('텍스트가 클립보드에 복사되었습니다.');

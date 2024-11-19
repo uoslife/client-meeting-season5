@@ -8,11 +8,13 @@ import useInterestForm from '../../../hooks/useInterestForm';
 import BasicInput from '../../../components/common/BasicInput';
 import useBottomSheet from '../../../hooks/useBottomSheet';
 import InterestOptions from '../../../components/feature/InterestOptions';
+import useCreateInterestForm from '../../../hooks/useCreateInterestForm';
 
 const Third = (props: {
   onNext: ({ interest }: Pick<OptionalProfileType, 'interest'>) => void;
 }): ReactNode => {
   const [interestOptions, setInterestOptions] = useState<string[]>([]);
+  const [customOptions, setCustomOption] = useState<string[]>([]);
   const handleSelectedChange = (value: string) => {
     if (interestOptions.includes(value)) {
       setInterestOptions((prev) => prev.filter((option) => option !== value));
@@ -25,6 +27,8 @@ const Third = (props: {
   };
 
   const interestForm = useInterestForm();
+  const createInterestForm = useCreateInterestForm();
+
   const interestMemo = useMemo(() => {
     const { interests } = interestForm;
     return [
@@ -40,6 +44,23 @@ const Third = (props: {
       },
     ];
   }, [interestForm]);
+
+  const createInterestMemo = useMemo(() => {
+    const { customInterest } = createInterestForm;
+    return [
+      {
+        title: '관심사',
+        type: 'text',
+        inputs: [
+          {
+            ...customInterest,
+            placeholder: '관심사를 입력해 주세요.(최대 10자)',
+          },
+        ],
+      },
+    ];
+  }, [createInterestForm]);
+
   const interestBottomSheet = useBottomSheet({
     title: '관심사',
     description: '최대 5개까지 선택 가능합니다.',
@@ -50,6 +71,39 @@ const Third = (props: {
     },
     isSideButton: false,
   });
+  const createInterestBottomSheet = useBottomSheet({
+    title: '관심사',
+    description: '나만의 항목 추가',
+    mainButtonText: '선택',
+    mainButtonDisabled: !createInterestForm.watch('customInterest'),
+    mainButtonCallback: () => {
+      const item = createInterestForm.getValues('customInterest');
+      if (!interestOptions.includes(item)) {
+        if (interestOptions.length >= 5) {
+          alert('최대 5개까지만 선택할 수 있습니다.');
+        } else {
+          setInterestOptions([
+            ...interestOptions,
+            createInterestForm.getValues('customInterest'),
+          ]);
+          setCustomOption([
+            ...customOptions,
+            createInterestForm.getValues('customInterest'),
+          ]);
+          createInterestForm.setValue('customInterest', '');
+          createInterestBottomSheet.close();
+          interestBottomSheet.open();
+        }
+      } else {
+        alert('이미 선택한 데이터입니다!');
+      }
+    },
+    isSideButton: false,
+  });
+  const interestHandler = () => {
+    interestBottomSheet.close();
+    createInterestBottomSheet.open();
+  };
   return (
     <S.FormContainer className="layout-padding">
       <S.MainContainer>
@@ -61,7 +115,7 @@ const Third = (props: {
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%', marginBottom: '40px' }}
         >
-          요즘 빠져있는게 있다면?
+          요즘 빠져있는게 있나요?
         </Text>
         <BasicInput
           readOnly
@@ -85,9 +139,18 @@ const Third = (props: {
       </S.ButtonWrapper>
       {interestBottomSheet.render(
         <InterestOptions
+          handler={interestHandler}
           interestOptions={interestOptions}
+          customOptions={customOptions}
           onSelectedChange={handleSelectedChange}
         />,
+      )}
+      {createInterestBottomSheet.render(
+        <>
+          {createInterestMemo.map(({ inputs }) =>
+            inputs.map((input, index) => <BasicInput key={index} {...input} />),
+          )}
+        </>,
       )}
     </S.FormContainer>
   );

@@ -42,7 +42,7 @@ const MainPage = () => {
             </Text>
           </div>
         </S.Period>
-        <MainBUttonWrapper isPersonalComplete={true} isGroupComplete={false} />
+        <MainBUttonWrapper isPersonalComplete={false} isGroupComplete={false} />
         <S.Snowman>
           <img src={snowman} alt="snowman" width={120} height={150} />
           <img

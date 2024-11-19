@@ -4,7 +4,6 @@ import Second from '../../step/BasicProfile/Second';
 import Third from '../../step/BasicProfile/Third';
 import Fourth from '../../step/BasicProfile/Fourth';
 import Header from '../../components/common/Header';
-import { useNavigate } from 'react-router-dom';
 
 export interface BaseProfileType {
   name: string;

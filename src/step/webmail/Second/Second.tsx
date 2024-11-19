@@ -21,7 +21,7 @@ const Second = (props: {
     reset,
   } = useForm<CodeType>();
 
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(180);
   const [errorText, setErrorText] = useState('');
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const Second = (props: {
         <Button
           type="submit"
           buttonColor={'primary'}
-          disabled={isButtonDisabled()}
+          disabled={isButtonDisabled() || !timeLeft}
           onClick={() => {}}
         >
           다음

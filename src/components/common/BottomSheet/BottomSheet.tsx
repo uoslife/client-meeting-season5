@@ -40,7 +40,11 @@ const BottomSheet = ({
         {title}
       </Text>
       {description && (
-        <Text typograph={'bodyMediumMedium'} color={'Blue90'}>
+        <Text
+          typograph={'bodyMediumMedium'}
+          color={'Blue50'}
+          style={{ fontWeight: 600 }}
+        >
           {description}
         </Text>
       )}
