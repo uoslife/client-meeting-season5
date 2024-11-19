@@ -330,10 +330,12 @@ const Second = (props: {
     title: '나이',
     description: '희망하는 선택지를 모두 선택해 주세요.',
     mainButtonText: '선택',
-    mainButtonDisabled: !ageForm.watch('age'),
+    mainButtonDisabled: Boolean(
+      ageForm.watch('age') && !ageForm.watch('age').length,
+    ),
     mainButtonCallback: () => {
-      const cigarette = ageForm.getValues('age');
-      idealForm.setValue('counterAge', cigarette);
+      const age = ageForm.getValues('age');
+      idealForm.setValue('counterAge', age);
     },
     isSideButton: true,
     sideButtonCallback: () => {

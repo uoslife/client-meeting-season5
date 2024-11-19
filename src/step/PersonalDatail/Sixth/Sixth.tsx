@@ -30,7 +30,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 MBTI
               </Text>
@@ -42,7 +42,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 키
               </Text>
@@ -56,7 +56,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 외모
               </Text>
@@ -68,7 +68,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 흡연여부
               </Text>
@@ -91,7 +91,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 나이
               </Text>
@@ -105,7 +105,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 MBTI
               </Text>
@@ -117,7 +117,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 키
               </Text>
@@ -131,7 +131,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 외모
               </Text>
@@ -143,7 +143,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 흡연여부
               </Text>
@@ -166,7 +166,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 {String(props.context.prefer)}
               </Text>
@@ -206,12 +206,12 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 학과
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                {props.context.targetAge
+                {props.context.avoidStudentId
                   ? String(props.context.avoidStudentId)
                   : '-'}
               </Text>
@@ -220,7 +220,7 @@ const Sixth = (props: { context: OptionalProfileType }) => {
               <Text
                 color={'Blue50'}
                 typograph={'bodyMediumMedium'}
-                style={{ fontWeight: 500 }}
+                style={{ fontWeight: 500, width: 50 }}
               >
                 입학년도
               </Text>

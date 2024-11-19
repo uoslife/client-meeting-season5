@@ -5,6 +5,8 @@ export const S = {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    height: 300px;
+    overflow: scroll;
   `,
   CheckboxWrapper: styled.div`
     span {
