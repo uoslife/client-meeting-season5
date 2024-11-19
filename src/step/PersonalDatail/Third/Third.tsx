@@ -71,17 +71,18 @@ const Third = (props: {
         >
           {preferMemo.map(({ title, description, input }) => {
             return (
-              <div key={title}>
-                <S.Input {...input} type="radio" id={title} />
+              <div key={title} style={{ position: 'relative' }}>
+                <S.Input {...input} type="radio" id={title} name="prefer" />
                 <S.RadioWrapper htmlFor={title}>
-                  <div className="unchecked">
+                  <S.RadioContent>
                     <Text color={'Blue40'} typograph={'bodyMediumSemiBold'}>
                       {title}
                     </Text>
                     <Text color={'Blue90'} typograph={'bodyLargeMedium'}>
                       {description}
                     </Text>
-                  </div>
+                  </S.RadioContent>
+                  <S.RadioButton />
                 </S.RadioWrapper>
               </div>
             );

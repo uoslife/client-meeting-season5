@@ -21,20 +21,65 @@ export const S = {
   `,
   RadioWrapper: styled.label`
     display: flex;
-    flex-direction: column;
     gap: 8px;
     padding: 12px 16px;
     border-radius: 8px;
     cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
 
     background: ${COLORS.White};
     border: 1px solid ${COLORS.Blue40};
+
+    input:checked + & {
+      background: ${COLORS.Red2};
+      border: 1px solid ${COLORS.Red60};
+    }
+
+    input:checked + & p {
+      color: ${COLORS.Red60};
+    }
+    &:has(input:checked) {
+      border: 1px solid ${COLORS.Red60};
+      background: ${COLORS.Red2};
+    }
+  `,
+  RadioButton: styled.div`
+    width: 20px;
+    height: 20px;
+    border: 1px solid ${COLORS.Blue40};
+    border-radius: 50%;
+    position: relative;
+
+    input:checked + label & {
+      border-color: ${COLORS.Red60};
+      background: ${COLORS.White};
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: ${COLORS.Red60};
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  `,
+
+  RadioContent: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   `,
   Input: styled.input`
     position: absolute;
     display: flex;
     right: 0;
     opacity: 0;
+
     &:checked + label {
       background: ${COLORS.Red2};
       border: 1px solid ${COLORS.Red60};
