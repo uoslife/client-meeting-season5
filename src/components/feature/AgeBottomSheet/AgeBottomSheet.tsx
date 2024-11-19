@@ -5,17 +5,17 @@ import Checkbox from '../../common/Checkbox';
 interface AgeBottomSheetPropsType {
   title: string;
   type: string;
-  inputs: UseFormRegisterReturn[];
-  error: string | undefined;
+  inputs: (UseFormRegisterReturn & { value: string; label: string })[];
+  errors: string | undefined;
 }
 
-interface AgeBottomSheetPropsType {
+interface AgeBottomSheetsPropsType {
   memo: AgeBottomSheetPropsType[];
 }
-const AgeBottomSheet = ({ memo }: AgeBottomSheetPropsType) => {
+const AgeBottomSheet = ({ memo }: AgeBottomSheetsPropsType) => {
   return (
     <S.Container>
-      {memo.map(({ title, inputs }, index) => (
+      {memo.map(({ inputs }, index) => (
         <S.AppearanceItemWrapper key={index}>
           <S.AppearanceItem>
             {inputs.map((input, idx) => (

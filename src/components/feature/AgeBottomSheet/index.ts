@@ -1,2 +1,2 @@
-import SmokingBottomSheet from './SmokingBottomSheet';
+import SmokingBottomSheet from '../SmokingBottomSheet';
 export default SmokingBottomSheet;

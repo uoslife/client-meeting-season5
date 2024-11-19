@@ -80,3 +80,6 @@ $RECYCLE.BIN/
 .env
 .env.development
 .env.production
+
+#dist
+dist/

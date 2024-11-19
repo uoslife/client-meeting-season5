@@ -6,8 +6,8 @@ import Text from '../../common/Text';
 interface AppearancePropsType {
   title: string;
   type: string;
-  inputs: UseFormRegisterReturn[];
-  error: string | undefined;
+  inputs: (UseFormRegisterReturn & { value: string; label: string })[];
+  errors: string | undefined;
 }
 
 interface AppearanceBottomSheetPropsType {

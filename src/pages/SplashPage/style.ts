@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SplashBackground from '../../lib/assets/images/splash.png';
+
 import { COLORS } from '../../lib/constants';
 
 export const S = {

@@ -5,7 +5,7 @@ import Text from '../Text';
 export interface RadioPropsType
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label: JSX.Element | string;
-  subLabel: JSX.Element | string;
+  subLabel?: JSX.Element | string;
   value: string;
 }
 
@@ -24,7 +24,7 @@ const CustomRadio = forwardRef<HTMLInputElement, RadioPropsType>(
               {label.toString()}
             </Text>
             <Text typograph={'labelMediumSemiBold'} color={'Blue30'}>
-              {subLabel.toString()}
+              {subLabel ? subLabel.toString() : ''}
             </Text>
           </S.TextWrapper>
         </S.RadioButton>

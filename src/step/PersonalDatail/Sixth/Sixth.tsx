@@ -5,7 +5,6 @@ import {
   BaseProfileType,
   OptionalProfileType,
 } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
-import { COLORS } from '../../../lib/constants';
 import { useNavigate } from 'react-router-dom';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
@@ -245,11 +244,9 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
               typograph={'bodyMediumMedium'}
               style={{ fontWeight: 500 }}
             >
-              나는 상대방과 크리스마스에{' '}
-              <span style={{ color: COLORS.Red60 }}>
-                {props.context.course}을(를)
-              </span>
-              함께하고 싶어요
+              {`나는 상대방과 크리스마스에
+              ${props.context.course}을(를)
+              함께하고 싶어요`}
             </Text>
           </S.TextWrapper>
         </S.ContentWrapper>

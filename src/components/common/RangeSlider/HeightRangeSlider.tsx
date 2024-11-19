@@ -34,7 +34,7 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
   };
 
   const handleChange = (newValue: number | number[]) => {
-    setValue(newValue);
+    setValue(newValue as number[]);
   };
 
   return (

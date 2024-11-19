@@ -20,8 +20,8 @@ export const IntegratedInput = ({ type, inputs, error }: RenderPropsType) => {
   return (
     <S.BasicProfileFirstInputWrapper>
       {type === 'radio' &&
-        inputs?.map((input) => (
-          <Radio key={input.value} value={input.value} {...input} />
+        inputs?.map((input, index) => (
+          <Radio key={`radio-key-${index}`} {...input} />
         ))}
       {error && (
         <Text typograph={'labelMediumSemiBold'} color={'Red60'}>

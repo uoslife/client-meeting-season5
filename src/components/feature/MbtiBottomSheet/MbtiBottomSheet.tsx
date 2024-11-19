@@ -5,8 +5,8 @@ import CustomRadio from '../../common/CustomRadio';
 interface MemoPropsType {
   title: string;
   type: string;
-  inputs: UseFormRegisterReturn[];
-  error: string | undefined;
+  inputs: (UseFormRegisterReturn & { value: string; label: string })[];
+  errors: string | undefined;
 }
 
 interface MbtiBottomSheetProps {
@@ -18,11 +18,10 @@ const MbtiBottomSheet = ({ memo }: MbtiBottomSheetProps) => {
     <S.Container>
       {memo.map(({ inputs }, index) => (
         <S.MbtiWrapper key={`mbti-group-${index}`}>
-          <S.MbtiItem key={`mbti-group-${index}`}>
+          <S.MbtiItem>
             {inputs.map((input, idx) => (
               <CustomRadio
                 key={`input-${index}-${idx}`}
-                value={input.value}
                 {...input}
                 style={{}}
               />

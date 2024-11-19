@@ -4,7 +4,6 @@ import { S } from './style';
 export interface RadioPropsType
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: JSX.Element | string;
-  value: string;
 }
 
 const Radio = forwardRef<HTMLInputElement, RadioPropsType>(

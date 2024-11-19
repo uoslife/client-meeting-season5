@@ -14,9 +14,9 @@ const Picker = ({ list, onSelectedChange }: ScrollPickerProps) => {
   const ref = useRef<HTMLUListElement>(null);
   const [selected, setSelected] = useState(2);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const timerRef = useRef<number | null>(null);
-  const ITEM_HEIGHT = 48;
 
+  const ITEM_HEIGHT = 48;
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleScroll = () => {
     if (ref.current) {
       clearTimeout(timerRef.current!);
