@@ -211,8 +211,8 @@ const Sixth = (props: { context: OptionalProfileType }) => {
                 학과
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                {props.context.avoidStudentId
-                  ? String(props.context.avoidStudentId)
+                {props.context.avoidDepartment
+                  ? String(props.context.avoidDepartment)
                   : '-'}
               </Text>
             </div>
