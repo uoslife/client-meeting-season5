@@ -18,6 +18,12 @@ export const S = {
     width: 100%;
     margin: 20px 0px;
   `,
+  RadioWrapper: styled.div`
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  `,
 };
 
 export default S;
