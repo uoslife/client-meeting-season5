@@ -60,7 +60,7 @@ const MainBUttonWrapper = ({
       </S.Button>
       <S.Button
         onClick={() => {
-          if (!isGroupComplete) navigate('/auth/detail/group');
+          if (!isGroupComplete) navigate('/auth/payment-test');
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
