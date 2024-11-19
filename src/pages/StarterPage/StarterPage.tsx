@@ -3,8 +3,8 @@ import { S } from './style';
 import Button from '../../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/feature/Footer';
-import useToast from '../../hooks/useToast';
-import { useState } from 'react';
+// import useToast from '../../hooks/useToast';
+// import { useState } from 'react';
 import MainIMG from '../../lib/assets/images/start-main-img.svg';
 import { COLORS } from '../../lib/constants';
 
