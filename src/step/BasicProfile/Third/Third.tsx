@@ -61,7 +61,7 @@ const Third = (props: {
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%', marginBottom: '40px' }}
         >
-          요즘 빠져있는게 있다면?
+          요즘 빠져있는게 있나요?
         </Text>
         <BasicInput
           readOnly
