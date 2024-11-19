@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <BasicLayout />,
     children: [
       {
-        path: 'splash',
+        path: '',
         element: <SplashPage />,
       },
       {

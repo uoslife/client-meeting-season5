@@ -1,31 +1,11 @@
 import { S } from './style';
-import TreeIcon from '../../lib/assets/images/splash_tree_icon.png';
-import Text from '../../components/common/Text';
-import { useEffect, useState, useLayoutEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { calculateTimeUntilChristmas } from '../../utils/time';
-import Button from '../../components/common/Button';
 import { useNavigate } from 'react-router-dom';
-
+import Text from '../../components/common/Text';
 const SplashPage = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeUntilChristmas());
-  const [layout, setLayout] = useState({ gap: 0, paddingTop: 0 });
   const navigate = useNavigate();
-  const contentRef = useRef(null);
-
-  useLayoutEffect(() => {
-    const updateLayout = () => {
-      const screenHeight = window.innerHeight;
-      setLayout({
-        gap: screenHeight * 0.15,
-        paddingTop: screenHeight * 0.12,
-      });
-    };
-
-    updateLayout();
-    window.addEventListener('resize', updateLayout);
-
-    return () => window.removeEventListener('resize', updateLayout);
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,52 +16,76 @@ const SplashPage = () => {
   }, []);
   return (
     <S.SplashPageContainer className="layout-padding">
-      <S.SplashContentWrapper
-        ref={contentRef}
-        style={{ gap: layout.gap, paddingTop: layout.paddingTop }}
-      >
-        <S.TitleWrapper>
-          <img src={TreeIcon} alt="나무 아이콘" />
-          <S.FlexBox>
-            <Text typograph={'headlineMedium'} color={'Yellow'}>
-              크리스마까지 남은 기간
-            </Text>
-            <Text
-              typograph={'headlineMedium'}
-              color={'Yellow'}
-              style={{ fontWeight: 700 }}
-            >
-              {`단 ${timeLeft.days.toString()}일!`}
-            </Text>
-          </S.FlexBox>
-        </S.TitleWrapper>
-        <S.TimeText>
-          {String(timeLeft.hours + timeLeft.days * 24).padStart(2, '0')}:
-          {String(timeLeft.minutes).padStart(2, '0')}:
-          {String(timeLeft.seconds).padStart(2, '0')}
-        </S.TimeText>
-        <S.FlexBox>
-          <Text typograph={'titleMedium'} color={'Yellow'}>
-            시즌 평균 신청 수 0,000건
-          </Text>{' '}
-          <Text typograph={'titleMedium'} color={'Yellow'}>
-            성비 남0 : 여0, 매칭률 00%
+      <S.MainContainer>
+        <S.bodyWrapper>
+          <Text
+            typograph={'titleMedium'}
+            color={'Blue2'}
+            style={{ lineHeight: '2.6rem', fontWeight: '500' }}
+          >
+            설마, 올해도 솔크...? 서두르세요 !
           </Text>
-        </S.FlexBox>
-      </S.SplashContentWrapper>
-      <div
-        className="layout-padding"
-        style={{ width: '100%', bottom: 36, position: 'absolute' }}
-      >
-        <Button
-          buttonColor={'yellow'}
+          <Text
+            typograph={'titleMedium'}
+            color={'Blue2'}
+            style={{ lineHeight: '2.6rem', fontWeight: '800' }}
+          >
+            크리스마스까지 남은 기간
+          </Text>
+          <S.TimeWrapper>
+            <S.TimeTextWrapper>
+              <S.TimeText>{String(timeLeft.days).padStart(2, '0')}</S.TimeText>
+              <Text typograph={'bodyMediumSemiBold'} color={'Blue2'}>
+                일
+              </Text>
+            </S.TimeTextWrapper>
+            <S.TimeTextWrapper>
+              <S.TimeText>:</S.TimeText>
+            </S.TimeTextWrapper>
+            <S.TimeTextWrapper>
+              <S.TimeText>{String(timeLeft.hours).padStart(2, '0')}</S.TimeText>
+              <Text typograph={'bodyMediumSemiBold'} color={'Blue2'}>
+                시
+              </Text>
+            </S.TimeTextWrapper>
+            <S.TimeTextWrapper>
+              <S.TimeText>:</S.TimeText>
+            </S.TimeTextWrapper>
+            <S.TimeTextWrapper>
+              <S.TimeText>
+                {String(timeLeft.minutes).padStart(2, '0')}
+              </S.TimeText>
+              <Text typograph={'bodyMediumSemiBold'} color={'Blue2'}>
+                분
+              </Text>
+            </S.TimeTextWrapper>
+          </S.TimeWrapper>
+        </S.bodyWrapper>
+      </S.MainContainer>
+
+      <S.ButtonWrapper>
+        <Text
+          typograph={'bodyMediumSemiBold'}
+          color={'Blue2'}
+          style={{ fontWeight: 600, textAlign: 'center' }}
+        >
+          시대팅 전시즌 평균 신청수 984건!
+        </Text>
+        <Text
+          typograph={'bodyMediumSemiBold'}
+          color={'Blue2'}
+          style={{ fontWeight: 600, textAlign: 'center' }}
+        >
+          성비 남2 : 여1, 여 매칭률 99%
+        </Text>
+        <S.Button
           onClick={() => {
             navigate('/start');
           }}
         >
-          눈 맞을 짝을 찾아 떠나볼까요?
-        </Button>
-      </div>
+          눈 맞을 짝 찾으러 가기
+        </S.Button>
+      </S.ButtonWrapper>
     </S.SplashPageContainer>
   );
 };
