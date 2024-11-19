@@ -15,28 +15,33 @@ const Third = (props: {
     return [
       {
         title: '나이',
+        value: '나이',
         description: (props.context && String(props.context.targetAge)) ?? '-',
         input: prefer,
       },
       {
         title: '키',
+        value: '키',
         description:
           (props.context && String(props.context.targetHeight)) ?? '-',
         input: prefer,
       },
       {
         title: 'MBTI',
+        value: 'MBTI',
         description: (props.context && String(props.context.targetMbti)) ?? '-',
         input: prefer,
       },
       {
         title: '외모',
+        value: '외모',
         description:
           (props.context && String(props.context.targetAppearanceType)) ?? '-',
         input: prefer,
       },
       {
         title: '흡연 여부',
+        value: '흡연여부',
         description:
           (props.context && String(props.context.targetSmoking)) ?? '_',
         input: prefer,
@@ -45,7 +50,8 @@ const Third = (props: {
   }, [preferForm]);
 
   const submitHandler = async () => {
-    if (preferForm.getValues()) props.onNext({ prefer: 'age' });
+    if (preferForm.getValues())
+      props.onNext({ prefer: String(preferForm.getValues().prefer) });
   };
 
   return (
@@ -69,10 +75,16 @@ const Third = (props: {
             gap: 12,
           }}
         >
-          {preferMemo.map(({ title, description, input }) => {
+          {preferMemo.map(({ title, description, input, value }) => {
             return (
               <div key={title} style={{ position: 'relative' }}>
-                <S.Input {...input} type="radio" id={title} name="prefer" />
+                <S.Input
+                  {...input}
+                  type="radio"
+                  id={title}
+                  name="prefer"
+                  value={value}
+                />
                 <S.RadioWrapper htmlFor={title}>
                   <S.RadioContent>
                     <Text color={'Blue40'} typograph={'bodyMediumSemiBold'}>
