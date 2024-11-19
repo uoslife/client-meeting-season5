@@ -372,7 +372,23 @@ const Second = (props: {
       const mbtiSecond = mbtiForm.getValues('mbtiSecond');
       const mbtiThird = mbtiForm.getValues('mbtiThird');
       const mbtiFourth = mbtiForm.getValues('mbtiFourth');
-      const mbti = mbtiFirst + mbtiSecond + mbtiThird + mbtiFourth;
+      let mbti = (
+        (mbtiFirst ? String(mbtiFirst) : '/') +
+        '/' +
+        (mbtiSecond ? String(mbtiSecond) : '/') +
+        '/' +
+        (mbtiThird ? String(mbtiThird) : '/') +
+        '/' +
+        (mbtiFourth ? String(mbtiFourth) : '/')
+      )
+        .replace('//', '/')
+        .replace('//', '/')
+        .replace('//', '/')
+        .replace('//', '/')
+        .replace('//', '/');
+
+      if (mbti[mbti.length - 1] === '/') mbti = mbti.slice(0, mbti.length - 1);
+      if (mbti[0] === '/') mbti = mbti.slice(1);
       idealForm.setValue('counterMbti', mbti);
     },
     isSideButton: true,
