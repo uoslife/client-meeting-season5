@@ -1,10 +1,11 @@
 import './rc-slider.style.css';
 import Slider from 'rc-slider';
 import { COLORS } from '../../../lib/constants';
+import { SetStateAction } from 'react';
 
 interface RangeSliderPropsType {
   value: number | number[];
-  setValue: (value: number | number[]) => void;
+  setValue: React.Dispatch<SetStateAction<number[]>>;
 }
 
 const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
@@ -17,10 +18,11 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
         fontSize: 14,
       },
     },
-    166: '',
-    172: '',
-    178: '',
-    184: '',
+    165: '',
+    170: '',
+    175: '',
+    180: '',
+    185: '',
     190: {
       label: '190~',
       style: {
@@ -40,7 +42,7 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
       range
       min={160}
       max={190}
-      step={6}
+      step={5}
       value={value}
       marks={marks}
       dots={true}
@@ -84,6 +86,8 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
         border: `1px solid ${COLORS.White}`,
         width: 1,
       }}
+      allowCross={false}
+      pushable={5}
     />
   );
 };
