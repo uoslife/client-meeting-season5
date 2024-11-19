@@ -83,3 +83,6 @@ $RECYCLE.BIN/
 
 #dist
 dist/
+
+# Ignore tsbuildinfo files
+*.tsbuildinfo
