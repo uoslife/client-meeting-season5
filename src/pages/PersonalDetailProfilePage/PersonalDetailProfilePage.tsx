@@ -26,8 +26,8 @@ export interface OptionalProfileType {
   course?: string;
 }
 
-type FirtstType = Partial<BaseProfileType & OptionalProfileType>;
-type SecondType = BaseProfileType &
+export type FirtstType = Partial<BaseProfileType & OptionalProfileType>;
+export type SecondType = BaseProfileType &
   Pick<
     OptionalProfileType,
     | 'targetAge'
@@ -36,11 +36,11 @@ type SecondType = BaseProfileType &
     | 'targetAppearanceType'
     | 'targetSmoking'
   >;
-type ThirdType = SecondType & Pick<OptionalProfileType, 'prefer'>;
-type FourthType = ThirdType &
+export type ThirdType = SecondType & Pick<OptionalProfileType, 'prefer'>;
+export type FourthType = ThirdType &
   Pick<OptionalProfileType, 'avoidStudentId' | 'avoidDepartment'>;
-type FifthType = BaseProfileType & OptionalProfileType;
-type SixthType = BaseProfileType & OptionalProfileType;
+export type FifthType = BaseProfileType & OptionalProfileType;
+export type SixthType = BaseProfileType & OptionalProfileType;
 
 const PersonalDetailProfilePage = () => {
   const navigate = useNavigate();
@@ -58,15 +58,20 @@ const PersonalDetailProfilePage = () => {
       context: {},
     },
   });
-
+  console.log(funnel.context);
   switch (funnel.step) {
     case 'first':
       return (
         <>
-          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Header
+            title="1대1 신청하기"
+            isGoBackButton={true}
+            leftButtonCallback={() => navigate('/auth/main')}
+          />
           <First
+            context={funnel.context}
             onNext={({ myMbti, myHeight, myAppearanceType, mySmoking }) =>
-              funnel.history.push('second', {
+              funnel.history.replace('second', {
                 myMbti,
                 myHeight,
                 myAppearanceType,
@@ -79,8 +84,15 @@ const PersonalDetailProfilePage = () => {
     case 'second':
       return (
         <>
-          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Header
+            title="1대1 신청하기"
+            isGoBackButton={true}
+            leftButtonCallback={() =>
+              funnel.history.replace('first', funnel.context)
+            }
+          />
           <Second
+            context={funnel.context}
             onNext={({
               targetAge,
               targetHeight,
@@ -88,7 +100,7 @@ const PersonalDetailProfilePage = () => {
               targetAppearanceType,
               targetSmoking,
             }) =>
-              funnel.history.push('third', {
+              funnel.history.replace('third', {
                 targetAge,
                 targetHeight,
                 targetMbti,
@@ -102,11 +114,17 @@ const PersonalDetailProfilePage = () => {
     case 'third':
       return (
         <>
-          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Header
+            title="1대1 신청하기"
+            isGoBackButton={true}
+            leftButtonCallback={() =>
+              funnel.history.replace('second', funnel.context)
+            }
+          />
           <Third
             context={funnel.context}
             onNext={({ prefer }) =>
-              funnel.history.push('fourth', {
+              funnel.history.replace('fourth', {
                 prefer,
               })
             }
@@ -116,14 +134,17 @@ const PersonalDetailProfilePage = () => {
     case 'fourth':
       return (
         <>
-          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Header
+            title="1대1 신청하기"
+            isGoBackButton={true}
+            leftButtonCallback={() =>
+              funnel.history.replace('third', funnel.context)
+            }
+          />
           <Fourth
-            context={{
-              avoidDepartment: funnel.context.avoidDepartment as string,
-              avoidStudentId: funnel.context.avoidStudentId as string,
-            }}
+            context={funnel.context}
             onNext={({ avoidDepartment, avoidStudentId }) =>
-              funnel.history.push('fifth', {
+              funnel.history.replace('fifth', {
                 avoidDepartment,
                 avoidStudentId,
               })
@@ -134,7 +155,13 @@ const PersonalDetailProfilePage = () => {
     case 'fifth':
       return (
         <>
-          <Header title="1대1 신청하기" isGoBackButton={false} />
+          <Header
+            title="1대1 신청하기"
+            isGoBackButton={true}
+            leftButtonCallback={() =>
+              funnel.history.replace('fourth', funnel.context)
+            }
+          />
           <Fifth
             context={funnel.context}
             onNext={({ course }) =>
@@ -152,6 +179,10 @@ const PersonalDetailProfilePage = () => {
             title="1대1 신청하기"
             rightButtonType={'close'}
             rightButtonCallback={() => navigate('/auth/main')}
+            isGoBackButton={true}
+            leftButtonCallback={() =>
+              funnel.history.replace('fifth', funnel.context)
+            }
           />
           <Sixth context={funnel.context} />
         </>

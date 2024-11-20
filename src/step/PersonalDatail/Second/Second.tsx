@@ -1,5 +1,8 @@
 import { ReactNode, useMemo, useState } from 'react';
-import { OptionalProfileType } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
+import {
+  OptionalProfileType,
+  SecondType,
+} from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
 import { S } from './style';
 import Indicator from '../../../components/common/Indicator';
 import Button from '../../../components/common/Button';
@@ -17,6 +20,7 @@ import useSmokingForm from '../../../hooks/useSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
 import HeightRangeSlider from '../../../components/common/RangeSlider';
 const Second = (props: {
+  context: SecondType;
   onNext: ({
     targetAge,
     targetHeight,
@@ -68,6 +72,7 @@ const Second = (props: {
           {
             ...counterAge,
             placeholder: '나이 범위를 선택해 주세요.',
+            defaultValue: props.context.targetAge,
           },
         ],
         errors: errors.counterAge?.message,
@@ -79,6 +84,7 @@ const Second = (props: {
           {
             ...counterHeight,
             placeholder: '키를 선택해 주세요.',
+            defaultValue: props.context.targetHeight,
           },
         ],
         errors: errors.counterHeight?.message,
@@ -89,7 +95,8 @@ const Second = (props: {
         inputs: [
           {
             ...counterMbti,
-            placeholder: '얼굴상과 쌍꺼풀 종류를 선택해 주세요.',
+            placeholder: 'MBTI를 선택해 주세요.',
+            defaultValue: props.context.targetMbti,
           },
         ],
         errors: errors.counterMbti?.message,
@@ -100,7 +107,8 @@ const Second = (props: {
         inputs: [
           {
             ...counterAppearanceType,
-            placeholder: '관심사를 선택해 주세요.',
+            placeholder: '얼굴상과 쌍꺼풀 종류를 선택해 주세요.',
+            defaultValue: props.context.targetAppearanceType,
           },
         ],
         errors: errors.counterAppearanceType?.message,
@@ -112,6 +120,7 @@ const Second = (props: {
           {
             ...counterSmoking,
             placeholder: '흡연 여부를 선택해 주세요.',
+            defaultValue: props.context.targetSmoking,
           },
         ],
         errors: errors.counterSmoking?.message,
@@ -503,11 +512,13 @@ const Second = (props: {
           onClick={() => {}}
           disabled={
             !(
-              idealForm.watch('counterAge') &&
-              idealForm.watch('counterAppearanceType') &&
-              idealForm.watch('counterHeight') &&
-              idealForm.watch('counterMbti') &&
-              idealForm.watch('counterSmoking')
+              (idealForm.watch('counterAge') || props.context.targetAge) &&
+              (idealForm.watch('counterAppearanceType') ||
+                props.context.targetAppearanceType) &&
+              (idealForm.watch('counterHeight') ||
+                props.context.targetHeight) &&
+              (idealForm.watch('counterMbti') || props.context.targetMbti) &&
+              (idealForm.watch('counterSmoking') || props.context.targetSmoking)
             )
           }
         >
