@@ -42,7 +42,10 @@ const UsagePolicy = () => {
 
   return (
     <S.Container onSubmit={handleSubmit}>
-      <Header title="약관 동의하기" />
+      <Header
+        title="약관 동의하기"
+        leftButtonCallback={() => navigate('/start')}
+      />
       <S.MainContainer className="layout-padding">
         <S.PolicyHeaderWrapper>
           <Text typograph={'titleLarge'} color={'Blue90'}>
