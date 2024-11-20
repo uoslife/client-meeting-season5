@@ -79,10 +79,6 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'recruit',
-        element: <Recruit />,
-      },
-      {
         path: 'summary',
         element: <SummaryPage />,
       },
