@@ -40,16 +40,18 @@ const Header = ({
   };
   return (
     <S.Wrapper justifyContent={iconLocationAttribute()}>
-      {isGoBackButton && (
-        <img
-          src={arrowBack}
-          alt="뒤로가기"
-          width={20}
-          height={20}
-          style={{ zIndex: 1, cursor: 'pointer' }}
-          onClick={leftButtonCallback && leftButtonCallback}
-        />
-      )}
+      <div style={{ width: 20, height: 20 }}>
+        {isGoBackButton && (
+          <img
+            src={arrowBack}
+            alt="뒤로가기"
+            width={20}
+            height={20}
+            style={{ zIndex: 1, cursor: 'pointer' }}
+            onClick={leftButtonCallback && leftButtonCallback}
+          />
+        )}
+      </div>
 
       <Text
         color={'Blue70'}
