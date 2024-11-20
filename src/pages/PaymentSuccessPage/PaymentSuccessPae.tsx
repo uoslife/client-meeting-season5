@@ -2,10 +2,10 @@ import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import Button from '../../components/common/Button';
-import heartLetter from '../../lib/assets/images/heart-letter.svg';
+import santaAndRudolf from '../../lib/assets/images/santa-and-rudolf.png';
 import S from './style';
 
-const PaymentResultPage = (): ReactNode => {
+const PaymentSuccessPage = (): ReactNode => {
   const navigate = useNavigate();
   return (
     <S.Wrapper>
@@ -35,7 +35,7 @@ const PaymentResultPage = (): ReactNode => {
             {`나의 짝은 0월0일에 확인할 수 있어요.\n 이제 기다림의 시간...`}
           </Text>
         </div>
-        <img src={heartLetter} alt="tree" width={150} height={180} />
+        <img src={santaAndRudolf} alt="tree" width={264} height={162} />
         <Text color={'Blue30'} typograph={'labelMediumMedium'}>
           신청 취소 기한 0월 0일 오후 11시 59분까지
         </Text>
@@ -46,11 +46,11 @@ const PaymentResultPage = (): ReactNode => {
         style={{ width: '100%', bottom: 36, position: 'absolute' }}
       >
         <Button buttonColor={'primary'} onClick={() => navigate('/auth/main')}>
-          팅 신청하기
+          완료
         </Button>
       </div>
     </S.Wrapper>
   );
 };
 
-export default PaymentResultPage;
+export default PaymentSuccessPage;

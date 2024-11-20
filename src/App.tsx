@@ -13,10 +13,10 @@ import PrivatePolicyPage from './pages/PrivatePolicyPage';
 import PaymentPage from './pages/PaymentPage';
 import InvitationPage from './pages/InvitationPage';
 import GroupDetailProfilePage from './pages/GroupDetailProfilePage';
-import Recruit from './pages/Recruit';
 import EditProfilePage from './pages/EditProfilePage';
 import BasicProfilePage from './pages/BasicProfilePage';
-import PaymentResultPage from './pages/PaymentResultPage';
+import PaymentSuccessPage from './pages/PaymentSuccessPage';
+import PaymentFailedPage from './pages/PaymentFailedPage';
 import PaymentTestPage from './pages/PaymentTestPage';
 
 const router = createBrowserRouter([
@@ -99,8 +99,12 @@ const router = createBrowserRouter([
             element: <PaymentPage />,
           },
           {
-            path: 'result',
-            element: <PaymentResultPage />,
+            path: 'success',
+            element: <PaymentSuccessPage />,
+          },
+          {
+            path: 'failed',
+            element: <PaymentFailedPage />,
           },
         ],
       },
