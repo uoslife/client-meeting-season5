@@ -8,7 +8,7 @@ const S = {
     position: fixed;
     padding: 8px;
 
-    top: 30px;
+    top: 50px;
 
     background: ${COLORS.Blue70};
     border-radius: 6px;
