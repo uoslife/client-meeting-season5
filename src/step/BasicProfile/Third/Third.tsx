@@ -78,6 +78,10 @@ const Third = (props: {
     mainButtonDisabled: !createInterestForm.watch('customInterest'),
     mainButtonCallback: () => {
       const item = createInterestForm.getValues('customInterest');
+      if (createInterestForm.getValues('customInterest').length > 10) {
+        alert('최대 10자까지만 입력할 수 있습니다.');
+        return;
+      }
       if (!interestOptions.includes(item)) {
         if (interestOptions.length >= 5) {
           alert('최대 5개까지만 선택할 수 있습니다.');
