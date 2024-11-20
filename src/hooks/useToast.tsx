@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import Toast from '../components/common/Toast';
 
-interface UseToastReturnType {
+export interface UseToastReturnType {
   toast: (timeout: number) => void;
   render: (text: string) => ReactNode;
 }
