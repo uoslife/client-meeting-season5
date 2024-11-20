@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { calculateTimeUntilChristmas } from '../../utils/time';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../components/common/Text';
+import SmallHeart from '../../lib/assets/images/spalsh-small-img.png';
+import BigHeart from '../../lib/assets/images/splash-big-img.png';
 const SplashPage = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeUntilChristmas());
   const navigate = useNavigate();
@@ -17,7 +19,12 @@ const SplashPage = () => {
   return (
     <S.SplashPageContainer className="layout-padding">
       <S.MainContainer>
-        <S.bodyWrapper>
+        <S.HeartWrapper>
+          <img width={90} src={SmallHeart} alt="small-heart" />
+          <img width={126} src={BigHeart} alt="small-heart" />
+          <img width={90} src={SmallHeart} alt="small-heart" />
+        </S.HeartWrapper>
+        <S.BodyWrapper>
           <Text
             typograph={'titleMedium'}
             color={'Blue2'}
@@ -60,7 +67,7 @@ const SplashPage = () => {
               </Text>
             </S.TimeTextWrapper>
           </S.TimeWrapper>
-        </S.bodyWrapper>
+        </S.BodyWrapper>
       </S.MainContainer>
 
       <S.ButtonWrapper>

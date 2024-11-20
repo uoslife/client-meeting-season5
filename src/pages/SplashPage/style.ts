@@ -14,7 +14,15 @@ export const S = {
     width: 100%;
     min-height: calc(100vh - 148px);
   `,
-  bodyWrapper: styled.div`
+  HeartWrapper: styled.div`
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+
+    margin-bottom: 68px;
+  `,
+  BodyWrapper: styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
