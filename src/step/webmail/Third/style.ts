@@ -28,6 +28,7 @@ export const S = {
     justify-content: center;
     align-items: center;
     gap: 8px;
+    margin-bottom: 40px;
   `,
   DescriptionWrapper: styled.div`
     display: flex;
