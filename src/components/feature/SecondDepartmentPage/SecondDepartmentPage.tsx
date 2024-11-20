@@ -82,7 +82,7 @@ const SecondDepartmentPage = (props: {
           typograph={'headlineMedium'}
           style={{ fontWeight: 700, width: '100%' }}
         >
-          학적 정보를 입력해요.
+          캠퍼스 신분을 알려주세요.
         </Text>
         <div style={{ marginTop: 40 }}>
           {departmentMemo.map(({ title, type, inputs }) => {
