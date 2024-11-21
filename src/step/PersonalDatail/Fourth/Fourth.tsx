@@ -16,8 +16,12 @@ const Fourth = (props: {
     avoidStudentId,
   }: Pick<OptionalProfileType, 'avoidDepartment' | 'avoidStudentId'>) => void;
 }): ReactNode => {
-  const [avoidDepartment, setAvoidDepartment] = useState<string>('');
-  const [avoidStudentId, setAvoidStudentId] = useState<string>('');
+  const [avoidDepartment, setAvoidDepartment] = useState<string>(
+    props.context.avoidDepartment ?? '',
+  );
+  const [avoidStudentId, setAvoidStudentId] = useState<string>(
+    props.context.avoidStudentId ?? '',
+  );
   const list = Array.from({ length: 15 }, (_, index) => String(2010 + index));
 
   const handleSelectedChange = (value: string) => {
@@ -35,6 +39,7 @@ const Fourth = (props: {
           {
             ...avoidDepartment,
             placeholder: '학과를 선택해주세요.',
+            defaultValue: props.context.avoidDepartment,
           },
         ],
       },
@@ -45,6 +50,7 @@ const Fourth = (props: {
           {
             ...avoidStudentId,
             placeholder: '학번을 선택해 주세요.',
+            defaultValue: props.context.avoidStudentId,
           },
         ],
       },
@@ -154,8 +160,10 @@ const Fourth = (props: {
           onClick={() => {}}
           disabled={
             !(
-              avoidDepartmentForm.watch('avoidDepartment') &&
-              avoidDepartmentForm.watch('avoidStudentId')
+              (avoidDepartmentForm.watch('avoidDepartment') ||
+                props.context.avoidDepartment) &&
+              (avoidDepartmentForm.watch('avoidStudentId') ||
+                props.context.avoidStudentId)
             )
           }
         >

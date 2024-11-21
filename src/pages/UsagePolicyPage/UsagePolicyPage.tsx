@@ -42,7 +42,10 @@ const UsagePolicy = () => {
 
   return (
     <S.Container onSubmit={handleSubmit}>
-      <Header title="약관 동의하기" />
+      <Header
+        title="약관 동의하기"
+        leftButtonCallback={() => navigate('/start')}
+      />
       <S.MainContainer className="layout-padding">
         <S.PolicyHeaderWrapper>
           <Text typograph={'titleLarge'} color={'Blue90'}>
@@ -93,13 +96,21 @@ const UsagePolicy = () => {
         >
           개인정보 보안 서약
         </Text>
-        <Text
-          typograph={'labelMediumMedium'}
-          color={'Blue70'}
-          style={{ marginBottom: '16px' }}
-        >
-          시대팅은 서울시립대 구성원에게만 제공되는 서비스입니다.
-        </Text>
+        <S.TextWrapperColumn>
+          <Text typograph={'labelMediumMedium'} color={'Blue70'}>
+            시대팅은 서울시립대 구성원에게만 제공되는 서비스입니다.
+          </Text>
+          <Text typograph={'labelMediumMedium'} color={'Blue70'}>
+            웹메일, 카카오톡 ID 및 전화번호를 타인에게 양도하거나 도용 및
+          </Text>
+          <Text
+            typograph={'labelMediumMedium'}
+            color={'Blue70'}
+            style={{ marginBottom: '16px' }}
+          >
+            대여하는 경우, 서비스 이용에 제재 또는 불이익을 받을 수 있습니다.
+          </Text>
+        </S.TextWrapperColumn>
         <S.SecurityWrapper
           onClick={() => {
             if (check3.current) {

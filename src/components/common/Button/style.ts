@@ -25,6 +25,8 @@ const S = {
           return COLORS.Yellow;
         case 'blue':
           return COLORS.Blue50;
+        case 'white':
+          return COLORS.White;
         default:
           return COLORS.Red60;
       }

@@ -23,13 +23,13 @@ const Footer = () => {
           111-82-69698
         </Text>
         <Text color={'Grey40'} typograph={'labelMediumMedium'}>
-          한유민
+          이서현
         </Text>
         <Text color={'Grey40'} typograph={'labelMediumMedium'}>
           서울특별시 동대문구 망우로 18가길 43-2, 지층
         </Text>
         <Text color={'Grey40'} typograph={'labelMediumMedium'}>
-          010-5748-1048
+          010-3883-2859
         </Text>
       </S.RightSection>
     </S.FooterWrapper>

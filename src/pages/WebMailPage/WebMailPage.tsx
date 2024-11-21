@@ -29,7 +29,7 @@ const WebMailPage = () => {
         <>
           <Header
             title="웹메일 인증하기"
-            leftButtonCallback={() => navigate('/start')}
+            leftButtonCallback={() => navigate('/policy')}
           />
           <First
             webmail={funnel.context.webmail as string}

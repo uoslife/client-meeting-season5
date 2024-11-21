@@ -32,7 +32,7 @@ const SecondChoicePage = ({
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%' }}
         >
-          기본 정보를 입력해주세요
+          캠퍼스 신분을 알려주세요.
         </Text>
         <S.RadioWrapper>
           <Radio

@@ -12,9 +12,17 @@ export const S = {
   `,
   MainContainer: styled.div`
     width: 100%;
-    min-height: calc(100vh - 148px);
+    min-height: calc(100vh - 168px);
   `,
-  bodyWrapper: styled.div`
+  HeartWrapper: styled.div`
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+
+    margin-bottom: 68px;
+  `,
+  BodyWrapper: styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -45,7 +53,7 @@ export const S = {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 128px;
+    height: 148px;
   `,
   Button: styled.button`
     margin-top: 20px;

@@ -80,6 +80,7 @@ const Third = (props: {
               <div key={title} style={{ position: 'relative' }}>
                 <S.Input
                   {...input}
+                  defaultChecked={props.context.prefer === value}
                   type="radio"
                   id={title}
                   name="prefer"
@@ -107,7 +108,7 @@ const Third = (props: {
           buttonColor="primary"
           type="submit"
           onClick={() => {}}
-          disabled={!preferForm.watch('prefer')}
+          disabled={!(preferForm.watch('prefer') || props.context.prefer)}
         >
           다음
         </Button>

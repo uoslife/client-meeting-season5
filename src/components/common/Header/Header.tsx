@@ -40,39 +40,41 @@ const Header = ({
   };
   return (
     <S.Wrapper justifyContent={iconLocationAttribute()}>
-      {isGoBackButton && (
-        <img
-          src={arrowBack}
-          alt="뒤로가기"
-          width={20}
-          height={20}
-          style={{ zIndex: 1, cursor: 'pointer' }}
-          onClick={leftButtonCallback && leftButtonCallback}
-        />
-      )}
+      <div style={{ width: 20, height: 20 }}>
+        {isGoBackButton && (
+          <img
+            src={arrowBack}
+            alt="뒤로가기"
+            width={20}
+            height={20}
+            style={{ zIndex: 1, cursor: 'pointer' }}
+            onClick={leftButtonCallback && leftButtonCallback}
+          />
+        )}
+      </div>
 
       <Text
         color={'Blue70'}
         typograph={'titleMedium'}
         style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
+          width: '100%',
           textAlign: 'center',
         }}
       >
         {title}
       </Text>
-      {rightButtonType !== 'none' && (
-        <img
-          src={rightButtonIcon(rightButtonType)}
-          alt="오른쪽버튼"
-          width={20}
-          height={20}
-          style={{ zIndex: 1, cursor: 'pointer' }}
-          onClick={rightButtonCallback && rightButtonCallback}
-        />
-      )}
+      <div style={{ width: 20, height: 20 }}>
+        {rightButtonType !== 'none' && (
+          <img
+            src={rightButtonIcon(rightButtonType)}
+            alt="오른쪽버튼"
+            width={20}
+            height={20}
+            style={{ zIndex: 1, cursor: 'pointer' }}
+            onClick={rightButtonCallback && rightButtonCallback}
+          />
+        )}
+      </div>
     </S.Wrapper>
   );
 };

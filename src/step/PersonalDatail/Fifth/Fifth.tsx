@@ -23,7 +23,7 @@ const Fifth = (props: {
           {
             ...course,
             placeholder: '이런 데이트 코스를',
-            default: props.context.course,
+            defaultValue: props.context.course,
           },
         ],
         error: errors.course?.message,
@@ -98,7 +98,7 @@ const Fifth = (props: {
           buttonColor="primary"
           type="submit"
           onClick={() => {}}
-          disabled={!dateCourseForm.watch('course')}
+          disabled={!(dateCourseForm.watch('course') || props.context.course)}
         >
           다음
         </Button>

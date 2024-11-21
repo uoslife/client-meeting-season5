@@ -5,7 +5,7 @@ import { ButtonHTMLAttributes } from 'react';
 
 export interface ButtonPropsType {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  buttonColor: 'primary' | 'secondary' | 'black' | 'yellow' | 'blue';
+  buttonColor: 'primary' | 'secondary' | 'black' | 'yellow' | 'blue' | 'white';
   disabled?: boolean;
   children: string;
   onClick: () => void;
@@ -36,6 +36,8 @@ const Button = ({
         return 'White';
       case 'yellow':
         return 'Red80';
+      case 'white':
+        return 'Red60';
       default:
         return 'White';
     }

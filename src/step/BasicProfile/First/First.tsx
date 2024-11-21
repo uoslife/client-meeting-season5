@@ -13,6 +13,8 @@ import {
   RenderPropsType,
 } from '../../../components/feature/IntegratedInput/IntegratedInput';
 import Picker from '../../../components/common/Picker';
+import useModal from '../../../hooks/useModal';
+import KakaoContent from '../../../components/feature/KakaoContent';
 
 const First = (props: {
   context: BaseProfileType;
@@ -24,12 +26,24 @@ const First = (props: {
     kakaoTalkId,
   }: BaseProfileType) => void;
 }): ReactNode => {
+  const [cnt, setCnt] = useState(0);
+  const [year, setYear] = useState(0);
+  const kakaoModal = useModal({
+    //API 호출
+    title: `잠깐! 꼭 알아두세요`,
+    isSideButton: false,
+    mainButtonText: '확인했어요!',
+    mainButtonCallback: () => {
+      setCnt(cnt + 1);
+    },
+  });
   const [selectedAge, setSelectedAge] = useState<string>('');
   const list = Array.from({ length: 2005 - 1990 + 1 }, (_, i) =>
     (1990 + i).toString(),
   );
   const handleSelectedChange = (value: string) => {
-    setSelectedAge(getAgeFromYear(value));
+    const age = getAgeFromYear(value) + '세';
+    setSelectedAge(age);
   };
 
   const profileForm = useProfileForm();
@@ -184,7 +198,7 @@ const First = (props: {
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%' }}
         >
-          기본 정보를 입력해주세요
+          당신에 대해 알려주세요.
         </Text>
         <div style={{ marginTop: 40 }}>
           {profileMemo.map(({ title, type, inputs, error, content }) => {
@@ -198,10 +212,9 @@ const First = (props: {
                     <BasicInput
                       key={input.name}
                       {...input}
-                      style={{
-                        fontSize: '1.6rem',
-                        fontWeight: 500,
-                        lineHeight: '2.4rem',
+                      onClick={() => {
+                        if (title === '카카오톡 ID' && cnt === 0)
+                          kakaoModal.open();
                       }}
                     />
                   ))}
@@ -255,6 +268,7 @@ const First = (props: {
         {ageBottomSheet.render(
           <Picker list={list} onSelectedChange={handleSelectedChange} />,
         )}
+        {kakaoModal.render({ children: <KakaoContent /> })}
       </S.BottomSheet>
     </S.Form>
   );

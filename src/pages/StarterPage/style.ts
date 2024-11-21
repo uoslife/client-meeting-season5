@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLORS } from '../../lib/constants';
+import StartBackground from '../../lib/assets/images/start-background-img.png';
 
 export const S = {
   StarterPageContainer: styled.div`
@@ -7,20 +8,31 @@ export const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     background: ${COLORS.Blue2};
     width: 100%;
+
+    background-image: url(${StartBackground});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
   `,
   UpperWrapper: styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    gap: 60px;
 
     width: 100%;
-    min-height: 100vh;
+  `,
+  Wrapper: styled.div`
+    min-height: calc(100vh - 144px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
   `,
   HeaderWrapper: styled.div`
     display: flex;
@@ -28,6 +40,7 @@ export const S = {
     align-items: center;
 
     padding-top: 40px;
+    margin-bottom: 40px;
   `,
   CustomTextWrapper: styled.div`
     display: flex;
@@ -67,5 +80,7 @@ export const S = {
     flex-direction: column;
     width: 100%;
     gap: 8px;
+    height: 124px;
+    margin-top: 20px;
   `,
 };

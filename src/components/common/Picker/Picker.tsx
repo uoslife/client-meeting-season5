@@ -8,7 +8,7 @@ interface ScrollPickerProps {
 }
 
 const Picker = ({ list, onSelectedChange }: ScrollPickerProps) => {
-  const SCROLL_DEBOUNCE_TIME = 200;
+  const SCROLL_DEBOUNCE_TIME = 100;
 
   const newList = ['', '', ...list, '', ''];
   const ref = useRef<HTMLUListElement>(null);

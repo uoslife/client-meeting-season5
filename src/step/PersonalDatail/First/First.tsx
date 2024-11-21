@@ -1,5 +1,8 @@
 import { ReactNode, useMemo, useState } from 'react';
-import { BaseProfileType } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
+import {
+  BaseProfileType,
+  FirtstType,
+} from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
 import { S } from './style';
 import Button from '../../../components/common/Button';
 import Indicator from '../../../components/common/Indicator';
@@ -15,6 +18,7 @@ import AppearanceBottomSheet from '../../../components/feature/AppearanceBottomS
 import useSmokingForm from '../../../hooks/useSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
 const First = (props: {
+  context: FirtstType;
   onNext: ({
     myMbti,
     myHeight,
@@ -113,6 +117,7 @@ const First = (props: {
           {
             ...myMbti,
             placeholder: 'MBTI을 선택해 주세요.',
+            defaultValue: props.context.myMbti,
           },
         ],
         content: [
@@ -130,6 +135,7 @@ const First = (props: {
           {
             ...myHeight,
             placeholder: '키를 선택해 주세요.',
+            defaultValue: props.context.myHeight,
           },
         ],
         errors: errors.myHeight?.message,
@@ -141,6 +147,7 @@ const First = (props: {
           {
             ...myAppearanceType,
             placeholder: '얼굴상과 쌍꺼풀 종류를 선택해 주세요.',
+            defaultValue: props.context.myAppearanceType,
           },
         ],
         errors: errors.myAppearanceType?.message,
@@ -152,6 +159,7 @@ const First = (props: {
           {
             ...mySmoking,
             placeholder: '흡연 여부를 선택해 주세요.',
+            defaultValue: props.context.mySmoking,
           },
         ],
         errors: errors.mySmoking?.message,
