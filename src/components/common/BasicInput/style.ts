@@ -15,17 +15,8 @@ export const S = {
     font-weight: 500;
     line-height: 2.4rem;
 
-    color: ${COLORS.Blue90}
-
-    ::-webkit-input-placeholder {
-      color: ${COLORS.Blue20};
-    }
-
-    ::-ms-input-placeholder {
-      color: ${COLORS.Blue20};
-    }
-
-    ::placeholder {
+    color: ${COLORS.Blue90};
+    &::placeholder {
       color: ${COLORS.Blue20};
     }
   `,
