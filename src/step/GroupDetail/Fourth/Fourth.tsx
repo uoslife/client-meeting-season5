@@ -3,8 +3,10 @@ import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailPro
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
 import S from './style';
+import { useNavigate } from 'react-router-dom';
 
 const Fourth = (props: { context: Partial<FourthType> }): ReactNode => {
+  const navigate = useNavigate();
   return (
     <>
       <S.Container className="layout-padding">
@@ -23,7 +25,7 @@ const Fourth = (props: { context: Partial<FourthType> }): ReactNode => {
             buttonColor="primary"
             type="submit"
             onClick={() => {
-              console.log(props.context);
+              navigate('/auth/summary');
             }}
             disabled={false}
           >
