@@ -27,7 +27,6 @@ const First = (props: {
   }: BaseProfileType) => void;
 }): ReactNode => {
   const [cnt, setCnt] = useState(0);
-  const [year, setYear] = useState(0);
   const kakaoModal = useModal({
     //API 호출
     title: `잠깐! 꼭 알아두세요`,
