@@ -30,10 +30,7 @@ const Fourth = (): ReactNode => {
         </S.Wrapper>
       </S.MainContainer>
       <S.ButtonWrapper>
-        <Button
-          buttonColor={'primary'}
-          onClick={() => navigate('/auth/profile')}
-        >
+        <Button buttonColor={'primary'} onClick={() => navigate('/auth/main')}>
           눈 맞을 짝을 찾아 떠나볼까요?
         </Button>
       </S.ButtonWrapper>

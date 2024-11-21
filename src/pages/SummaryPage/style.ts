@@ -9,7 +9,6 @@ export const S = {
     background-position: center;
     background-repeat: no-repeat;
     width: 100vw;
-    height: 100vh;
   `,
   ToastWrapper: styled.div`
     position: relative;
