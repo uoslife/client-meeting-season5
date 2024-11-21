@@ -60,7 +60,7 @@ const MainBUttonWrapper = ({
       </S.Button>
       <S.Button
         onClick={() => {
-          if (!isGroupComplete) navigate('/auth/payment-test');
+          if (!isGroupComplete) navigate('/auth/invite');
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -71,7 +71,18 @@ const MainBUttonWrapper = ({
           >
             3대3
           </Text>
-          {isGroupComplete ? (
+          {isPersonalComplete && (
+            <Text
+              color={'Blue40'}
+              typograph={'labelMediumMedium'}
+              style={{ fontWeight: 600 }}
+            >
+              (완료)
+            </Text>
+          )}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {isPersonalComplete ? (
             <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
               신청 정보 확인
             </Text>
@@ -80,16 +91,9 @@ const MainBUttonWrapper = ({
               신청하기
             </Text>
           )}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Text
-            color={isGroupComplete ? 'Blue40' : 'Red60'}
-            typograph={'bodyLargeMedium'}
-          >
-            신청하기
-          </Text>
+
           <img
-            src={isGroupComplete ? arrowFront : arrowFrontRed}
+            src={isPersonalComplete ? arrowFront : arrowFrontRed}
             alt="arrow-front"
             width={20}
             height={20}

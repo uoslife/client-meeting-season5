@@ -24,12 +24,13 @@ export const S = {
     display: flex;
     align-items: center;
     gap: 12px;
-
+    border-radius: 8px;
     background: ${COLORS.Blue2};
   `,
   TextWrapper: styled.div`
     display: flex;
     jusitfy-content: center;
+    cursor: pointer;
   `,
   TextWrapperColumn: styled.div`
     display: flex;
