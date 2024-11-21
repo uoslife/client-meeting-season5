@@ -66,7 +66,7 @@ const First = (props: {
             }}
           >
             <S.Input
-              placeholder="안내텍스트"
+              placeholder="예) 건공이사랑, 시대생짱"
               {...register('name', { required: true })}
             />
             <S.DeleteWrapper>
