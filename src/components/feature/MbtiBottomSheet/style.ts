@@ -5,7 +5,6 @@ export const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0px 20px;
 
     gap: 8px;
   `,
@@ -13,8 +12,10 @@ export const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   `,
   MbtiItem: styled.div`
+    width: 100%;
     border-radius: 4px;
     overflow: hidden;
   `,
