@@ -44,9 +44,9 @@ export const S = {
     position: absolute;
     right: 50%;
     transform: translate(-50%);
-    height: 220px;
+    height: 215px;
     width: 0px;
-    border-right: 1px dashed ${COLORS.Blue2};
+    border-right: 1px dashed ${COLORS.Blue20};
     display: flex;
   `,
   Div: styled.div``,
