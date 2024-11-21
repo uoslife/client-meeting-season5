@@ -12,7 +12,7 @@ export const S = {
     position: relative;
     font-size: 2rem;
     display: flex;
-    padding: 18px 18px;
+    padding: 22px 21.5px;
     justify-content: center;
     align-items: center;
     flex: 1 0 0;
