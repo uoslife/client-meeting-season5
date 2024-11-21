@@ -20,7 +20,6 @@ const Third = (props: {
     register,
     handleSubmit: handleSubmitWrapper,
     formState: { errors },
-    reset,
   } = useForm<MoodFormType>();
 
   const handleSubmit: SubmitHandler<MoodFormType> = (data) => {

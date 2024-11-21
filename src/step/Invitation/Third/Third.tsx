@@ -9,11 +9,7 @@ const Third = (props: {
   isTeamLeader: boolean;
   onNext: (userList: string[]) => void;
 }) => {
-  const [userList, setUserList] = useState<string[]>([
-    '우채윤',
-    '우채윤',
-    '우채윤',
-  ]);
+  const [userList, _] = useState<string[]>(['우채윤', '우채윤', '우채윤']);
   return (
     <>
       <S.Container>

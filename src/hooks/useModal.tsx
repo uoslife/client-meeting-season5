@@ -29,7 +29,9 @@ const useModal = ({
     setIsOpen(false);
   };
 
-  const render = ({ children = null } = {}) => {
+  const render = ({
+    children = null,
+  }: { children?: React.ReactNode } = {}): JSX.Element => {
     const handleButtonClick = () => {
       if (isPending) {
         return;

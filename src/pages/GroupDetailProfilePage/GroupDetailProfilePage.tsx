@@ -140,7 +140,7 @@ const GroupDatailProfilePage = () => {
               rightButtonType={'logout'}
               rightButtonCallback={() => roomBoomModal.open()}
             />
-            <Fourth context={funnel.context} />
+            <Fourth />
           </>
         );
     }

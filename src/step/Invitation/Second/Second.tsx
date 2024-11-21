@@ -10,7 +10,7 @@ interface CodeType {
 }
 
 const Second = (props: { onNext: () => void }) => {
-  const [teamLeaderName, setTeamLeaderName] = useState<string>('누군가');
+  const [teamLeaderName, _] = useState<string>('누군가');
   const {
     watch,
     register,

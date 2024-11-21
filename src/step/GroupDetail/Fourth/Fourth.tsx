@@ -1,11 +1,9 @@
-import { ReactNode } from 'react';
-import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailProfilePage';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
 import S from './style';
 import { useNavigate } from 'react-router-dom';
 
-const Fourth = (props: { context: Partial<FourthType> }): ReactNode => {
+const Fourth = () => {
   const navigate = useNavigate();
   return (
     <>
