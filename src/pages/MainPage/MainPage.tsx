@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import MainBUttonWrapper from '../../components/feature/MainButtonWrapper/MainButtonWrapper';
 import { S } from './style';
 import snowman from '../../lib/assets/images/main-snowman-img.png';
+import snowmanIcon from '../../lib/assets/images/main-snowman-icon.png';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ const MainPage = () => {
             </S.TopbarRight>
           </S.TopBar>
           <S.MainText>
-            <S.GradientText>{`함께 눈 맞을 짝을\n찾아 떠나볼까요?`}</S.GradientText>
+            <S.GradientText>
+              {`함께 눈 맞을 짝을\n찾아 떠나볼까요?`}
+              <img src={snowmanIcon} width={30} />
+            </S.GradientText>
           </S.MainText>
           <S.Period>
             <Text color={'Blue90'} typograph={'bodyMediumRegular'}>
