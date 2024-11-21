@@ -21,7 +21,7 @@ const Second = (props: {
     reset,
   } = useForm<CodeType>();
 
-  const [timeLeft, setTimeLeft] = useState(180);
+  const [timeLeft, setTimeLeft] = useState(10);
   const [errorText, setErrorText] = useState('');
 
   useEffect(() => {
@@ -92,18 +92,30 @@ const Second = (props: {
             <Text color={'Blue70'} typograph={'bodyMediumSemiBold'}>
               인증코드
             </Text>
-            <Text color={'ErrorLight'} typograph={'titleMedium'}>
-              {errorText}
-            </Text>
-            <Text color={'Blue70'} typograph={'titleMedium'}>
-              {formatTime(timeLeft)}
-            </Text>
+            {errorText ? (
+              <Text color={'ErrorLight'} typograph={'titleMedium'}>
+                {errorText}
+              </Text>
+            ) : (
+              <Text color={'Blue70'} typograph={'titleMedium'}>
+                {formatTime(timeLeft)}
+              </Text>
+            )}
             <S.InputWrapper>
               {Array(4)
                 .fill(0)
                 .map((_, i) => {
                   return (
-                    <S.InputDisplay key={i}>
+                    <S.InputDisplay
+                      key={i}
+                      isFocused={Boolean(
+                        (watch('code') && watch('code').length === i) ||
+                          (i == 0 &&
+                            watch('code') &&
+                            watch('code').length === 0),
+                      )}
+                      isError={!!errorText}
+                    >
                       {watch('code') && watch('code')[i]}
                     </S.InputDisplay>
                   );
