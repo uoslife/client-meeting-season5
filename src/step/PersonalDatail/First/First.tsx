@@ -338,7 +338,7 @@ const First = (props: {
           color={'Blue90'}
           style={{ fontWeight: 700, width: '100%', marginBottom: '40px' }}
         >
-          알려주세요, 당신의 TMI.
+          당신의 TMI를 알려주세요.
         </Text>
         {personalDetailMemo.map(({ title, type, inputs, errors }) => {
           return (
