@@ -8,7 +8,6 @@ export const S = {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
   `,
   ToastWrapper: styled.div`
     position: relative;
