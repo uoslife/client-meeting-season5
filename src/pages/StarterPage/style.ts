@@ -15,8 +15,6 @@ export const S = {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
   `,
   UpperWrapper: styled.div`
     position: relative;

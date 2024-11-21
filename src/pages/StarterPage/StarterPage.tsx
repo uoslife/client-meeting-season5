@@ -82,11 +82,7 @@ const StarterPage = () => {
                 </S.DateWrapper>
               </S.SubTitleWrapper>
             </S.HeaderWrapper>
-            <img
-              width={'100%'}
-              src={MainIMG}
-              alt="눈사람이 스키를 타는 아이콘"
-            />
+            <img width={'336'} src={MainIMG} alt="눈사람 아이콘" />
           </S.Wrapper>
           <S.ButtonWrapper>
             <Button
