@@ -86,7 +86,7 @@ const Fifth = (props: {
         </Text>
         <Text
           typograph={'bodyMediumMedium'}
-          color={'Blue90'}
+          color={'Blue70'}
           style={{ whiteSpace: 'pre-wrap', marginTop: 40 }}
         >
           {`예) 크리스마스 트리 앞에서 사진 찍기, \n크리스마스 컨셉 방탈출 게임`}

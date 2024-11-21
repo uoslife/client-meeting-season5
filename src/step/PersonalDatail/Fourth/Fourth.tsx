@@ -49,7 +49,7 @@ const Fourth = (props: {
         inputs: [
           {
             ...avoidStudentId,
-            placeholder: '학번을 선택해 주세요.',
+            placeholder: '입학년도 선택해 주세요.',
             defaultValue: props.context.avoidStudentId,
           },
         ],
@@ -114,12 +114,17 @@ const Fourth = (props: {
         <Text
           color={'Blue90'}
           typograph={'headlineMedium'}
-          style={{ fontWeight: 700, width: '100%', whiteSpace: 'pre-wrap' }}
+          style={{
+            fontWeight: 700,
+            width: '100%',
+            whiteSpace: 'pre-wrap',
+            marginBottom: '8px',
+          }}
         >
-          {`피하고 싶은 상대가 있나요?\n쏙 빼드릴게요`}
+          {`피하고 싶은 상대가 있나요?\n쓱 빼드릴게요`}
         </Text>
         <Text
-          color={'Blue90'}
+          color={'Blue70'}
           typograph={'bodyMediumMedium'}
           style={{ fontWeight: 500, width: '100%' }}
         >
