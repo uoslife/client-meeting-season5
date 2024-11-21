@@ -122,6 +122,7 @@ const Second = (props: {
               <S.Input
                 value={watch('code')}
                 type="number"
+                pattern="\d*"
                 {...register('code', {
                   required: true,
                   max: 9999,
