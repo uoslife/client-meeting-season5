@@ -62,7 +62,9 @@ const MainPage = () => {
             color={'Blue40'}
             typograph={'labelMediumMedium'}
             style={{ textDecoration: 'underline', cursor: 'pointer' }}
-            onClick={() => window.open('https://example.com/privacy')}
+            onClick={() =>
+              window.open(import.meta.env.VITE_TERMS_OF_USE_LINK, '_blank')
+            }
           >
             시대팅 이용약관 확인하기
           </Text>
