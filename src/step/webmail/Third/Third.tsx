@@ -35,7 +35,7 @@ const Third = (): ReactNode => {
           buttonColor={'primary'}
           onClick={() => navigate('/auth/profile')}
         >
-          눈 맞을 짝을 찾아 떠나볼까요?
+          다음
         </Button>
       </S.ButtonWrapper>
     </S.Container>
