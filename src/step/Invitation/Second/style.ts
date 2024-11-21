@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { COLORS } from '../../../lib/constants';
 
+type InputDisplayPropsType = {
+  isFocused: boolean;
+};
+
 export const S = {
   FormContainer: styled.form`
     width: 100%;
@@ -46,17 +50,18 @@ export const S = {
     border: none;
     outline: none;
   `,
-  InputDisplay: styled.div`
+  InputDisplay: styled.div<InputDisplayPropsType>`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 4.4rem;
     height: 8rem;
     padding: 0.4rem 0.8rem;
-    border-bottom: 2px solid ${COLORS.Blue20};
+    border-bottom: 2px solid
+      ${(props) => (props.isFocused ? COLORS.Blue90 : COLORS.Blue20)};
     font-weight: 600;
     font-size: 6.8rem;
-    color: #1a2233;
+    color: ${COLORS.Blue90};
   `,
 };
 

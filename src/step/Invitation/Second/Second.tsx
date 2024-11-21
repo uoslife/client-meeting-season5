@@ -11,6 +11,7 @@ interface CodeType {
 
 const Second = (props: { onNext: () => void }) => {
   const [teamLeaderName, _] = useState<string>('누군가');
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const {
     watch,
     register,
@@ -59,7 +60,13 @@ const Second = (props: { onNext: () => void }) => {
             .fill(0)
             .map((_, i) => {
               return (
-                <S.InputDisplay key={i}>
+                <S.InputDisplay
+                  key={i}
+                  isFocused={Boolean(
+                    (watch('code') && watch('code').length === i) ||
+                      (isFocused && i == 0 && !watch('code')),
+                  )}
+                >
                   {watch('code') && watch('code')[i]}
                 </S.InputDisplay>
               );
@@ -79,6 +86,8 @@ const Second = (props: { onNext: () => void }) => {
                 return value;
               },
             })}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
           />
         </S.InputWrapper>
       </S.MainContainer>
