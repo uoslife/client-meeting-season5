@@ -22,5 +22,13 @@ export const S = {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    span {
+      font-family: Pretendard;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px; /* 150% */
+      letter-spacing: -0.4px;
+    }
   `,
 };
