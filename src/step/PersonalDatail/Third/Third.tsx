@@ -65,7 +65,7 @@ const Third = (props: {
           typograph={'headlineMedium'}
           style={{ fontWeight: 700, width: '100%', whiteSpace: 'pre-wrap' }}
         >
-          {`당신의 이상형 체크리스트,\n최우선 항목은?`}
+          {`딱 한 가지! 상대방을 볼 때\n가장 중요한 것은 무엇인가요?`}
         </Text>
         <div
           style={{

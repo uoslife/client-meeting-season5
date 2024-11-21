@@ -29,30 +29,31 @@ export const S = {
     justify-content: space-between;
 
     background: ${COLORS.White};
-    border: 1px solid ${COLORS.Blue40};
+    border: 1px solid ${COLORS.Blue10};
 
     input:checked + & {
       background: ${COLORS.Red2};
-      border: 1px solid ${COLORS.Red60};
+      border: 1px solid ${COLORS.Red20};
     }
 
     input:checked + & p {
       color: ${COLORS.Red60};
+      font-weight: 600;
     }
     &:has(input:checked) {
-      border: 1px solid ${COLORS.Red60};
+      border: 1.5px solid ${COLORS.Red60};
       background: ${COLORS.Red2};
     }
   `,
   RadioButton: styled.div`
     width: 20px;
     height: 20px;
-    border: 1px solid ${COLORS.Blue40};
+    border: 1px solid ${COLORS.Blue20};
     border-radius: 50%;
     position: relative;
 
     input:checked + label & {
-      border-color: ${COLORS.Red60};
+      border: 1px solid ${COLORS.Red20};
       background: ${COLORS.White};
 
       &::after {
@@ -82,7 +83,7 @@ export const S = {
 
     &:checked + label {
       background: ${COLORS.Red2};
-      border: 1px solid ${COLORS.Red60};
+      border: 1.5px solid ${COLORS.Red60};
     }
     &:checked + span p {
       color: ${COLORS.Red60};
