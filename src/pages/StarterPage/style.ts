@@ -25,7 +25,8 @@ export const S = {
     width: 100%;
   `,
   Wrapper: styled.div`
-    min-height: calc(100vh - 144px);
+    min-height: calc(var(--vh, 1vh) * 100 - 144px);
+
     display: flex;
     flex-direction: column;
     align-items: center;
