@@ -12,7 +12,7 @@ export const S = {
     position: relative;
     font-size: 2rem;
     display: flex;
-    padding: 22px 21.5px;
+    padding: 18px 18px;
     justify-content: center;
     align-items: center;
     flex: 1 0 0;
@@ -42,6 +42,7 @@ export const S = {
     }
 
     &:not(:checked) + span {
+      background: ${COLORS.Blue2};
       color: ${COLORS.Blue40};
     }
   `,
