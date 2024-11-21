@@ -23,6 +23,7 @@ const Second = (props: {
 
   const [timeLeft, setTimeLeft] = useState(10);
   const [errorText, setErrorText] = useState('');
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -110,9 +111,7 @@ const Second = (props: {
                       key={i}
                       isFocused={Boolean(
                         (watch('code') && watch('code').length === i) ||
-                          (i == 0 &&
-                            watch('code') &&
-                            watch('code').length === 0),
+                          (isFocused && i == 0 && !watch('code')),
                       )}
                       isError={!!errorText}
                     >
@@ -136,6 +135,8 @@ const Second = (props: {
                     return value;
                   },
                 })}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
               />
             </S.InputWrapper>
             <div
