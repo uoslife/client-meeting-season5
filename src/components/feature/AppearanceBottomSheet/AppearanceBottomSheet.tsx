@@ -18,11 +18,7 @@ const AppearanceBottomSheet = ({ memo }: AppearanceBottomSheetPropsType) => {
     <S.Container>
       {memo.map(({ title, inputs }, index) => (
         <S.AppearanceItemWrapper key={index}>
-          <Text
-            typograph={'titleSmall'}
-            color={'Blue90'}
-            style={{ fontWeight: 600 }}
-          >
+          <Text typograph={'titleSmall'} color={'Blue90'}>
             {title}
           </Text>
           <S.AppearanceItem>
