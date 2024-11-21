@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 import { COLORS } from '../../../lib/constants';
-
+import InviteBackground from '../../../lib/assets/images/invite-result-img.png';
 export const S = {
+  Background: styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    background-image: url(${InviteBackground});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  `,
   FormContainer: styled.div`
     width: 100%;
     display: flex;
