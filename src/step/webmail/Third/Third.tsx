@@ -26,7 +26,7 @@ const Third = (): ReactNode => {
                 </Text>
               </S.DescriptionWrapper>
             </S.TextWrapper>
-            <img src={WebmailImg} width="168" />
+            <img src={WebmailImg} width="52%" />
           </S.IconWrapper>
         </S.Wrapper>
       </S.MainContainer>
