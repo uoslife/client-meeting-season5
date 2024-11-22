@@ -39,6 +39,7 @@ const DepartmentPicker = ({
                 key={item.college}
                 isClicked={college === item.college}
                 onClick={() => setCollege(item.college)}
+                type="college"
               >
                 {college === item.college ? (
                   <Text
@@ -70,10 +71,11 @@ const DepartmentPicker = ({
                   onClick={() => {
                     setDepartment(item);
                   }}
+                  type="department"
                 >
                   {department === item ? (
                     <Text
-                      color={'Blue90'}
+                      color={'Red60'}
                       typograph={'bodyLargeMedium'}
                       style={{ fontWeight: 600 }}
                     >
