@@ -98,8 +98,8 @@ const StarterPage = () => {
             </Button>
           </S.ButtonWrapper>
         </S.UpperWrapper>
-        <Footer />
       </S.StarterPageContainer>
+      <Footer />
       {render(toastMessage)}
     </>
   );
