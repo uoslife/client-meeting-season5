@@ -138,26 +138,31 @@ const Second = (props: {
             ...age,
             value: '5살 이상 연하',
             label: '5살 이상 연하',
+            checked: String(ageForm.watch('age')).includes('5살 이상 연하'),
           },
           {
             ...age,
             value: '1~4살 연하',
             label: '1~4살 연하',
+            checked: String(ageForm.watch('age')).includes('1~4살 연하'),
           },
           {
             ...age,
             value: '동갑',
             label: '동갑',
+            checked: String(ageForm.watch('age')).includes('동갑'),
           },
           {
             ...age,
             value: '1~4살 연상',
             label: '1~4살 연상',
+            checked: String(ageForm.watch('age')).includes('1~4살 연상'),
           },
           {
             ...age,
             value: '5살 이상 연상',
             label: '5살 이상 연상',
+            checked: String(ageForm.watch('age')).includes('5살 이상 연상'),
           },
         ],
         errors: errors.age?.message,
@@ -347,11 +352,20 @@ const Second = (props: {
     ),
     mainButtonCallback: () => {
       const age = ageForm.getValues('age');
+
+      if (age.length === 5) {
+        idealForm.setValue('counterAge', '상관없음');
+        return;
+      }
       idealForm.setValue('counterAge', age);
     },
     isSideButton: true,
     sideButtonCallback: () => {
       idealForm.setValue('counterAge', '상관없음');
+      ageForm.setValue(
+        'age',
+        '5살 이상 연하,1~4살 연하,동갑,1~4살 연상,5살 이상 연상',
+      );
     },
   });
   const heightBottomSheet = useBottomSheet({
