@@ -20,9 +20,9 @@ const SplashPage = () => {
     <S.SplashPageContainer className="layout-padding">
       <S.MainContainer>
         <S.HeartWrapper>
-          <img width={90} src={SmallHeart} alt="small-heart" />
-          <img width={126} src={BigHeart} alt="small-heart" />
-          <img width={90} src={SmallHeart} alt="small-heart" />
+          <img width={'28%'} src={SmallHeart} alt="small-heart" />
+          <img width={'39%'} src={BigHeart} alt="small-heart" />
+          <img width={'28%'} src={SmallHeart} alt="small-heart" />
         </S.HeartWrapper>
         <S.BodyWrapper>
           <Text

@@ -4,6 +4,7 @@ import { COLORS } from '../../lib/constants';
 
 export const S = {
   SplashPageContainer: styled.div`
+    position: relative
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -23,6 +24,10 @@ export const S = {
     margin-bottom: 68px;
   `,
   BodyWrapper: styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
     width: 100%;
     display: flex;
     flex-direction: column;
