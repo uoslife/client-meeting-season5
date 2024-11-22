@@ -157,12 +157,19 @@ const First = (props: {
     },
     isSideButton: false,
   });
+
+  console.log(String(profileForm.watch('kakaoID')).length);
   const nextButtondisabled = !(
     profileForm.watch('age') &&
+    String(profileForm.watch('age')).length > 0 &&
     profileForm.watch('genderReadOnly') &&
+    String(profileForm.watch('genderReadOnly')).length > 0 &&
     profileForm.watch('kakaoID') &&
+    String(profileForm.watch('kakaoID')).length > 0 &&
     profileForm.watch('name') &&
-    profileForm.watch('phoneNumber')
+    String(profileForm.watch('name')).length > 0 &&
+    profileForm.watch('phoneNumber') &&
+    String(profileForm.watch('phoneNumber')).length > 0
   );
   const nextButtonHandler = () => {
     // console.log(profileForm.errors.phoneNumber);

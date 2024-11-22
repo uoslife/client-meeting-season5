@@ -12,7 +12,7 @@ export const S = {
   Input: styled.textarea`
     flex: 1;
     resize: none;
-    height: 4.8rem;
+    height: 4.9rem;
     padding: 12px 36px 12px 0px;
     outline: none;
     border: 0;
