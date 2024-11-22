@@ -367,7 +367,7 @@ const Second = (props: {
     description: '희망하는 선택지를 모두 선택해 주세요.',
     mainButtonText: '선택',
     mainButtonDisabled: Boolean(
-      ageForm.watch('age') && !ageForm.watch('age').length,
+      !(ageForm.watch('age') && ageForm.watch('age').length > 0),
     ),
     mainButtonCallback: () => {
       const age = ageForm.getValues('age');
@@ -455,7 +455,10 @@ const Second = (props: {
     title: '외모',
     mainButtonText: '선택',
     mainButtonDisabled: !(
-      appearanceForm.watch('eyelid') && appearanceForm.watch('face')
+      appearanceForm.watch('eyelid') &&
+      String(appearanceForm.watch('eyelid')).length > 0 &&
+      appearanceForm.watch('face') &&
+      String(appearanceForm.watch('face')).length > 0
     ),
     mainButtonCallback: () => {
       const eyelid = appearanceForm.getValues('eyelid');
@@ -477,7 +480,10 @@ const Second = (props: {
   const smokingBottomSheet = useBottomSheet({
     title: '흡연 여부',
     mainButtonText: '선택',
-    mainButtonDisabled: String(smokingForm.watch('cigarette')).length <= 0,
+    mainButtonDisabled: !(
+      smokingForm.watch('cigarette') &&
+      String(smokingForm.watch('cigarette')).length > 0
+    ),
     mainButtonCallback: () => {
       const cigarette = smokingForm.getValues('cigarette');
       console.log(cigarette);
