@@ -182,6 +182,7 @@ const Second = (props: {
             label: 'E',
             subLabel: '외향적',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFirst')).includes('E'),
           },
           {
             ...mbtiFirst,
@@ -189,6 +190,7 @@ const Second = (props: {
             label: 'I',
             subLabel: '내향적',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFirst')).includes('I'),
           },
         ],
         errors: errors.mbtiFirst?.message,
@@ -203,6 +205,7 @@ const Second = (props: {
             label: 'N',
             subLabel: '직관형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiSecond')).includes('N'),
           },
           {
             ...mbtiSecond,
@@ -210,6 +213,7 @@ const Second = (props: {
             label: 'S',
             subLabel: '감각적',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiSecond')).includes('S'),
           },
         ],
         errors: errors.mbtiSecond?.message,
@@ -224,6 +228,7 @@ const Second = (props: {
             label: 'T',
             subLabel: '사고형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiThird')).includes('T'),
           },
           {
             ...mbtiThird,
@@ -231,6 +236,7 @@ const Second = (props: {
             label: 'F',
             subLabel: '감정형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiThird')).includes('F'),
           },
         ],
         errors: errors.mbtiThird?.message,
@@ -245,6 +251,7 @@ const Second = (props: {
             label: 'J',
             subLabel: '계획형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFourth')).includes('J'),
           },
           {
             ...mbtiFourth,
@@ -252,6 +259,7 @@ const Second = (props: {
             label: 'P',
             subLabel: '인식형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFourth')).includes('P'),
           },
         ],
         errors: errors.mbtiFourth?.message,
@@ -270,18 +278,21 @@ const Second = (props: {
             value: '유쌍',
             label: '유쌍',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('eyelid')).includes('유쌍'),
           },
           {
             ...eyelid,
             value: '속쌍',
             label: '속쌍',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('eyelid')).includes('속쌍'),
           },
           {
             ...eyelid,
             value: '무쌍',
             label: '무쌍',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('eyelid')).includes('무쌍'),
           },
         ],
         errors: errors.eyelid?.message,
@@ -295,18 +306,21 @@ const Second = (props: {
             value: '또렷',
             label: '또렷',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('face')).includes('또렷'),
           },
           {
             ...face,
             value: '중간',
             label: '중간',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('face')).includes('중간'),
           },
           {
             ...face,
             value: '순한',
             label: '순한',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('face')).includes('순한'),
           },
         ],
         errors: errors.face?.message,
@@ -384,17 +398,21 @@ const Second = (props: {
     title: 'MBTI',
     mainButtonText: '선택',
     mainButtonDisabled: !(
-      (mbtiForm.watch('mbtiFirst') && mbtiForm.watch('mbtiFirst').length > 0) ||
-      (mbtiForm.watch('mbtiSecond') &&
-        mbtiForm.watch('mbtiSecond').length > 0) ||
-      (mbtiForm.watch('mbtiThird') && mbtiForm.watch('mbtiThird').length > 0) ||
-      (mbtiForm.watch('mbtiFourth') && mbtiForm.watch('mbtiFourth').length > 0)
+      mbtiForm.watch('mbtiFirst') &&
+      mbtiForm.watch('mbtiFirst').length > 0 &&
+      mbtiForm.watch('mbtiSecond') &&
+      mbtiForm.watch('mbtiSecond').length > 0 &&
+      mbtiForm.watch('mbtiThird') &&
+      mbtiForm.watch('mbtiThird').length > 0 &&
+      mbtiForm.watch('mbtiFourth') &&
+      mbtiForm.watch('mbtiFourth').length > 0
     ),
     mainButtonCallback: () => {
       const mbtiFirst = mbtiForm.getValues('mbtiFirst');
       const mbtiSecond = mbtiForm.getValues('mbtiSecond');
       const mbtiThird = mbtiForm.getValues('mbtiThird');
       const mbtiFourth = mbtiForm.getValues('mbtiFourth');
+
       let mbti = (
         (mbtiFirst ? String(mbtiFirst) : '/') +
         '/' +
@@ -402,21 +420,30 @@ const Second = (props: {
         '/' +
         (mbtiThird ? String(mbtiThird) : '/') +
         '/' +
-        (mbtiFourth ? String(mbtiFourth) : '/')
-      )
-        .replace('//', '/')
-        .replace('//', '/')
-        .replace('//', '/')
-        .replace('//', '/')
-        .replace('//', '/');
+        String(mbtiFourth)
+      ).replace('//', '/');
 
-      if (mbti[mbti.length - 1] === '/') mbti = mbti.slice(0, mbti.length - 1);
       if (mbti[0] === '/') mbti = mbti.slice(1);
+
+      if (
+        mbtiForm.watch('mbtiFirst').length === 2 &&
+        mbtiForm.watch('mbtiSecond').length === 2 &&
+        mbtiForm.watch('mbtiThird').length === 2 &&
+        mbtiForm.watch('mbtiFourth').length === 2
+      ) {
+        idealForm.setValue('counterMbti', '상관없음');
+        return;
+      }
       idealForm.setValue('counterMbti', mbti);
     },
     isSideButton: true,
     sideButtonCallback: () => {
+      console.log(mbtiForm.getValues());
       idealForm.setValue('counterMbti', '상관없음');
+      mbtiForm.setValue('mbtiFirst', 'EI');
+      mbtiForm.setValue('mbtiSecond', 'NS');
+      mbtiForm.setValue('mbtiThird', 'TF');
+      mbtiForm.setValue('mbtiFourth', 'JP');
     },
   });
   const appearanceBottomSheet = useBottomSheet({
@@ -428,11 +455,17 @@ const Second = (props: {
     mainButtonCallback: () => {
       const eyelid = appearanceForm.getValues('eyelid');
       const face = appearanceForm.getValues('face');
+      if (eyelid.length === 3 && face.length) {
+        idealForm.setValue('counterAppearanceType', '상관없음');
+        return;
+      }
       const appearance = eyelid + ' / ' + face;
       idealForm.setValue('counterAppearanceType', appearance);
     },
     isSideButton: true,
     sideButtonCallback: () => {
+      appearanceForm.setValue('eyelid', '유쌍,무쌍,속쌍');
+      appearanceForm.setValue('face', '또렷,중간,순한');
       idealForm.setValue('counterAppearanceType', '상관없음');
     },
   });
