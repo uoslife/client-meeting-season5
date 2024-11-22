@@ -339,18 +339,23 @@ const Second = (props: {
             value: '연초',
             label: '연초',
             type: 'checkbox',
+            checked: String(smokingForm.watch('cigarette')).includes('연초'),
           },
           {
             ...cigarette,
             value: '전자담배',
             label: '전자담배',
             type: 'checkbox',
+            checked: String(smokingForm.watch('cigarette')).includes(
+              '전자담배',
+            ),
           },
           {
             ...cigarette,
             value: '비흡연',
             label: '비흡연',
             type: 'checkbox',
+            checked: String(smokingForm.watch('cigarette')).includes('비흡연'),
           },
         ],
         errors: errors.cigarette?.message,
@@ -472,13 +477,24 @@ const Second = (props: {
   const smokingBottomSheet = useBottomSheet({
     title: '흡연 여부',
     mainButtonText: '선택',
-    mainButtonDisabled: !smokingForm.watch('cigarette'),
+    mainButtonDisabled: String(smokingForm.watch('cigarette')).length <= 0,
     mainButtonCallback: () => {
       const cigarette = smokingForm.getValues('cigarette');
+      console.log(cigarette);
+      if (cigarette === '연초,전자담배,비흡연') {
+        idealForm.setValue('counterSmoking', '상관없음');
+        return;
+      }
       idealForm.setValue('counterSmoking', cigarette);
     },
     isSideButton: true,
     sideButtonCallback: () => {
+      const smoking = smokingForm.getValues('cigarette');
+      if (smoking.length === 3) {
+        idealForm.setValue('counterSmoking', '상관없음');
+        return;
+      }
+      smokingForm.setValue('cigarette', '연초,전자담배,비흡연');
       idealForm.setValue('counterSmoking', '상관없음');
     },
   });
