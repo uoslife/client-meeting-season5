@@ -25,7 +25,7 @@ export const S = {
     width: 100%;
   `,
   Wrapper: styled.div`
-    min-height: calc(var(--vh, 1vh) * 100 - 144px);
+    min-height: calc(var(--vh, 1vh) * 100);
 
     display: flex;
     flex-direction: column;
@@ -54,6 +54,7 @@ export const S = {
     font-style: normal;
     font-weight: 400;
     line-height: 56px;
+    width: 90vw;
   `,
   SubTitleWrapper: styled.div`
     display: flex;

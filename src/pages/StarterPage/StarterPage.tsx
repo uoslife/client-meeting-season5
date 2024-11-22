@@ -82,21 +82,30 @@ const StarterPage = () => {
                 </S.DateWrapper>
               </S.SubTitleWrapper>
             </S.HeaderWrapper>
-            <img width={'336'} src={MainIMG} alt="눈사람 아이콘" />
-          </S.Wrapper>
-          <S.ButtonWrapper>
-            <Button
-              buttonColor={'primary'}
-              onClick={() => {
-                navigate('/policy');
+            <div
+              className="layout-padding"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                transform: 'translateY(-20%)',
               }}
             >
-              시대팅 시작하기
-            </Button>
-            <Button buttonColor={'blue'} onClick={CopybuttonHandler}>
-              친구에게 공유하기
-            </Button>
-          </S.ButtonWrapper>
+              <img width={'100%'} src={MainIMG} alt="눈사람 아이콘" />
+              <S.ButtonWrapper>
+                <Button
+                  buttonColor={'primary'}
+                  onClick={() => {
+                    navigate('/policy');
+                  }}
+                >
+                  시대팅 시작하기
+                </Button>
+                <Button buttonColor={'blue'} onClick={CopybuttonHandler}>
+                  친구에게 공유하기
+                </Button>
+              </S.ButtonWrapper>
+            </div>
+          </S.Wrapper>
         </S.UpperWrapper>
       </S.StarterPageContainer>
       <Footer />
