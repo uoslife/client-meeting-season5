@@ -30,23 +30,23 @@ const Second = (props: {
           >
             {`희망하는 상대 팅원들의\n나이를 골라주세요.`}
           </Text>
+
+          <Text
+            color={'Blue50'}
+            typograph={'titleSmall'}
+            style={{ fontWeight: 600, width: '100%', marginTop: 40 }}
+          >
+            {`연나이 ${ageValue[0]}세 ~ ${ageValue[1] === 30 ? ageValue[1] + '+' : ageValue[1]}세`}
+          </Text>
           <div
             style={{
-              padding: 20,
+              padding: 10,
               marginTop: 20,
               display: 'flex',
               flexDirection: 'column',
               gap: 30,
             }}
           >
-            <Text
-              color={'Blue50'}
-              typograph={'titleSmall'}
-              style={{ fontWeight: 600, width: '100%' }}
-            >
-              {`${ageValue[0]}세 이상 - ${ageValue[1]}세 이하`}
-            </Text>
-
             <AgeRangeSlider value={ageValue} setValue={setAgeValue} />
           </div>
         </S.MainContainer>
