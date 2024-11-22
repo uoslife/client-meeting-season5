@@ -9,9 +9,11 @@ export const S = {
     width: 100%;
     height: 100%;
   `,
-  Input: styled.input`
+  Input: styled.textarea`
     flex: 1;
-    padding: 12px 0;
+    resize: none;
+    height: 4.8rem;
+    padding: 12px 36px 12px 0px;
     outline: none;
     border: 0;
     border-bottom: 1px solid ${COLORS.Blue20};

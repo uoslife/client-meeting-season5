@@ -3,54 +3,64 @@ import { S } from './style';
 import close from '../../../lib/assets/icon/close.svg';
 
 interface BasicInputPropsType
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'defaultValue'> {
+  extends Omit<React.InputHTMLAttributes<HTMLTextAreaElement>, 'defaultValue'> {
   type?: string;
   defaultValue?: string | number | readonly string[] | null;
 }
 
-const BasicInput = forwardRef<HTMLInputElement, BasicInputPropsType>(
-  ({ type = 'text', defaultValue, ...props }, ref) => {
+const BasicInput = forwardRef<HTMLTextAreaElement, BasicInputPropsType>(
+  ({ defaultValue, ...props }, ref) => {
     const [hasValue, setHasValue] = useState(!!defaultValue);
-    const inputRef = useRef<HTMLInputElement | null>(
+    const [isFocus, setIsFocus] = useState(false);
+    const inputRef = useRef<HTMLTextAreaElement | null>(
       null,
-    ) as React.MutableRefObject<HTMLInputElement | null>;
+    ) as React.MutableRefObject<HTMLTextAreaElement | null>;
 
     const inputRefCallback = useCallback(
-      (element: HTMLInputElement | null) => {
+      (element: HTMLTextAreaElement | null) => {
         inputRef.current = element;
         if (ref) {
           if (typeof ref === 'function') {
             ref(element);
           } else if (ref && 'current' in ref) {
-            (ref as React.MutableRefObject<HTMLInputElement | null>).current =
-              element;
+            (
+              ref as React.MutableRefObject<HTMLTextAreaElement | null>
+            ).current = element;
           }
         }
       },
       [ref],
     );
 
-    const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
-      const inputValue = (event.target as HTMLInputElement).value;
+    const handleInput = (event: React.FormEvent<HTMLTextAreaElement>) => {
+      const inputValue = (event.target as HTMLTextAreaElement).value;
       setHasValue(inputValue !== '');
     };
     const handleClear = () => {
       if (inputRef && inputRef.current) {
         inputRef.current.value = '';
+        setHasValue(false);
       }
     };
 
     return (
       <S.Container>
         <S.Input
-          type={type}
           defaultValue={defaultValue || ''}
           {...props}
           ref={inputRefCallback}
           onChange={handleInput}
+          onFocus={() => {
+            setIsFocus(true);
+          }}
+          onBlur={() => setIsFocus(false)}
         />
-        {hasValue && (
-          <S.ClearButton onClick={handleClear} aria-label="Clear input">
+        {hasValue && isFocus && (
+          <S.ClearButton
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={handleClear}
+            aria-label="Clear input"
+          >
             <img src={close} alt="close" width={20} height={20} />
           </S.ClearButton>
         )}
