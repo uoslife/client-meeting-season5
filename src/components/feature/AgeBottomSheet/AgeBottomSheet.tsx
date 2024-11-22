@@ -5,7 +5,11 @@ import Checkbox from '../../common/Checkbox';
 interface AgeBottomSheetPropsType {
   title: string;
   type: string;
-  inputs: (UseFormRegisterReturn & { value: string; label: string })[];
+  inputs: (UseFormRegisterReturn & {
+    value: string;
+    label: string;
+    checked: boolean;
+  })[];
   errors: string | undefined;
 }
 
@@ -19,7 +23,7 @@ const AgeBottomSheet = ({ memo }: AgeBottomSheetsPropsType) => {
         <S.AppearanceItemWrapper key={index}>
           <S.AppearanceItem>
             {inputs.map((input, idx) => (
-              <Checkbox key={idx} {...input} />
+              <Checkbox key={idx} {...input} checked={input.checked} />
             ))}
           </S.AppearanceItem>
         </S.AppearanceItemWrapper>

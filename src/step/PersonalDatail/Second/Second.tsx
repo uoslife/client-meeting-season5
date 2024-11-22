@@ -138,26 +138,31 @@ const Second = (props: {
             ...age,
             value: '5살 이상 연하',
             label: '5살 이상 연하',
+            checked: String(ageForm.watch('age')).includes('5살 이상 연하'),
           },
           {
             ...age,
             value: '1~4살 연하',
             label: '1~4살 연하',
+            checked: String(ageForm.watch('age')).includes('1~4살 연하'),
           },
           {
             ...age,
             value: '동갑',
             label: '동갑',
+            checked: String(ageForm.watch('age')).includes('동갑'),
           },
           {
             ...age,
             value: '1~4살 연상',
             label: '1~4살 연상',
+            checked: String(ageForm.watch('age')).includes('1~4살 연상'),
           },
           {
             ...age,
             value: '5살 이상 연상',
             label: '5살 이상 연상',
+            checked: String(ageForm.watch('age')).includes('5살 이상 연상'),
           },
         ],
         errors: errors.age?.message,
@@ -177,6 +182,7 @@ const Second = (props: {
             label: 'E',
             subLabel: '외향적',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFirst')).includes('E'),
           },
           {
             ...mbtiFirst,
@@ -184,6 +190,7 @@ const Second = (props: {
             label: 'I',
             subLabel: '내향적',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFirst')).includes('I'),
           },
         ],
         errors: errors.mbtiFirst?.message,
@@ -198,6 +205,7 @@ const Second = (props: {
             label: 'N',
             subLabel: '직관형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiSecond')).includes('N'),
           },
           {
             ...mbtiSecond,
@@ -205,6 +213,7 @@ const Second = (props: {
             label: 'S',
             subLabel: '감각적',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiSecond')).includes('S'),
           },
         ],
         errors: errors.mbtiSecond?.message,
@@ -219,6 +228,7 @@ const Second = (props: {
             label: 'T',
             subLabel: '사고형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiThird')).includes('T'),
           },
           {
             ...mbtiThird,
@@ -226,6 +236,7 @@ const Second = (props: {
             label: 'F',
             subLabel: '감정형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiThird')).includes('F'),
           },
         ],
         errors: errors.mbtiThird?.message,
@@ -240,6 +251,7 @@ const Second = (props: {
             label: 'J',
             subLabel: '계획형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFourth')).includes('J'),
           },
           {
             ...mbtiFourth,
@@ -247,6 +259,7 @@ const Second = (props: {
             label: 'P',
             subLabel: '인식형',
             type: 'checkbox',
+            checked: String(mbtiForm.watch('mbtiFourth')).includes('P'),
           },
         ],
         errors: errors.mbtiFourth?.message,
@@ -265,18 +278,21 @@ const Second = (props: {
             value: '유쌍',
             label: '유쌍',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('eyelid')).includes('유쌍'),
           },
           {
             ...eyelid,
             value: '속쌍',
             label: '속쌍',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('eyelid')).includes('속쌍'),
           },
           {
             ...eyelid,
             value: '무쌍',
             label: '무쌍',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('eyelid')).includes('무쌍'),
           },
         ],
         errors: errors.eyelid?.message,
@@ -290,18 +306,21 @@ const Second = (props: {
             value: '또렷',
             label: '또렷',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('face')).includes('또렷'),
           },
           {
             ...face,
             value: '중간',
             label: '중간',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('face')).includes('중간'),
           },
           {
             ...face,
             value: '순한',
             label: '순한',
             type: 'checkbox',
+            checked: String(appearanceForm.watch('face')).includes('순한'),
           },
         ],
         errors: errors.face?.message,
@@ -320,18 +339,23 @@ const Second = (props: {
             value: '연초',
             label: '연초',
             type: 'checkbox',
+            checked: String(smokingForm.watch('cigarette')).includes('연초'),
           },
           {
             ...cigarette,
             value: '전자담배',
             label: '전자담배',
             type: 'checkbox',
+            checked: String(smokingForm.watch('cigarette')).includes(
+              '전자담배',
+            ),
           },
           {
             ...cigarette,
             value: '비흡연',
             label: '비흡연',
             type: 'checkbox',
+            checked: String(smokingForm.watch('cigarette')).includes('비흡연'),
           },
         ],
         errors: errors.cigarette?.message,
@@ -343,15 +367,24 @@ const Second = (props: {
     description: '희망하는 선택지를 모두 선택해 주세요.',
     mainButtonText: '선택',
     mainButtonDisabled: Boolean(
-      ageForm.watch('age') && !ageForm.watch('age').length,
+      !(ageForm.watch('age') && ageForm.watch('age').length > 0),
     ),
     mainButtonCallback: () => {
       const age = ageForm.getValues('age');
+
+      if (age.length === 5) {
+        idealForm.setValue('counterAge', '상관없음');
+        return;
+      }
       idealForm.setValue('counterAge', age);
     },
     isSideButton: true,
     sideButtonCallback: () => {
       idealForm.setValue('counterAge', '상관없음');
+      ageForm.setValue(
+        'age',
+        '5살 이상 연하,1~4살 연하,동갑,1~4살 연상,5살 이상 연상',
+      );
     },
   });
   const heightBottomSheet = useBottomSheet({
@@ -370,17 +403,21 @@ const Second = (props: {
     title: 'MBTI',
     mainButtonText: '선택',
     mainButtonDisabled: !(
-      (mbtiForm.watch('mbtiFirst') && mbtiForm.watch('mbtiFirst').length > 0) ||
-      (mbtiForm.watch('mbtiSecond') &&
-        mbtiForm.watch('mbtiSecond').length > 0) ||
-      (mbtiForm.watch('mbtiThird') && mbtiForm.watch('mbtiThird').length > 0) ||
-      (mbtiForm.watch('mbtiFourth') && mbtiForm.watch('mbtiFourth').length > 0)
+      mbtiForm.watch('mbtiFirst') &&
+      mbtiForm.watch('mbtiFirst').length > 0 &&
+      mbtiForm.watch('mbtiSecond') &&
+      mbtiForm.watch('mbtiSecond').length > 0 &&
+      mbtiForm.watch('mbtiThird') &&
+      mbtiForm.watch('mbtiThird').length > 0 &&
+      mbtiForm.watch('mbtiFourth') &&
+      mbtiForm.watch('mbtiFourth').length > 0
     ),
     mainButtonCallback: () => {
       const mbtiFirst = mbtiForm.getValues('mbtiFirst');
       const mbtiSecond = mbtiForm.getValues('mbtiSecond');
       const mbtiThird = mbtiForm.getValues('mbtiThird');
       const mbtiFourth = mbtiForm.getValues('mbtiFourth');
+
       let mbti = (
         (mbtiFirst ? String(mbtiFirst) : '/') +
         '/' +
@@ -388,50 +425,82 @@ const Second = (props: {
         '/' +
         (mbtiThird ? String(mbtiThird) : '/') +
         '/' +
-        (mbtiFourth ? String(mbtiFourth) : '/')
-      )
-        .replace('//', '/')
-        .replace('//', '/')
-        .replace('//', '/')
-        .replace('//', '/')
-        .replace('//', '/');
+        String(mbtiFourth)
+      ).replace('//', '/');
 
-      if (mbti[mbti.length - 1] === '/') mbti = mbti.slice(0, mbti.length - 1);
       if (mbti[0] === '/') mbti = mbti.slice(1);
+
+      if (
+        mbtiForm.watch('mbtiFirst').length === 2 &&
+        mbtiForm.watch('mbtiSecond').length === 2 &&
+        mbtiForm.watch('mbtiThird').length === 2 &&
+        mbtiForm.watch('mbtiFourth').length === 2
+      ) {
+        idealForm.setValue('counterMbti', '상관없음');
+        return;
+      }
       idealForm.setValue('counterMbti', mbti);
     },
     isSideButton: true,
     sideButtonCallback: () => {
+      console.log(mbtiForm.getValues());
       idealForm.setValue('counterMbti', '상관없음');
+      mbtiForm.setValue('mbtiFirst', 'EI');
+      mbtiForm.setValue('mbtiSecond', 'NS');
+      mbtiForm.setValue('mbtiThird', 'TF');
+      mbtiForm.setValue('mbtiFourth', 'JP');
     },
   });
   const appearanceBottomSheet = useBottomSheet({
     title: '외모',
     mainButtonText: '선택',
     mainButtonDisabled: !(
-      appearanceForm.watch('eyelid') && appearanceForm.watch('face')
+      appearanceForm.watch('eyelid') &&
+      String(appearanceForm.watch('eyelid')).length > 0 &&
+      appearanceForm.watch('face') &&
+      String(appearanceForm.watch('face')).length > 0
     ),
     mainButtonCallback: () => {
       const eyelid = appearanceForm.getValues('eyelid');
       const face = appearanceForm.getValues('face');
+      if (eyelid.length === 3 && face.length) {
+        idealForm.setValue('counterAppearanceType', '상관없음');
+        return;
+      }
       const appearance = eyelid + ' / ' + face;
       idealForm.setValue('counterAppearanceType', appearance);
     },
     isSideButton: true,
     sideButtonCallback: () => {
+      appearanceForm.setValue('eyelid', '유쌍,무쌍,속쌍');
+      appearanceForm.setValue('face', '또렷,중간,순한');
       idealForm.setValue('counterAppearanceType', '상관없음');
     },
   });
   const smokingBottomSheet = useBottomSheet({
     title: '흡연 여부',
     mainButtonText: '선택',
-    mainButtonDisabled: !smokingForm.watch('cigarette'),
+    mainButtonDisabled: !(
+      smokingForm.watch('cigarette') &&
+      String(smokingForm.watch('cigarette')).length > 0
+    ),
     mainButtonCallback: () => {
       const cigarette = smokingForm.getValues('cigarette');
+      console.log(cigarette);
+      if (cigarette === '연초,전자담배,비흡연') {
+        idealForm.setValue('counterSmoking', '상관없음');
+        return;
+      }
       idealForm.setValue('counterSmoking', cigarette);
     },
     isSideButton: true,
     sideButtonCallback: () => {
+      const smoking = smokingForm.getValues('cigarette');
+      if (smoking.length === 3) {
+        idealForm.setValue('counterSmoking', '상관없음');
+        return;
+      }
+      smokingForm.setValue('cigarette', '연초,전자담배,비흡연');
       idealForm.setValue('counterSmoking', '상관없음');
     },
   });

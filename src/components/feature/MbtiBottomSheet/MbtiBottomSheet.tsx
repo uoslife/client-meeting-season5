@@ -5,7 +5,11 @@ import CustomRadio from '../../common/CustomRadio';
 interface MemoPropsType {
   title: string;
   type: string;
-  inputs: (UseFormRegisterReturn & { value: string; label: string })[];
+  inputs: (UseFormRegisterReturn & {
+    value: string;
+    label: string;
+    checked: boolean;
+  })[];
   errors: string | undefined;
 }
 
@@ -22,6 +26,7 @@ const MbtiBottomSheet = ({ memo }: MbtiBottomSheetProps) => {
             {inputs.map((input, idx) => (
               <CustomRadio
                 key={`input-${index}-${idx}`}
+                checked={input.checked}
                 {...input}
                 style={{}}
               />
