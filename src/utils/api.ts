@@ -4,6 +4,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
+  isAxiosError,
 } from 'axios';
 
 const logOnDev = (message: string): void => {
@@ -121,4 +122,19 @@ export const putFetcher = async <T>(
     headers: { ...headers, 'Content-Type': 'application/json' },
   });
   return response.data;
+};
+
+export const errorHandler = (error: Error | AxiosError) => {
+  try {
+    if (isAxiosError(error)) {
+      if (error.message === undefined) throw error;
+      if (error.status === 500) throw error;
+      return error.message;
+    } else {
+      throw error;
+    }
+  } catch (error) {
+    console.log(error);
+    return import.meta.env.VITE_FATAL_ERROR_MESSAGE;
+  }
 };
