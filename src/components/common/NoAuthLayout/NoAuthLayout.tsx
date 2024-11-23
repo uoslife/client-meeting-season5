@@ -6,8 +6,9 @@ import { accessTokenAtom } from '../../../store/accessTokenAtom';
 const NoAuthLayout = () => {
   const accessToken = useAtomValue(accessTokenAtom);
   const navigate = useNavigate();
+  // refresh로 access 받는 작업 -> 실패 시 콘솔만
   if (accessToken) {
-    navigate('/', { replace: true });
+    navigate('/auth', { replace: true });
   }
   return (
     <>
