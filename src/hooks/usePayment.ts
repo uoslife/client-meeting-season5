@@ -38,11 +38,8 @@ const verifyPayment = async ({
   teamType: 'SINGLE' | 'TRIPLE';
   accessToken: string;
 }) => {
-  const res = await getFetcher({
-    url: `/api/payment/${teamType}/verify`,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+  const res = await getFetcher(`/api/payment/${teamType}/verify`, {
+    Authorization: `Bearer ${accessToken}`,
   });
   console.log('verify', res);
   return res;
@@ -54,16 +51,16 @@ const getMerchantUid = async ({
 }: GetMerchantUidPropsType): Promise<RequestPaymentResopnseType> => {
   try {
     console.log(teamType, accessToken);
-    const res = await postFetcher<RequestPaymentResopnseType>({
-      url: `/api/payment/${teamType}/request`,
-      data: {
+    const res = await postFetcher<RequestPaymentResopnseType>(
+      `/api/payment/${teamType}/request`,
+      {
         pg: 'WELCOME_PAYMENTS',
         payMethod: 'CARD',
       },
-      headers: {
+      {
         Authorization: `Bearer ${accessToken}`,
       },
-    });
+    );
     return res;
   } catch (err) {
     if (isAxiosError(err)) {
@@ -127,15 +124,15 @@ const usePayment = () => {
           reject(res.error_msg);
         } else {
           try {
-            const notified = await postFetcher({
-              url: `/api/payment/${teamType}/check`,
-              data: {
+            const notified = await postFetcher(
+              `/api/payment/${teamType}/check`,
+              {
                 impUid: res.imp_uid,
               },
-              headers: {
+              {
                 Authorization: `Bearer ${accessToken}`,
               },
-            });
+            );
             resolve(notified);
           } catch (error) {
             reject(error);

@@ -6,7 +6,7 @@ import { postFetcher } from '../../utils/api';
 import { AxiosError } from 'axios';
 
 const postRefresh = () => {
-  return postFetcher<string>({ url: '/api/auth/reissue' });
+  return postFetcher<string>('/api/auth/reissue');
 };
 
 //실패 시 start 페이지로 라우팅하는 훅

@@ -30,7 +30,8 @@ const First = (props: {
       (value) => value === undefined || value === '' || errors.webmail,
     );
     if (checkValues) return;
-
+    //디바운싱, 스로틀링 처리
+    //웹메일 api
     props.onNext(data.webmail);
   };
 
