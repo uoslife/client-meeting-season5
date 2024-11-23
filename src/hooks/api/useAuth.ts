@@ -2,8 +2,7 @@ import { useSetAtom } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { postFetcher } from '../../utils/api';
-import { AxiosError } from 'axios';
+import { errorHandler, postFetcher } from '../../utils/api';
 
 const postRefresh = () => {
   return postFetcher<string>('/api/auth/reissue');
@@ -29,9 +28,7 @@ const useAuthCheck = () => {
     onSuccess: (data: string) => {
       setAccessToken(data);
     },
-    onError: (error: AxiosError | Error) => {
-      console.log(error, '로그인이 되어있지 않음.');
-    },
+    onError: (error) => errorHandler(error),
   });
 };
 

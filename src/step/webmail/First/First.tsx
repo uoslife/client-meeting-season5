@@ -6,6 +6,7 @@ import Text from '../../../components/common/Text';
 import Button from '../../../components/common/Button';
 import close from '../../../lib/assets/icon/close.svg';
 import S from './style';
+import { useSendEmail } from '../../../hooks/api/useWebmail';
 
 type WebmailType = {
   webmail: string;
@@ -15,7 +16,7 @@ const First = (props: {
   webmail: string;
   onNext: (email: string) => void;
 }): ReactNode => {
-  const [isExceedRequest, _] = useState<boolean>(false);
+  const sendEmailMutation = useSendEmail();
   const {
     setValue,
     watch,
@@ -25,14 +26,22 @@ const First = (props: {
     reset,
   } = useForm<WebmailType>();
 
-  const handleSubmit: SubmitHandler<WebmailType> = (data) => {
+  const handleSubmit: SubmitHandler<WebmailType> = async (data) => {
     const checkValues = Object.values(data).some(
       (value) => value === undefined || value === '' || errors.webmail,
     );
     if (checkValues) return;
+
     //디바운싱, 스로틀링 처리
     //웹메일 api
-    props.onNext(data.webmail);
+    sendEmailMutation.mutate(
+      { email: data.webmail },
+      {
+        onSuccess: () => {
+          props.onNext(data.webmail);
+        },
+      },
+    );
   };
 
   useEffect(() => {
@@ -88,9 +97,9 @@ const First = (props: {
                 </Text>
               </S.UOSAdress>
             </div>
-            {isExceedRequest && (
+            {sendEmailMutation.error && (
               <Text color={'ErrorLight'} typograph={'labelMediumMedium'}>
-                일일 전송 횟수를 초과했습니다.(5/5)
+                {sendEmailMutation.error.message}
               </Text>
             )}
           </div>
