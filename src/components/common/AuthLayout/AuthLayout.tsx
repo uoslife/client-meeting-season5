@@ -1,20 +1,21 @@
 import { Outlet } from 'react-router-dom';
 import { S } from '../BasicLayout/style';
-// import { useAtomValue } from 'jotai';
-// import { accessTokenAtom } from '../../../store/accessTokenAtom';
-// import { useEffect } from 'react';
-// import { useRefresh } from '../../../hooks/useAuth';
+import { useRefresh } from '../../../hooks/api/useAuth';
+import { useEffect } from 'react';
 
 const AuthLayout = () => {
-  // const accessToken = useAtomValue(accessTokenAtom);
+  const authMutation = useRefresh();
+  useEffect(() => {
+    authMutation.mutate();
+  }, []);
 
-  // const { isPending, mutate: refreshMutate } = useRefresh();
+  //getUserInfo
+  //userInfo가 존재하지 않는 경우
+  //BasicProfile로 라우팅
 
-  // useEffect(() => {
-  //   if (!accessToken && !isPending) {
-  //     refreshMutate();
-  //   }
-  // }, [accessToken, isPending]);
+  //userInfo가 존재하는 경우
+  //userAtom에다가 전역변수 저장
+  //Main으로 라우팅
 
   return (
     <>
