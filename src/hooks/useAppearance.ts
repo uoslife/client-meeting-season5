@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 interface useAppearanceFormPropsType {
-  eyelid: string;
-  face: string;
+  eyelid: string[];
+  face: string[];
 }
 
 const useAppearanceForm = () => {
@@ -24,7 +24,7 @@ const useAppearanceForm = () => {
       face,
     };
     const checkValues = Object.values(data).some(
-      (value) => value === undefined || value === '',
+      (value) => value === undefined || value.length === 0,
     );
 
     if (checkValues) {

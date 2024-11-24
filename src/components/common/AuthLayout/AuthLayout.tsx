@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const AuthLayout = () => {
   const authMutation = useRefresh();
   useEffect(() => {
-    authMutation.mutate();
+    // authMutation.mutate();
   }, []);
 
   //getUserInfo

@@ -10,8 +10,6 @@ import Text from '../../../components/common/Text';
 import useIdealDetailForm from '../../../hooks/useIdealDetailForm';
 import BasicInput from '../../../components/common/BasicInput';
 import useBottomSheet from '../../../hooks/useBottomSheet';
-import usePreferAgeForm from '../../../hooks/usePreferAgeForm';
-import AgeBottomSheet from '../../../components/feature/AgeBottomSheet/AgeBottomSheet';
 import useMbtiForm from '../../../hooks/useMbtiForm';
 import MbtiBottomSheet from '../../../components/feature/MbtiBottomSheet';
 import useAppearanceForm from '../../../hooks/useAppearance';
@@ -19,6 +17,7 @@ import AppearanceBottomSheet from '../../../components/feature/AppearanceBottomS
 import useSmokingForm from '../../../hooks/useSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
 import HeightRangeSlider from '../../../components/feature/HeightRangeSlider';
+import AgeRangeSlider from '../../../components/feature/AgeRangeSlider';
 const Second = (props: {
   context: SecondType;
   onNext: ({
@@ -37,11 +36,11 @@ const Second = (props: {
   >) => void;
 }): ReactNode => {
   const idealForm = useIdealDetailForm();
-  const ageForm = usePreferAgeForm();
   const mbtiForm = useMbtiForm();
   const appearanceForm = useAppearanceForm();
   const smokingForm = useSmokingForm();
 
+  const [ageValue, setAgeValue] = useState<number[]>([20, 30]);
   const [heightValue, setHeightValue] = useState<number[]>([160, 190]);
 
   const submitHandler = async () => {
@@ -127,48 +126,6 @@ const Second = (props: {
       },
     ];
   }, [idealForm]);
-  const ageMemo = useMemo(() => {
-    const { age, errors } = ageForm;
-    return [
-      {
-        title: '',
-        type: 'checkbox',
-        inputs: [
-          {
-            ...age,
-            value: '5살 이상 연하',
-            label: '5살 이상 연하',
-            checked: String(ageForm.watch('age')).includes('5살 이상 연하'),
-          },
-          {
-            ...age,
-            value: '1~4살 연하',
-            label: '1~4살 연하',
-            checked: String(ageForm.watch('age')).includes('1~4살 연하'),
-          },
-          {
-            ...age,
-            value: '동갑',
-            label: '동갑',
-            checked: String(ageForm.watch('age')).includes('동갑'),
-          },
-          {
-            ...age,
-            value: '1~4살 연상',
-            label: '1~4살 연상',
-            checked: String(ageForm.watch('age')).includes('1~4살 연상'),
-          },
-          {
-            ...age,
-            value: '5살 이상 연상',
-            label: '5살 이상 연상',
-            checked: String(ageForm.watch('age')).includes('5살 이상 연상'),
-          },
-        ],
-        errors: errors.age?.message,
-      },
-    ];
-  }, [ageForm]);
   const mbtiMemo = useMemo(() => {
     const { mbtiFirst, mbtiSecond, mbtiThird, mbtiFourth, errors } = mbtiForm;
     return [
@@ -366,26 +323,13 @@ const Second = (props: {
     title: '나이',
     description: '희망하는 선택지를 모두 선택해 주세요.',
     mainButtonText: '선택',
-    mainButtonDisabled: Boolean(
-      !(ageForm.watch('age') && ageForm.watch('age').length > 0),
-    ),
     mainButtonCallback: () => {
-      const age = ageForm.getValues('age');
-
-      if (age.length === 5) {
-        idealForm.setValue('counterAge', '상관없음');
-        return;
-      }
-      idealForm.setValue('counterAge', age);
-    },
-    isSideButton: true,
-    sideButtonCallback: () => {
-      idealForm.setValue('counterAge', '상관없음');
-      ageForm.setValue(
-        'age',
-        '5살 이상 연하,1~4살 연하,동갑,1~4살 연상,5살 이상 연상',
+      idealForm.setValue(
+        'counterAge',
+        `연나이 ${ageValue[0]}세 ~ ${ageValue[1] === 30 ? '30+' : ageValue[1]}세`,
       );
     },
+    isSideButton: false,
   });
   const heightBottomSheet = useBottomSheet({
     title: '키',
@@ -463,7 +407,8 @@ const Second = (props: {
     mainButtonCallback: () => {
       const eyelid = appearanceForm.getValues('eyelid');
       const face = appearanceForm.getValues('face');
-      if (eyelid.length === 3 && face.length) {
+
+      if (eyelid.length === 3 && face.length === 3) {
         idealForm.setValue('counterAppearanceType', '상관없음');
         return;
       }
@@ -472,8 +417,8 @@ const Second = (props: {
     },
     isSideButton: true,
     sideButtonCallback: () => {
-      appearanceForm.setValue('eyelid', '유쌍,무쌍,속쌍');
-      appearanceForm.setValue('face', '또렷,중간,순한');
+      appearanceForm.setValue('eyelid', ['유쌍', '무쌍', '속쌍']);
+      appearanceForm.setValue('face', ['또렷', '중간', '순한']);
       idealForm.setValue('counterAppearanceType', '상관없음');
     },
   });
@@ -486,12 +431,11 @@ const Second = (props: {
     ),
     mainButtonCallback: () => {
       const cigarette = smokingForm.getValues('cigarette');
-      console.log(cigarette);
-      if (cigarette === '연초,전자담배,비흡연') {
+      if (cigarette.length === 3) {
         idealForm.setValue('counterSmoking', '상관없음');
         return;
       }
-      idealForm.setValue('counterSmoking', cigarette);
+      idealForm.setValue('counterSmoking', cigarette.join(','));
     },
     isSideButton: true,
     sideButtonCallback: () => {
@@ -500,7 +444,7 @@ const Second = (props: {
         idealForm.setValue('counterSmoking', '상관없음');
         return;
       }
-      smokingForm.setValue('cigarette', '연초,전자담배,비흡연');
+      smokingForm.setValue('cigarette', ['연초', '전자담배', '비흡연']);
       idealForm.setValue('counterSmoking', '상관없음');
     },
   });
@@ -556,7 +500,28 @@ const Second = (props: {
         })}
       </S.MainContainer>
 
-      {ageBottomSheet.render(<AgeBottomSheet memo={ageMemo} />)}
+      {ageBottomSheet.render(
+        <>
+          <Text
+            color={'Blue50'}
+            typograph={'titleSmall'}
+            style={{ fontWeight: 600, width: '100%' }}
+          >
+            {`연나이 ${ageValue[0]}세 ~ ${ageValue[1] === 30 ? ageValue[1] + '+' : ageValue[1]}세`}
+          </Text>
+          <div
+            style={{
+              padding: 10,
+              marginBottom: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 30,
+            }}
+          >
+            <AgeRangeSlider value={ageValue} setValue={setAgeValue} />
+          </div>
+        </>,
+      )}
       {heightBottomSheet.render(
         <div
           style={{

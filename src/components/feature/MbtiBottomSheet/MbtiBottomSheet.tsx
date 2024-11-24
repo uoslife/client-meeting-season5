@@ -8,7 +8,6 @@ interface MemoPropsType {
   inputs: (UseFormRegisterReturn & {
     value: string;
     label: string;
-    checked: boolean;
   })[];
   errors: string | undefined;
 }
@@ -23,14 +22,9 @@ const MbtiBottomSheet = ({ memo }: MbtiBottomSheetProps) => {
       {memo.map(({ inputs }, index) => (
         <S.MbtiWrapper key={`mbti-group-${index}`}>
           <S.MbtiItem>
-            {inputs.map((input, idx) => (
-              <CustomRadio
-                key={`input-${index}-${idx}`}
-                checked={input.checked}
-                {...input}
-                style={{}}
-              />
-            ))}
+            {inputs.map((input, idx) => {
+              return <CustomRadio key={`input-${index}-${idx}`} {...input} />;
+            })}
           </S.MbtiItem>
         </S.MbtiWrapper>
       ))}

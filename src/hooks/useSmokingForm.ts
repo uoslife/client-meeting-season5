@@ -1,8 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 interface useSmokingFormPropsType {
-  cigarette: string;
-  vape: string;
-  noSmoking: string;
+  cigarette: string[];
 }
 
 const useSmokingForm = () => {
@@ -18,16 +16,12 @@ const useSmokingForm = () => {
 
   const handleSubmit: SubmitHandler<useSmokingFormPropsType> = ({
     cigarette,
-    vape,
-    noSmoking,
   }) => {
     const data = {
       cigarette,
-      vape,
-      noSmoking,
     };
     const checkValues = Object.values(data).some(
-      (value) => value === undefined || value === '',
+      (value) => value === undefined || value.length === 0,
     );
 
     if (checkValues) {
@@ -44,16 +38,6 @@ const useSmokingForm = () => {
     getValues,
     cigarette: {
       ...register('cigarette', {
-        required: true,
-      }),
-    },
-    vape: {
-      ...register('vape', {
-        required: true,
-      }),
-    },
-    noSmoking: {
-      ...register('noSmoking', {
         required: true,
       }),
     },

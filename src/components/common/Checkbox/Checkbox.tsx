@@ -5,7 +5,6 @@ interface CheckboxPropsType
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: JSX.Element | string;
   value: string;
-  checked: boolean;
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxPropsType>(

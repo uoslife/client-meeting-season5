@@ -12,6 +12,7 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
   //   props.context.
   // },[])
   const navigate = useNavigate();
+  console.log(props.context);
   return (
     <S.Container className="layout-padding">
       <S.MainContainer>
