@@ -24,7 +24,7 @@ type SecondType = BaseProfileType & Partial<OptionalProfileType>;
 type ThirdType = BaseProfileType &
   Pick<OptionalProfileType, 'department' | 'studentId'> &
   Partial<Pick<OptionalProfileType, 'interest'>>;
-type FourthType = BaseProfileType & OptionalProfileType;
+export type FourthType = BaseProfileType & OptionalProfileType;
 
 const BasicProfilePage = () => {
   const funnel = useFunnel<{
@@ -103,7 +103,7 @@ const BasicProfilePage = () => {
         </>
       );
     case 'fourth':
-      return <Fourth />;
+      return <Fourth context={funnel.context} />;
   }
 };
 export default BasicProfilePage;

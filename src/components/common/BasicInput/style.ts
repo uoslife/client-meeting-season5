@@ -9,7 +9,7 @@ export const S = {
     width: 100%;
     height: 100%;
   `,
-  Input: styled.textarea`
+  Input: styled.input`
     flex: 1;
     resize: none;
     height: 4.9rem;

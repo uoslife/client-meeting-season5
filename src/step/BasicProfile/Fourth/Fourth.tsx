@@ -4,8 +4,13 @@ import Text from '../../../components/common/Text';
 import Button from '../../../components/common/Button';
 import { S } from './style';
 import BasicImg from '../../../lib/assets/images/basic-result-img.png';
+import { FourthType } from '../../../pages/BasicProfilePage/BasicProfilePage';
 
-const Fourth = (): ReactNode => {
+const Fourth = (props: { context: FourthType }): ReactNode => {
+  // const
+  // useEffect(() => {
+  //   props.context.
+  // },[])
   const navigate = useNavigate();
   return (
     <S.Container className="layout-padding">

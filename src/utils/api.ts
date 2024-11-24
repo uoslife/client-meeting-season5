@@ -124,6 +124,18 @@ export const putFetcher = async <T>(
   return response.data;
 };
 
+export const patchFetcher = async <T>(
+  url: string,
+  data?: unknown,
+  headers?: Record<string, string>,
+): Promise<T> => {
+  const response = await axiosInstance.patch<T>(url, data, {
+    responseType: 'json',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
+  return response.data;
+};
+
 export const errorHandler = (error: Error | AxiosError) => {
   try {
     if (isAxiosError(error)) {

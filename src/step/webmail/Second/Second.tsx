@@ -4,6 +4,8 @@ import refresh from '../../../lib/assets/icon/refresh.svg';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
 import S from './style';
+import { useSendEmail, useVerifyEmail } from '../../../hooks/api/useWebmail';
+import { isAxiosError } from 'axios';
 
 type CodeType = {
   code: string;
@@ -20,17 +22,23 @@ const Second = (props: {
     formState: { errors },
     reset,
   } = useForm<CodeType>();
+  const verifyEmailMutation = useVerifyEmail();
+  const sendEmailMutation = useSendEmail();
 
   const [timeLeft, setTimeLeft] = useState(10);
   const [errorText, setErrorText] = useState('');
+  const [errorTimeText, setErrorTimeText] = useState('');
+  const [exceedErrorText, setExceedErrorText] = useState('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      setErrorText('인증 시간이 만료되었습니다.');
+      setErrorText('');
+      setExceedErrorText('');
+      setErrorTimeText('인증 시간이 만료되었습니다.');
+
       return;
     }
-
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
@@ -53,7 +61,30 @@ const Second = (props: {
         errors.code,
     );
     if (checkValues) return;
-    props.onNext(data.code);
+    if (exceedErrorText) return;
+
+    verifyEmailMutation.mutate(
+      { email: props.webmail, code: data.code },
+      {
+        onSuccess: () => {
+          console.log('UI콜백');
+          props.onNext(data.code);
+        },
+        onError: (error) => {
+          if (isAxiosError(error)) {
+            if (error.status === 429) {
+              setTimeLeft(0);
+              setExceedErrorText(error.message);
+              setErrorText('');
+              setErrorTimeText('');
+            }
+          }
+          setErrorText(error.message);
+          setErrorTimeText('');
+          setExceedErrorText('');
+        },
+      },
+    );
   };
 
   const isButtonDisabled = (): boolean => {
@@ -61,10 +92,26 @@ const Second = (props: {
     return true;
   };
 
+  // 5번 이상 재전송
   const handleResendCode = () => {
-    reset({ code: '' });
-    setErrorText('');
-    setTimeLeft(180);
+    sendEmailMutation.mutate(
+      { email: props.webmail },
+      {
+        onSuccess: () => {
+          reset({ code: '' });
+          setExceedErrorText('');
+          setErrorText('');
+          setErrorTimeText('');
+          setTimeLeft(180);
+        },
+        onError: (error) => {
+          setExceedErrorText(error.message);
+          setTimeLeft(0);
+          setErrorText('');
+          setErrorTimeText('');
+        },
+      },
+    );
   };
 
   return (
@@ -93,15 +140,11 @@ const Second = (props: {
             <Text color={'Blue70'} typograph={'bodyMediumSemiBold'}>
               인증코드
             </Text>
-            {errorText ? (
-              <Text color={'ErrorLight'} typograph={'titleMedium'}>
-                {errorText}
-              </Text>
-            ) : (
-              <Text color={'Blue70'} typograph={'titleMedium'}>
-                {formatTime(timeLeft)}
-              </Text>
-            )}
+
+            <Text color={'Blue70'} typograph={'titleMedium'}>
+              {formatTime(timeLeft)}
+            </Text>
+
             <S.InputWrapper>
               {Array(4)
                 .fill(0)
@@ -113,7 +156,7 @@ const Second = (props: {
                         (watch('code') && watch('code').length === i) ||
                           (isFocused && i == 0 && !watch('code')),
                       )}
-                      isError={!!errorText}
+                      isError={!!errorText || !!exceedErrorText}
                     >
                       {watch('code') && watch('code')[i]}
                     </S.InputDisplay>
@@ -149,13 +192,33 @@ const Second = (props: {
               </Text>
               <img src={refresh} alt="refresh" width={18} height={18} />
             </div>
+            {String(watch('code')).length === 4 && (
+              <Text color={'ErrorLight'} typograph={'titleMedium'}>
+                {errorText}
+              </Text>
+            )}
+            {exceedErrorText && (
+              <Text color={'ErrorLight'} typograph={'titleMedium'}>
+                {exceedErrorText}
+              </Text>
+            )}
+            {errorTimeText && (
+              <Text color={'ErrorLight'} typograph={'titleMedium'}>
+                {errorTimeText}
+              </Text>
+            )}
           </S.CodeWrapper>
         </div>
 
         <Button
           type="submit"
           buttonColor={'primary'}
-          disabled={isButtonDisabled() || !timeLeft}
+          disabled={
+            isButtonDisabled() ||
+            !timeLeft ||
+            !!exceedErrorText ||
+            !!errorTimeText
+          }
           onClick={() => {}}
         >
           다음

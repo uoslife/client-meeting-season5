@@ -158,7 +158,6 @@ const First = (props: {
     isSideButton: false,
   });
 
-  console.log(String(profileForm.watch('kakaoID')).length);
   const nextButtondisabled = !(
     profileForm.watch('age') &&
     String(profileForm.watch('age')).length > 0 &&
