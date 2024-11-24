@@ -86,7 +86,7 @@ const First = (props: {
     mainButtonDisabled: !smokingForm.watch('cigarette'),
     mainButtonCallback: () => {
       const cigarette = smokingForm.getValues('cigarette');
-      personalDetailForm.setValue('mySmoking', cigarette);
+      personalDetailForm.setValue('mySmoking', cigarette.join(','));
     },
     isSideButton: false,
   });
