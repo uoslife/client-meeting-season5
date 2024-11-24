@@ -1,9 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 interface useSmokingFormPropsType {
-  cigarette: string;
+  cigarette: string[];
 }
 
-const useSmokingForm = () => {
+const useCounterSmokingForm = () => {
   const {
     control,
     watch,
@@ -45,4 +45,4 @@ const useSmokingForm = () => {
   };
 };
 
-export default useSmokingForm;
+export default useCounterSmokingForm;

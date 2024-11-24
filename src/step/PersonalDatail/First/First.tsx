@@ -86,7 +86,8 @@ const First = (props: {
     mainButtonDisabled: !smokingForm.watch('cigarette'),
     mainButtonCallback: () => {
       const cigarette = smokingForm.getValues('cigarette');
-      personalDetailForm.setValue('mySmoking', cigarette.join(','));
+
+      personalDetailForm.setValue('mySmoking', cigarette);
     },
     isSideButton: false,
   });
@@ -356,7 +357,6 @@ const First = (props: {
                       if (title === 'MBTI') mbtiDetailBottomSheet.open();
                       if (title === '키') heightBottomSheet.open();
                       if (title === '외모') appearanceBottomSheet.open();
-                      console.log('asdf');
                       if (title === '흡연 여부') smokingBottomSheet.open();
                     }}
                   />

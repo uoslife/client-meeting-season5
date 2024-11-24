@@ -14,7 +14,7 @@ import useMbtiForm from '../../../hooks/useMbtiForm';
 import MbtiBottomSheet from '../../../components/feature/MbtiBottomSheet';
 import useAppearanceForm from '../../../hooks/useAppearance';
 import AppearanceBottomSheet from '../../../components/feature/AppearanceBottomSheet';
-import useSmokingForm from '../../../hooks/useSmokingForm';
+import useCounterSmokingForm from '../../../hooks/useCounterSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
 import HeightRangeSlider from '../../../components/feature/HeightRangeSlider';
 import AgeRangeSlider from '../../../components/feature/AgeRangeSlider';
@@ -38,7 +38,7 @@ const Second = (props: {
   const idealForm = useIdealDetailForm();
   const mbtiForm = useMbtiForm();
   const appearanceForm = useAppearanceForm();
-  const smokingForm = useSmokingForm();
+  const smokingForm = useCounterSmokingForm();
 
   const [ageValue, setAgeValue] = useState<number[]>([20, 30]);
   const [heightValue, setHeightValue] = useState<number[]>([160, 190]);
@@ -435,6 +435,7 @@ const Second = (props: {
         idealForm.setValue('counterSmoking', '상관없음');
         return;
       }
+      console.log(cigarette);
       idealForm.setValue('counterSmoking', cigarette.join(','));
     },
     isSideButton: true,
