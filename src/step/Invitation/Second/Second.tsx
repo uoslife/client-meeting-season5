@@ -73,18 +73,17 @@ const Second = (props: { onNext: () => void }) => {
             })}
           <S.Input
             value={watch('code')}
-            type="number"
-            pattern="\d*"
             {...register('code', {
               required: true,
-              max: 9999,
-              min: 0,
+              maxLength: 4,
+              pattern: /^[A-Z]*$/,
               setValueAs: (value) => {
-                if (value === '-') return '';
-                if (parseInt(value) > 9999) return value.slice(0, 4);
-                if (parseInt(value) < 0 || parseInt(value) > 9999) return '';
-                if (value.length > 4) return value.slice(0, 4);
-                return value;
+                const upperCaseValue = value.toUpperCase();
+                if (!/^[A-Za-z]*$/.test(value))
+                  return upperCaseValue.slice(0, upperCaseValue.length - 2);
+                if (upperCaseValue.length > 4)
+                  return upperCaseValue.slice(0, 4);
+                return upperCaseValue;
               },
             })}
             onFocus={() => setIsFocused(true)}
