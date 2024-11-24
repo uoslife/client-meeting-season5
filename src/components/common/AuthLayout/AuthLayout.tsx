@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { S } from '../BasicLayout/style';
-import { useRefresh } from '../../../hooks/api/useAuth';
+// import { useRefresh } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
 
 const AuthLayout = () => {
-  const authMutation = useRefresh();
+  // const authMutation = useRefresh();
   useEffect(() => {
     // authMutation.mutate();
   }, []);
