@@ -9,6 +9,7 @@ import BasicInput from '../../../components/common/BasicInput';
 import useBottomSheet from '../../../hooks/useBottomSheet';
 import InterestOptions from '../../../components/feature/InterestOptions';
 import useCreateInterestForm from '../../../hooks/useCreateInterestForm';
+import { options } from '../../../components/feature/InterestOptions/InterestOptions';
 
 const Third = (props: {
   onNext: ({ interest }: Pick<OptionalProfileType, 'interest'>) => void;
@@ -80,6 +81,14 @@ const Third = (props: {
       const item = createInterestForm.getValues('customInterest');
       if (createInterestForm.getValues('customInterest').length > 10) {
         alert('최대 10자까지만 입력할 수 있습니다.');
+        return;
+      }
+      if (
+        options.some(
+          (option) => option === createInterestForm.getValues('customInterest'),
+        )
+      ) {
+        alert('옵션이 존재합니다.');
         return;
       }
       if (!interestOptions.includes(item)) {

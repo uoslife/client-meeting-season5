@@ -271,7 +271,11 @@ const First = (props: {
           />,
         )}
         {ageBottomSheet.render(
-          <Picker list={list} onSelectedChange={handleSelectedChange} />,
+          <Picker
+            list={list}
+            onSelectedChange={handleSelectedChange}
+            startIndex={15}
+          />,
         )}
         {kakaoModal.render({ children: <KakaoContent /> })}
       </S.BottomSheet>

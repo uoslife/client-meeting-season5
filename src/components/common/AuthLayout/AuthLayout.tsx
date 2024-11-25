@@ -1,15 +1,15 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { S } from '../BasicLayout/style';
-import { useRefresh } from '../../../hooks/api/useAuth';
+// import { useRefresh } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
 
 const AuthLayout = () => {
-  const navigate = useNavigate();
-  const authMutation = useRefresh();
+  // const navigate = useNavigate();
+  // const authMutation = useRefresh();
   console.log('authMutation');
   useEffect(() => {
-    authMutation.mutate();
-    navigate('/auth/profile');
+    // authMutation.mutate();
+    // navigate('/auth/profile');
   }, []);
 
   //getUserInfo

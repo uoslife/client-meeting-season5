@@ -183,7 +183,11 @@ const Fourth = (props: {
           />,
         )}
         {avoidStudentIdBottomSheet.render(
-          <Picker list={list} onSelectedChange={handleSelectedChange} />,
+          <Picker
+            list={list}
+            onSelectedChange={handleSelectedChange}
+            startIndex={14}
+          />,
         )}
       </S.BottomSheet>
     </S.FormContainer>

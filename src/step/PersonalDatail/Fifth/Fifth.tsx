@@ -82,7 +82,7 @@ const Fifth = (props: {
           color={'Blue90'}
           style={{ fontWeight: 600 }}
         >
-          함께 하고 싶어요.
+          을(를) 함께 하고 싶어요.
         </Text>
         <Text
           typograph={'bodyMediumMedium'}

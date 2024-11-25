@@ -5,14 +5,21 @@ import Text from '../Text';
 interface ScrollPickerProps {
   list: string[];
   onSelectedChange?: (selected: string) => void;
+  startIndex?: number;
 }
 
-const Picker = ({ list, onSelectedChange }: ScrollPickerProps) => {
+const Picker = ({
+  list,
+  onSelectedChange,
+  startIndex = 1,
+}: ScrollPickerProps) => {
+  console.log(startIndex);
   const SCROLL_DEBOUNCE_TIME = 100;
 
   const newList = ['', '', ...list, '', ''];
   const ref = useRef<HTMLUListElement>(null);
-  const [selected, setSelected] = useState(2);
+  const [selected, setSelected] = useState(startIndex);
+  console.log(selected);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   const ITEM_HEIGHT = 48;
@@ -41,7 +48,7 @@ const Picker = ({ list, onSelectedChange }: ScrollPickerProps) => {
 
   useEffect(() => {
     if (ref.current) {
-      ref.current.scrollTop = 48;
+      ref.current.scrollTop = 48 * startIndex;
     }
   }, []);
   return (

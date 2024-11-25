@@ -7,6 +7,7 @@ import Fifth from '../../step/PersonalDatail/Fifth';
 import Sixth from '../../step/PersonalDatail/Sixth';
 import Header from '../../components/common/Header';
 import { useNavigate } from 'react-router-dom';
+import useModal from '../../hooks/useModal';
 
 export interface BaseProfileType {
   myMbti: string;
@@ -43,6 +44,14 @@ export type FifthType = BaseProfileType & OptionalProfileType;
 export type SixthType = BaseProfileType & OptionalProfileType;
 
 const PersonalDetailProfilePage = () => {
+  const roomBoomModal = useModal({
+    title: '신청을 취소하시겠습니까?',
+    description: '지금까지 진행 중이던 작업이 모두 취소돼요.',
+    isSideButton: true,
+    mainButtonText: '신청 취소하기',
+    sideButtonText: '닫기',
+    mainButtonCallback: () => navigate('/auth/main'),
+  });
   const navigate = useNavigate();
   const funnel = useFunnel<{
     first: FirtstType;
@@ -67,6 +76,8 @@ const PersonalDetailProfilePage = () => {
             title="1대1 신청하기"
             isGoBackButton={true}
             leftButtonCallback={() => navigate('/auth/main')}
+            rightButtonType="close"
+            rightButtonCallback={roomBoomModal.open}
           />
           <First
             context={funnel.context}
@@ -79,6 +90,7 @@ const PersonalDetailProfilePage = () => {
               })
             }
           />
+          {roomBoomModal.render()}
         </>
       );
     case 'second':
@@ -90,6 +102,8 @@ const PersonalDetailProfilePage = () => {
             leftButtonCallback={() =>
               funnel.history.replace('first', funnel.context)
             }
+            rightButtonType="close"
+            rightButtonCallback={roomBoomModal.open}
           />
           <Second
             context={funnel.context}
@@ -109,6 +123,7 @@ const PersonalDetailProfilePage = () => {
               })
             }
           />
+          {roomBoomModal.render()}
         </>
       );
     case 'third':
@@ -120,6 +135,8 @@ const PersonalDetailProfilePage = () => {
             leftButtonCallback={() =>
               funnel.history.replace('second', funnel.context)
             }
+            rightButtonType="close"
+            rightButtonCallback={roomBoomModal.open}
           />
           <Third
             context={funnel.context}
@@ -129,6 +146,7 @@ const PersonalDetailProfilePage = () => {
               })
             }
           />
+          {roomBoomModal.render()}
         </>
       );
     case 'fourth':
@@ -140,6 +158,8 @@ const PersonalDetailProfilePage = () => {
             leftButtonCallback={() =>
               funnel.history.replace('third', funnel.context)
             }
+            rightButtonType="close"
+            rightButtonCallback={roomBoomModal.open}
           />
           <Fourth
             context={funnel.context}
@@ -150,6 +170,7 @@ const PersonalDetailProfilePage = () => {
               })
             }
           />
+          {roomBoomModal.render()}
         </>
       );
     case 'fifth':
@@ -161,6 +182,8 @@ const PersonalDetailProfilePage = () => {
             leftButtonCallback={() =>
               funnel.history.replace('fourth', funnel.context)
             }
+            rightButtonType="close"
+            rightButtonCallback={roomBoomModal.open}
           />
           <Fifth
             context={funnel.context}
@@ -170,6 +193,7 @@ const PersonalDetailProfilePage = () => {
               })
             }
           />
+          {roomBoomModal.render()}
         </>
       );
     case 'sixth':
@@ -177,14 +201,15 @@ const PersonalDetailProfilePage = () => {
         <>
           <Header
             title="1대1 신청하기"
-            rightButtonType={'close'}
-            rightButtonCallback={() => navigate('/auth/main')}
             isGoBackButton={true}
             leftButtonCallback={() =>
               funnel.history.replace('fifth', funnel.context)
             }
+            rightButtonType="close"
+            rightButtonCallback={roomBoomModal.open}
           />
           <Sixth context={funnel.context} />
+          {roomBoomModal.render()}
         </>
       );
   }

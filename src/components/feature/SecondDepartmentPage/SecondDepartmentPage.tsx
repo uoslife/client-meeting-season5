@@ -133,7 +133,11 @@ const SecondDepartmentPage = (props: {
           />,
         )}
         {studentIdBottomSheet.render(
-          <Picker list={list} onSelectedChange={handleSelectedChange} />,
+          <Picker
+            list={list}
+            onSelectedChange={handleSelectedChange}
+            startIndex={14}
+          />,
         )}
       </S.BottomSheet>
     </S.Wrapper>

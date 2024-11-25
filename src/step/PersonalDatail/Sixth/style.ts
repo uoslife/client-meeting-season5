@@ -10,12 +10,13 @@ export const S = {
   `,
   MainContainer: styled.div`
     width: 100%;
-    min-height: calc(100vh - 88px - 4rem);
+    min-height: calc(100vh - 128px - 4rem);
     display: flex;
     flex-direction: column;
     gap: 20px;
   `,
   ButtonWrapper: styled.div`
+    margin-top: 20px;
     width: 100%;
     height: 88px;
   `,

@@ -51,7 +51,7 @@ export const S = {
     font-family: 'XmasFont';
     font-size: 76px;
     font-weight: 400;
-    line-height: normal;
+    line-height: inherit;
   `,
   ButtonWrapper: styled.div`
     margin-top: 20px;

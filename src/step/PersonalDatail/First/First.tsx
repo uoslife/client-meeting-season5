@@ -371,7 +371,11 @@ const First = (props: {
         })}
       </S.MainContainer>
       {heightBottomSheet.render(
-        <Picker list={list} onSelectedChange={handleSelectedChange} />,
+        <Picker
+          list={list}
+          onSelectedChange={handleSelectedChange}
+          startIndex={21}
+        />,
       )}
       {mbtiDetailBottomSheet.render(<MbtiBottomSheet memo={mbtiMemo} />)}
       {appearanceBottomSheet.render(
