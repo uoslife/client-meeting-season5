@@ -23,7 +23,6 @@ const Third = (props: {
     } else {
       alert('최대 5개까지만 선택할 수 있습니다.');
     }
-    console.log(interestOptions);
   };
 
   const interestForm = useInterestForm();

@@ -12,7 +12,6 @@ const NoAuthLayout = () => {
 
   useEffect(() => {
     authMutation.mutate();
-    console.log('authMutation');
   }, []);
 
   if (accessToken) {

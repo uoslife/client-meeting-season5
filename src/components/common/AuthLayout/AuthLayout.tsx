@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 const AuthLayout = () => {
   const navigate = useNavigate();
   const authMutation = useRefresh();
-  console.log('authMutation');
   useEffect(() => {
     authMutation.mutate();
     navigate('/auth/profile');
