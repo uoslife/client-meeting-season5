@@ -15,7 +15,7 @@ export interface BaseProfileType {
 
 export interface OptionalProfileType {
   department?: string | null;
-  studentId?: number | null;
+  studentId?: string | null;
   interest?: string[];
 }
 
