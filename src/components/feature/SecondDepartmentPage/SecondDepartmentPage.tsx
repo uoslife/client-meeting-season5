@@ -119,7 +119,7 @@ const SecondDepartmentPage = (props: {
             )
           }
           onClick={() => {
-            props.onNext({ department: '학과', studentId: 2000 });
+            props.onNext({ department: department, studentId: studentId });
           }}
         >
           다음
