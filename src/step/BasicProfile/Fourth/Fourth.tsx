@@ -5,14 +5,43 @@ import Button from '../../../components/common/Button';
 import { S } from './style';
 import BasicImg from '../../../lib/assets/images/basic-result-img.png';
 import { FourthType } from '../../../pages/BasicProfilePage/BasicProfilePage';
+import { usePatchUser, usePatchUserInfo } from '../../../hooks/api/useUser';
 
 const Fourth = (props: { context: FourthType }): ReactNode => {
-  // const
-  // useEffect(() => {
-  //   props.context.
-  // },[])
+  const userInfoMutation = usePatchUserInfo();
+  const userMutation = usePatchUser();
   const navigate = useNavigate();
-  console.log(props.context);
+
+  const nextButtonCallback = () => {
+    userMutation.mutate(
+      {
+        name: props.context.name,
+        genderType: props.context.genderType,
+        phoneNumber: props.context.phoneNumber,
+        kakaoTalkId: props.context.kakaoTalkId,
+      },
+      {
+        onError: () => {
+          navigate('/auth/profile');
+        },
+      },
+    );
+    userInfoMutation.mutate(
+      {
+        age: String(props.context.age),
+        department: props.context.department,
+        studentNumber: props.context.studentId,
+        interest: props.context.interest,
+      },
+      {
+        onError: () => {
+          navigate('/auth/profile');
+        },
+      },
+    );
+    navigate('/auth/main');
+  };
+
   return (
     <S.Container className="layout-padding">
       <S.MainContainer>
@@ -36,7 +65,7 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
         </S.Wrapper>
       </S.MainContainer>
       <S.ButtonWrapper>
-        <Button buttonColor={'primary'} onClick={() => navigate('/auth/main')}>
+        <Button buttonColor={'primary'} onClick={nextButtonCallback}>
           눈 맞을 짝을 찾아 떠나볼까요?
         </Button>
       </S.ButtonWrapper>
