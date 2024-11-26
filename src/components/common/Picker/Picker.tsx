@@ -13,13 +13,11 @@ const Picker = ({
   onSelectedChange,
   startIndex = 1,
 }: ScrollPickerProps) => {
-  console.log(startIndex);
   const SCROLL_DEBOUNCE_TIME = 100;
 
   const newList = ['', '', ...list, '', ''];
   const ref = useRef<HTMLUListElement>(null);
   const [selected, setSelected] = useState(startIndex);
-  console.log(selected);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   const ITEM_HEIGHT = 48;
