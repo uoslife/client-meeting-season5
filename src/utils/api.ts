@@ -91,7 +91,7 @@ setupInterceptors(axiosInstance);
 
 export const getFetcher = async <T>(
   url: string,
-  headers: Record<string, string>,
+  headers?: Record<string, string>,
 ): Promise<T> => {
   const response = await axiosInstance.get<T>(url, {
     responseType: 'json',
