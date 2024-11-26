@@ -1,13 +1,16 @@
 import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/common/Button';
 
 import { S } from './style';
 import Text from '../../../components/common/Text';
 import WebmailImg from '../../../lib/assets/images/webmail-result-img.png';
+import { useSetAtom } from 'jotai';
+import { accessTokenAtom } from '../../../store/accessTokenAtom';
+import { ThirdType } from '../../../pages/WebMailPage/WebMailPage';
+import { getBearerToken } from '../../../utils/token';
 
-const Third = (): ReactNode => {
-  const navigate = useNavigate();
+const Third = (props: { context: ThirdType }): ReactNode => {
+  const setAccessToken = useSetAtom(accessTokenAtom);
   return (
     <S.Container className="layout-padding">
       <S.MainContainer>
@@ -33,7 +36,10 @@ const Third = (): ReactNode => {
       <S.ButtonWrapper>
         <Button
           buttonColor={'primary'}
-          onClick={() => navigate('/auth/profile')}
+          onClick={() => {
+            console.log('clicked!');
+            setAccessToken(props.context.code);
+          }}
         >
           다음
         </Button>

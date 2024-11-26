@@ -66,9 +66,10 @@ const Second = (props: {
     verifyEmailMutation.mutate(
       { email: props.webmail, code: data.code },
       {
-        onSuccess: () => {
+        onSuccess: ({ accessToken }: { accessToken: string }) => {
           console.log('UI콜백');
-          props.onNext(data.code);
+          console.log(accessToken);
+          props.onNext(accessToken);
         },
         onError: (error) => {
           if (isAxiosError(error)) {

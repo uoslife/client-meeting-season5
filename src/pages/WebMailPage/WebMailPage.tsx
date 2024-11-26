@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 type FirstType = { webmail?: string; code?: string };
 type SecondType = { webmail: string; code?: string };
-type ThirdType = { webmail: string; code: string };
+export type ThirdType = { webmail: string; code: string };
 
 const WebMailPage = () => {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ const WebMailPage = () => {
         </>
       );
     case 'third':
-      return <Third />;
+      return <Third context={funnel.context} />;
   }
 };
 export default WebMailPage;

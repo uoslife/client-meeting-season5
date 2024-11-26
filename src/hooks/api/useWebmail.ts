@@ -1,8 +1,5 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { errorHandler, postFetcher } from '../../utils/api';
-import { useSetAtom } from 'jotai';
-import { accessTokenAtom } from '../../store/accessTokenAtom';
-import { getBearerToken } from '../../utils/token';
 
 const useSendEmail = () => {
   return useMutation({
@@ -26,8 +23,6 @@ const useVerifyEmail = (): UseMutationResult<
   Error,
   VerifyEmailVariables
 > => {
-  const setAccessToken = useSetAtom(accessTokenAtom);
-
   return useMutation<VerifyEmailResponse, Error, VerifyEmailVariables>({
     mutationFn: ({ email, code }) =>
       postFetcher(`/api/verification/verify-email`, {
@@ -36,8 +31,7 @@ const useVerifyEmail = (): UseMutationResult<
       }),
     onSuccess: (data) => {
       console.log('서버콜백');
-      const accessToken = data.accessToken;
-      setAccessToken(getBearerToken(accessToken));
+      console.log(data);
     },
     onError: (error) => errorHandler(error),
   });
