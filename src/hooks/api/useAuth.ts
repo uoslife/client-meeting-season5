@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { errorHandler, postFetcher } from '../../utils/api';
 
-const postRefresh = async () => {
-  return await postFetcher<{ accessToken: string }>('/api/auth/reissue');
+const postRefresh = () => {
+  return postFetcher<{ accessToken: string }>('/api/auth/reissue');
 };
 
 //실패 시 start 페이지로 라우팅하는 훅

@@ -7,6 +7,7 @@ import { S } from '../BasicLayout/style';
 
 const NoAuthLayout = () => {
   const accessToken = useAtomValue(accessTokenAtom);
+
   const navigate = useNavigate();
   const authMutation = useAuthCheck();
 
