@@ -1,22 +1,20 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
-import { useAuthCheck } from '../../../hooks/api/useAuth';
+import { useReissue } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
 import { S } from '../BasicLayout/style';
 
 const NoAuthLayout = () => {
-  const accessToken = useAtomValue(accessTokenAtom);
-
   const navigate = useNavigate();
-  const authMutation = useAuthCheck();
-
+  const accessToken = useAtomValue(accessTokenAtom);
+  const reissueMutation = useReissue();
   useEffect(() => {
-    authMutation.mutate();
+    if (!accessToken) reissueMutation.mutate();
   }, []);
 
   if (accessToken) {
-    navigate('/auth', { replace: true });
+    navigate('/auth');
   }
 
   return (

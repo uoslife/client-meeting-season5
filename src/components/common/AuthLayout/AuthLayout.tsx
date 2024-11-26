@@ -1,36 +1,58 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { S } from '../BasicLayout/style';
-import { useRefresh } from '../../../hooks/api/useAuth';
+import { useReissue } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
+import { useAtomValue } from 'jotai';
+import { accessTokenAtom } from '../../../store/accessTokenAtom';
+import { useGetUserInfo } from '../../../hooks/api/useUser';
 
 const AuthLayout = () => {
   const navigate = useNavigate();
-  const authMutation = useRefresh();
-  console.log('authMutation');
-  useEffect(() => {
-    authMutation.mutate();
-    // UserInfo
-    console.log('authLayout useEffect 최초 실행');
+  const accessToken = useAtomValue(accessTokenAtom);
+  const reissueMutation = useReissue();
+  const userInfo = useGetUserInfo();
 
-    navigate('/auth/profile');
+  useEffect(() => {
+    if (!accessToken)
+      reissueMutation.mutate(undefined, {
+        onError: () => {
+          navigate('/');
+        },
+      });
   }, []);
 
-  //getUserInfo
-  //userInfo가 존재하지 않는 경우
-  //BasicProfile로 라우팅
-
-  //userInfo가 존재하는 경우
-  //userAtom에다가 전역변수 저장
-  //Main으로 라우팅
+  useEffect(() => {
+    if (userInfo.isSuccess) {
+      if (
+        userInfo.data.email &&
+        !userInfo.data.phoneNumber &&
+        !userInfo.data.name &&
+        !userInfo.data.kakaoTalkId &&
+        !userInfo.data.genderType &&
+        !userInfo.data.age &&
+        userInfo.data.interest.length === 0
+      ) {
+        navigate('/auth/profile');
+      } else if (
+        userInfo.data.phoneNumber &&
+        userInfo.data.name &&
+        userInfo.data.kakaoTalkId &&
+        userInfo.data.genderType &&
+        userInfo.data.age &&
+        userInfo.data.studentType &&
+        userInfo.data.interest.length > 0
+      ) {
+        navigate('/auth/main');
+      }
+    }
+  }, [userInfo]);
 
   return (
-    <>
-      <S.OuterStyle>
-        <S.InnerStyle>
-          <Outlet />
-        </S.InnerStyle>
-      </S.OuterStyle>
-    </>
+    <S.OuterStyle>
+      <S.InnerStyle>
+        <Outlet />
+      </S.InnerStyle>
+    </S.OuterStyle>
   );
 };
 
