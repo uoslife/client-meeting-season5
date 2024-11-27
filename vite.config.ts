@@ -13,8 +13,8 @@ export default ({ mode }: ConfigEnv) => {
     server: {
       https: isDev
         ? ({
-            key: fs.readFileSync('../../key/localhost-key.pem'),
-            cert: fs.readFileSync('../../key/localhost.pem'),
+            key: fs.readFileSync('./localhost-key.pem'),
+            cert: fs.readFileSync('./localhost.pem'),
           } as ServerOptions)
         : undefined,
       host: 'localhost',
