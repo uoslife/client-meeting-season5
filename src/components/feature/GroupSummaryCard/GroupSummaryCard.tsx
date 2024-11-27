@@ -12,6 +12,8 @@ export interface SummaryInfoType {
   studentId: string;
   interest: string[];
   kakaoTalkId: string;
+  height: string;
+  age: string;
 }
 
 interface GroupSummaryCardPropsType {
@@ -37,7 +39,8 @@ const GroupSummaryCard = ({ toast, userInfo }: GroupSummaryCardPropsType) => {
             {userInfo.gender === '남성' ? '남학생' : '여학생'}이야!
           </S.ContentText>
           <S.ContentText>
-            만 <S.ContentStrongText>27세</S.ContentStrongText> 나의 관심사는{' '}
+            만 <S.ContentStrongText>{userInfo.height}세</S.ContentStrongText>{' '}
+            나의 관심사는{' '}
             <S.ContentStrongText>
               {userInfo.interest.join(',')}
             </S.ContentStrongText>

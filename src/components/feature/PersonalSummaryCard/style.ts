@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../lib/constants';
 const S = {
   CardContainer: styled.div`
+    width: 100%;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -43,6 +44,8 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    line-height: 28px;
+    letter-spacing: -0.4px;
   `,
   ContentWrapper: styled.div`
     display: flex;
@@ -66,6 +69,15 @@ const S = {
     line-height: 28px; /* 175% */
     letter-spacing: -0.4px;
   `,
+  ContentRedStrongText: styled.span`
+    color: ${COLORS.Red60};
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 175% */
+    letter-spacing: -0.4px;
+  `,
   CopyWrapper: styled.div`
     padding: 8px;
     border-radius: 4px;
@@ -78,6 +90,20 @@ const S = {
     background: ${COLORS.White};
     border: 1px solid ${COLORS.Blue30};
     border-radius: 4px;
+  `,
+  CustomText: styled.div`
+    color: ${COLORS.Blue70};
+    text-align: center;
+    font-family: 'XmasFont';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  `,
+  PSWrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   `,
 };
 

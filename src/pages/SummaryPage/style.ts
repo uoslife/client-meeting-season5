@@ -4,6 +4,7 @@ import summaryBackground from '../../lib/assets/images/summary-background.png';
 
 export const S = {
   Background: styled.div`
+    width: 100%;
     background-image: url(${summaryBackground});
     background-size: cover;
     background-position: center;
@@ -24,7 +25,7 @@ export const S = {
   `,
   MainContainer: styled.div`
     width: 100%;
-    min-height: calc(100vh - 88px - 4rem);
+    min-height: calc(100vh - 120px - 4rem);
   `,
   ButtonWrapper: styled.div`
     background-image: url(${summaryTree});
@@ -32,7 +33,6 @@ export const S = {
     background-repeat: no-repeat;
     width: 100%;
     height: 120px;
-    margin-top: 27px;
     padding-top: 35px;
   `,
   CardContainer: styled.div`
