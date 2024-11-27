@@ -1,8 +1,6 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { useAtomValue } from 'jotai';
-import { accessTokenAtom } from '../../store/accessTokenAtom';
-import { errorHandler, postFetcher } from '../../utils/api';
-import { getBearerToken } from '../../utils/token';
+import { errorHandler } from '../../utils/api';
+import useAuthAxios from '../axios/useAuthAxios';
 interface CreateMeetingTeamRequest {
   teamType: 'SINGLE' | 'TRIPLE';
   isTeamLeader: boolean;
@@ -17,16 +15,14 @@ export const useCreateMeetingTeam = (): UseMutationResult<
   Error,
   CreateMeetingTeamRequest
 > => {
-  const accessToken = useAtomValue(accessTokenAtom);
+  const { postFetcher } = useAuthAxios();
   return useMutation<
     CreateMeetingTeamResponse,
     Error,
     CreateMeetingTeamRequest
   >({
     mutationFn: ({ teamType, isTeamLeader }) =>
-      postFetcher(`/api/meeting/${teamType}/${isTeamLeader}/create`, null, {
-        Authorization: getBearerToken(accessToken),
-      }),
+      postFetcher(`/api/meeting/${teamType}/${isTeamLeader}/create`),
     onSuccess: (data) => {
       console.log(data.code);
     },

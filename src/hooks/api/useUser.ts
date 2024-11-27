@@ -1,8 +1,14 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
-import { errorHandler, patchFetcher } from '../../utils/api';
+import { errorHandler } from '../../utils/api';
 import { getBearerToken } from '../../utils/token';
+import useAuthAxios from '../axios/useAuthAxios';
 
 interface UserInfoRequestType {
   age?: string;
@@ -26,10 +32,12 @@ interface UserRequestType {
 
 const usePatchUser = (): UseMutationResult<null, Error, UserRequestType> => {
   const accessToken = useAtomValue(accessTokenAtom);
+  const { patchFetcher } = useAuthAxios();
+
   return useMutation<null, Error, UserRequestType>({
     mutationFn: ({ name, phoneNumber, genderType, kakaoTalkId }) =>
-      patchFetcher(
-        `/api/user`,
+      patchFetcher<null>(
+        '/api/user',
         {
           name,
           phoneNumber,
@@ -39,7 +47,7 @@ const usePatchUser = (): UseMutationResult<null, Error, UserRequestType> => {
         { Authorization: getBearerToken(accessToken) },
       ),
     onSuccess: () => {},
-    onError: (error) => errorHandler(error),
+    onError: errorHandler,
   });
 };
 
@@ -49,32 +57,28 @@ const usePatchUserInfo = (): UseMutationResult<
   UserInfoRequestType
 > => {
   const accessToken = useAtomValue(accessTokenAtom);
+  const { patchFetcher } = useAuthAxios();
 
   return useMutation<null, Error, UserInfoRequestType>({
-    mutationFn: ({
-      age,
-      department,
-      studentNumber,
-      height,
-      smoking,
-      mbti,
-      interest,
-    }) =>
-      patchFetcher(
-        `/api/user/user-info`,
-        {
-          age: age,
-          department: department,
-          studentNumber: studentNumber,
-          height: height,
-          smoking: smoking,
-          mbti: mbti,
-          interest: interest,
-        },
-        { Authorization: getBearerToken(accessToken) },
-      ),
+    mutationFn: (userInfo) =>
+      patchFetcher<null>('/api/user/user-info', userInfo, {
+        Authorization: getBearerToken(accessToken),
+      }),
     onSuccess: () => {},
-    onError: (error) => errorHandler(error),
+    onError: errorHandler,
   });
 };
-export { usePatchUser, usePatchUserInfo };
+
+const useGetUserInfo = (): UseQueryResult<UserInfoRequestType, Error> => {
+  const accesstoken = useAtomValue(accessTokenAtom);
+  const { getFetcher } = useAuthAxios();
+
+  return useQuery<UserInfoRequestType, Error>({
+    queryKey: ['userInfo', accesstoken],
+    queryFn: () => getFetcher<UserInfoRequestType>('/api/user/all-info'),
+    refetchOnWindowFocus: false,
+    select: (data) => data,
+    enabled: !!accesstoken,
+  });
+};
+export { usePatchUser, usePatchUserInfo, useGetUserInfo };

@@ -1,35 +1,27 @@
 import { useSetAtom } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { errorHandler, postFetcher } from '../../utils/api';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import useBasicAxios from '../axios/useBasicAxios';
+import { AxiosError } from 'axios';
 
-const postRefresh = () => {
-  return postFetcher<{ accessToken: string }>('/api/auth/reissue');
+type ReissueResponseType = {
+  accessToken: string;
 };
 
-//실패 시 start 페이지로 라우팅하는 훅
-const useRefresh = () => {
-  const navigate = useNavigate();
-  const authMutation = useAuthCheck();
-
-  if (authMutation.isError) {
-    navigate('/');
-  }
-  return authMutation;
-};
-
-//noAuth에서 인증 정보 확인만 진행
-const useAuthCheck = () => {
+const useReissue = (): UseMutationResult<
+  ReissueResponseType,
+  AxiosError,
+  void
+> => {
   const setAccessToken = useSetAtom(accessTokenAtom);
+  const { postFetcher } = useBasicAxios();
 
   return useMutation({
-    mutationFn: postRefresh,
-    onSuccess: (data: { accessToken: string }) => {
+    mutationFn: () => postFetcher<ReissueResponseType>('/api/auth/reissue'),
+    onSuccess: (data) => {
       setAccessToken(data.accessToken);
     },
-    onError: (error) => errorHandler(error),
   });
 };
 
-export { useRefresh, useAuthCheck };
+export { useReissue };
