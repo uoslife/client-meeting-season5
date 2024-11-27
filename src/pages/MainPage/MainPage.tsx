@@ -6,8 +6,6 @@ import { S } from './style';
 import snowman from '../../lib/assets/images/main-snowman-img.png';
 import snowmanIcon from '../../lib/assets/images/main-snowman-icon.png';
 import { useGetUserStatus } from '../../hooks/api/useUser';
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 
 const MainPage = () => {
   const navigate = useNavigate();

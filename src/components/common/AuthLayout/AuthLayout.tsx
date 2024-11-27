@@ -24,26 +24,17 @@ const AuthLayout = () => {
   useEffect(() => {
     if (userInfo.isSuccess) {
       if (
-        userInfo.data.email &&
-        !userInfo.data.phoneNumber &&
-        !userInfo.data.name &&
-        !userInfo.data.kakaoTalkId &&
-        !userInfo.data.genderType &&
-        !userInfo.data.age &&
-        userInfo.data.interest.length === 0
-      ) {
-        navigate('/auth/profile');
-      } else if (
         userInfo.data.phoneNumber &&
         userInfo.data.name &&
         userInfo.data.kakaoTalkId &&
         userInfo.data.genderType &&
         userInfo.data.age &&
-        userInfo.data.studentType &&
         userInfo.data.interest.length > 0
       ) {
         navigate('/auth/main');
+        return;
       }
+      navigate('/auth/profile');
     }
   }, [userInfo.isSuccess]);
 
