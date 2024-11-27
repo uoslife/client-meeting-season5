@@ -45,7 +45,7 @@ const AuthLayout = () => {
         navigate('/auth/main');
       }
     }
-  }, [userInfo]);
+  }, [userInfo.isSuccess]);
 
   return (
     <S.OuterStyle>

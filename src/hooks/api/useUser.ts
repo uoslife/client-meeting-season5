@@ -10,6 +10,24 @@ import { errorHandler } from '../../utils/api';
 import { getBearerToken } from '../../utils/token';
 import useAuthAxios from '../axios/useAuthAxios';
 
+type UserProfileResponseType = {
+  name?: string | null;
+  genderType?: 'MALE' | 'FEMALE' | null;
+  age?: number | null;
+  phoneNumber?: string | null;
+  kakaoTalkId?: string | null;
+  email?: string | null;
+  department?: string | null;
+  studentNumber?: number | null;
+  height?: number | null;
+  smoking?: boolean | null;
+  mbti?: string | null;
+  interest: string[];
+  appearanceType?: string | null;
+  eyelidType?: string | null;
+  studentType?: string | null;
+};
+
 interface UserInfoRequestType {
   age?: string;
   department?: string | null;
@@ -28,6 +46,11 @@ interface UserRequestType {
   phoneNumber: string;
   genderType: string;
   kakaoTalkId: string;
+}
+
+interface UserStatusResponseType {
+  singleTeamBranch: string;
+  tripleTeamBranch: string;
 }
 
 const usePatchUser = (): UseMutationResult<null, Error, UserRequestType> => {
@@ -69,16 +92,29 @@ const usePatchUserInfo = (): UseMutationResult<
   });
 };
 
-const useGetUserInfo = (): UseQueryResult<UserInfoRequestType, Error> => {
-  const accesstoken = useAtomValue(accessTokenAtom);
+const useGetUserInfo = (): UseQueryResult<UserProfileResponseType, Error> => {
   const { getFetcher } = useAuthAxios();
-
-  return useQuery<UserInfoRequestType, Error>({
-    queryKey: ['userInfo', accesstoken],
-    queryFn: () => getFetcher<UserInfoRequestType>('/api/user/all-info'),
+  const accessToken = useAtomValue(accessTokenAtom);
+  return useQuery({
+    queryKey: ['userInfo'],
+    queryFn: () => getFetcher<UserProfileResponseType>('/api/user/all-info'),
     refetchOnWindowFocus: false,
     select: (data) => data,
-    enabled: !!accesstoken,
+    retry: false,
+    enabled: !!accessToken,
   });
 };
-export { usePatchUser, usePatchUserInfo, useGetUserInfo };
+
+const useGetUserStatus = (): UseQueryResult<UserStatusResponseType, Error> => {
+  const { getFetcher } = useAuthAxios();
+  const accessToken = useAtomValue(accessTokenAtom);
+  return useQuery({
+    queryKey: ['userStatus'],
+    queryFn: () => getFetcher<UserStatusResponseType>('/api/user/status'),
+    refetchOnWindowFocus: false,
+    select: (data) => data,
+    retry: false,
+    enabled: !!accessToken,
+  });
+};
+export { usePatchUser, usePatchUserInfo, useGetUserInfo, useGetUserStatus };

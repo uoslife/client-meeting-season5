@@ -5,9 +5,13 @@ import MainBUttonWrapper from '../../components/feature/MainButtonWrapper/MainBu
 import { S } from './style';
 import snowman from '../../lib/assets/images/main-snowman-img.png';
 import snowmanIcon from '../../lib/assets/images/main-snowman-icon.png';
+import { useGetUserStatus } from '../../hooks/api/useUser';
+import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const { data, isLoading, error, refetch } = useGetUserStatus();
 
   return (
     <S.Background>
@@ -47,8 +51,8 @@ const MainPage = () => {
             </div>
           </S.Period>
           <MainBUttonWrapper
-            isPersonalComplete={false}
-            isGroupComplete={false}
+            isPersonalComplete={data?.singleTeamBranch === ''}
+            isGroupComplete={data?.tripleTeamBranch === ''}
           />
           <S.Snowman>
             <img src={snowman} width={312} />

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import Button from '../../../components/common/Button';
@@ -11,34 +11,36 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
   const userInfoMutation = usePatchUserInfo();
   const userMutation = usePatchUser();
   const navigate = useNavigate();
+  // useEffect(() => {ㄹ
+  //   userMutation.mutate(
+  //     {
+  //       name: props.context.name,
+  //       genderType: props.context.genderType,
+  //       phoneNumber: props.context.phoneNumber,
+  //       kakaoTalkId: props.context.kakaoTalkId,
+  //     },
+  //     {
+  //       onError: () => {
+  //         navigate('/auth/profile');
+  //       },
+  //     },
+  //   );
+  //   userInfoMutation.mutate(
+  //     {
+  //       age: String(props.context.age),
+  //       department: props.context.department,
+  //       studentNumber: props.context.studentId,
+  //       interest: props.context.interest,
+  //     },
+  //     {
+  //       onError: () => {
+  //         navigate('/auth/profile');
+  //       },
+  //     },
+  //   );
+  // }, []);
 
   const nextButtonCallback = () => {
-    userMutation.mutate(
-      {
-        name: props.context.name,
-        genderType: props.context.genderType,
-        phoneNumber: props.context.phoneNumber,
-        kakaoTalkId: props.context.kakaoTalkId,
-      },
-      {
-        onError: () => {
-          navigate('/auth/profile');
-        },
-      },
-    );
-    userInfoMutation.mutate(
-      {
-        age: String(props.context.age),
-        department: props.context.department,
-        studentNumber: props.context.studentId,
-        interest: props.context.interest,
-      },
-      {
-        onError: () => {
-          navigate('/auth/profile');
-        },
-      },
-    );
     navigate('/auth/main');
   };
 
