@@ -9,6 +9,7 @@ import { useAtom } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
 import { useNavigate } from 'react-router-dom';
 import { getBearerToken } from '../../utils/token';
+import useBasicAxios from './useBasicAxios';
 
 interface RetryAxiosRequestConfig extends AxiosRequestConfig {
   retry: boolean;
@@ -26,6 +27,7 @@ const handleError = async (message: string): Promise<void> => {
 
 const useAuthAxios = () => {
   const [accessToken, setAccessToken] = useAtom(accessTokenAtom);
+  const { postFetcher: basicPostFetcher } = useBasicAxios();
   const navigate = useNavigate();
 
   const basicAxiosInstance: AxiosInstance = axios.create({
@@ -122,37 +124,48 @@ const useAuthAxios = () => {
 
     return config;
   };
-  const onRetryErrorResponse = async (
-    error: AxiosError | Error,
-  ): Promise<never> => {
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        const config = error.config as RetryAxiosRequestConfig;
-        const status = error.response.status;
-        if (status === 401 && !config.retry) {
-          config.retry = true;
-          try {
-            const { data } = await axiosInstance.post('/api/auth/reissue');
-            setAccessToken(data.accessToken);
+  axiosInstance.interceptors.response.use(
+    (res) => res,
+    async (error) => {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          const config = error.config as RetryAxiosRequestConfig;
+          const status = error.response.status;
+          if (status === 401 && !config.retry) {
+            config.retry = true;
+            try {
+              const { accessToken } = await basicPostFetcher<{
+                accessToken: string;
+              }>('/api/auth/reissue');
+              setAccessToken(accessToken);
 
-            config.headers = {
-              ...config.headers,
-              Authorization: getBearerToken(accessToken),
-            };
-            return axiosInstance(config);
-          } catch (error) {
-            handleError('세션만료');
-            navigate('/');
-            return Promise.reject(error);
+              // 새로 발급받은 토큰 설정
+              config.headers = {
+                ...config.headers,
+                Authorization: getBearerToken(accessToken),
+              };
+
+              // 원래 요청 재시도
+              return axiosInstance(config);
+            } catch (reissueError) {
+              handleError('세션만료');
+              navigate('/'); // 홈 화면으로 이동
+              return Promise.reject(reissueError);
+            }
           }
         }
       }
-    }
-    return Promise.reject(error);
-  };
+
+      // 기타 에러 처리
+      return Promise.reject(error);
+    },
+  );
+  // const onRetryErrorResponse = async (
+  //   error: AxiosError | Error,
+  // ): Promise<never> =>
   const setupAuthInterceptors = (instance: AxiosInstance): AxiosInstance => {
     instance.interceptors.request.use(onAuthRequest);
-    instance.interceptors.response.use((res) => res, onRetryErrorResponse);
+    // instance.interceptors.response.use((res) => res, error=);
     return instance;
   };
   const authAxiosInstance = setupAuthInterceptors(axiosInstance);
