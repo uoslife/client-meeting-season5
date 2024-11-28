@@ -65,3 +65,7 @@ export const useGetMeetingGroupInfoWhile = () => {
     enabled: !!accessToken,
   });
 };
+
+// export const useDeleteMeetingGroup = () => {
+//   const { deleteFetcher } = useAuthAxios();
+// };

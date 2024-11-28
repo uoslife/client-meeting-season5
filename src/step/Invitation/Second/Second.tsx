@@ -4,10 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Text from '../../../components/common/Text';
 import useModal from '../../../hooks/useModal';
 import { useState } from 'react';
-import {
-  useGetUserList,
-  useJoinMeetingTeam,
-} from '../../../hooks/api/useMeetingGroupInfo';
+import { useJoinMeetingTeam } from '../../../hooks/api/useMeetingGroupInfo';
 
 interface CodeType {
   code: string;
@@ -22,8 +19,8 @@ const Second = (props: { onNext: () => void }) => {
     handleSubmit: handleSubmitWrapper,
     formState: { errors },
   } = useForm<CodeType>();
-  const joinMutation = useJoinMeetingTeam();
-  const meetingUserListMutation = useGetUserList();
+  // const joinMutation = useJoinMeetingTeam();
+  // const meetingUserListMutation = useGetUserList();
 
   const submitModal = useModal({
     //API 호출
