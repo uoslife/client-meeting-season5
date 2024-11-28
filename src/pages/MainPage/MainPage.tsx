@@ -9,7 +9,7 @@ import { useGetUserStatus } from '../../hooks/api/useUser';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const { data, isLoading, error, refetch } = useGetUserStatus();
+  const userStatus = useGetUserStatus();
 
   return (
     <S.Background>
@@ -49,8 +49,10 @@ const MainPage = () => {
             </div>
           </S.Period>
           <MainBUttonWrapper
-            isPersonalComplete={data?.singleTeamBranch === ''}
-            isGroupComplete={data?.tripleTeamBranch === ''}
+            isPersonalComplete={
+              userStatus.data?.singleTeamBranch || 'NOT_CREATED'
+            }
+            isGroupComplete={userStatus.data?.tripleTeamBranch || 'NOT_CREATED'}
           />
           <S.Snowman>
             <img src={snowman} width={312} />

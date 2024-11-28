@@ -49,8 +49,8 @@ interface UserRequestType {
 }
 
 interface UserStatusResponseType {
-  singleTeamBranch: string;
-  tripleTeamBranch: string;
+  singleTeamBranch: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
+  tripleTeamBranch: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
 }
 
 const usePatchUser = (): UseMutationResult<null, Error, UserRequestType> => {

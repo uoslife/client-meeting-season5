@@ -5,8 +5,8 @@ import S from './style';
 import { useNavigate } from 'react-router-dom';
 
 interface MainButtonWrapperPropsType {
-  isPersonalComplete: boolean;
-  isGroupComplete: boolean;
+  isPersonalComplete: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
+  isGroupComplete: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
 }
 
 const MainBUttonWrapper = ({
@@ -18,7 +18,9 @@ const MainBUttonWrapper = ({
     <S.Wrapper>
       <S.Button
         onClick={() => {
-          if (!isPersonalComplete) navigate('/auth/detail/personal');
+          if (isPersonalComplete !== 'COMPLETED') {
+            navigate('/auth/detail/personal');
+          }
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -29,7 +31,7 @@ const MainBUttonWrapper = ({
           >
             1대1
           </Text>
-          {isPersonalComplete && (
+          {isPersonalComplete === 'COMPLETED' && (
             <Text
               color={'Blue40'}
               typograph={'labelMediumMedium'}
@@ -40,7 +42,7 @@ const MainBUttonWrapper = ({
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {isPersonalComplete ? (
+          {isPersonalComplete === 'COMPLETED' ? (
             <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
               신청 정보 확인
             </Text>
@@ -51,7 +53,9 @@ const MainBUttonWrapper = ({
           )}
 
           <img
-            src={isPersonalComplete ? arrowFront : arrowFrontRed}
+            src={
+              isPersonalComplete === 'COMPLETED' ? arrowFront : arrowFrontRed
+            }
             alt="arrow-front"
             width={20}
             height={20}
@@ -60,7 +64,7 @@ const MainBUttonWrapper = ({
       </S.Button>
       <S.Button
         onClick={() => {
-          if (!isGroupComplete) navigate('/auth/invite');
+          if (isGroupComplete !== 'COMPLETED') navigate('/auth/invite');
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -71,7 +75,7 @@ const MainBUttonWrapper = ({
           >
             3대3
           </Text>
-          {isPersonalComplete && (
+          {isGroupComplete === 'COMPLETED' && (
             <Text
               color={'Blue40'}
               typograph={'labelMediumMedium'}
@@ -82,7 +86,7 @@ const MainBUttonWrapper = ({
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {isPersonalComplete ? (
+          {isGroupComplete === 'COMPLETED' ? (
             <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
               신청 정보 확인
             </Text>
@@ -93,7 +97,7 @@ const MainBUttonWrapper = ({
           )}
 
           <img
-            src={isPersonalComplete ? arrowFront : arrowFrontRed}
+            src={isGroupComplete === 'COMPLETED' ? arrowFront : arrowFrontRed}
             alt="arrow-front"
             width={20}
             height={20}

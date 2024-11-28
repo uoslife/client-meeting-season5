@@ -8,6 +8,8 @@ import Sixth from '../../step/PersonalDatail/Sixth';
 import Header from '../../components/common/Header';
 import { useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
+import { useGetMeetingPersonalInfo } from '../../hooks/api/useMeetingPersonalInfo';
+import { useEffect } from 'react';
 
 export interface BaseProfileType {
   myMbti: string;
@@ -44,6 +46,13 @@ export type FifthType = BaseProfileType & OptionalProfileType;
 export type SixthType = BaseProfileType & OptionalProfileType;
 
 const PersonalDetailProfilePage = () => {
+  const meetingPersonalInfo = useGetMeetingPersonalInfo();
+  useEffect(() => {
+    if (meetingPersonalInfo.isSuccess) {
+      navigate('/auth/summary');
+    }
+  }, [meetingPersonalInfo.isSuccess]);
+
   const roomBoomModal = useModal({
     title: '신청을 취소하시겠습니까?',
     description: '지금까지 진행 중이던 작업이 모두 취소돼요.',
@@ -67,7 +76,7 @@ const PersonalDetailProfilePage = () => {
       context: {},
     },
   });
-  console.log(funnel.context);
+
   switch (funnel.step) {
     case 'first':
       return (
