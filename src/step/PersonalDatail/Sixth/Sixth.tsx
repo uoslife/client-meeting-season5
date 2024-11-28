@@ -6,18 +6,83 @@ import {
   OptionalProfileType,
 } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
 import { useNavigate } from 'react-router-dom';
-import { ContextType, useMeetingInfo } from '../../../hooks/api/useMeetingInfo';
+import {
+  APPEARANCE_ENUM,
+  ContextType,
+  EYELID_ENUM,
+  SMOKING_ENUM,
+  useMeetingInfo,
+} from '../../../hooks/api/useMeetingInfo';
 import { useCreateMeetingTeam } from '../../../hooks/api/useMeeting';
 import { useQueryClient } from '@tanstack/react-query';
+import { usePatchUserInfo } from '../../../hooks/api/useUser';
+import useToast from '../../../hooks/useToast';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();
   const meetingInfoMutation = useMeetingInfo();
+  const userInfoMutation = usePatchUserInfo();
   const creatingMeetingMutation = useCreateMeetingTeam();
   const queryClient = useQueryClient();
+  const myErrorToast = useToast();
+  const counterErrorToast = useToast();
+
+  const handleMeetingInfoMutation = () => {
+    meetingInfoMutation.mutate(
+      {
+        context: props.context as ContextType,
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['meetingTeamInfo', 'SINGLE'],
+          });
+          navigate('/auth/summary');
+        },
+        onError: (error) => console.log(error),
+      },
+    );
+  };
+
+  const parseMyAppearance = (myAppearance: string) => {
+    const [left, right] = myAppearance.split('/').map((str) => str.trim());
+    return [EYELID_ENUM[left], APPEARANCE_ENUM[right]];
+  };
+
+  const handleClick = () => {
+    userInfoMutation.mutate(
+      {
+        mbti: props.context.myMbti,
+        height: props.context.myHeight.slice(0, 3),
+        eyelidType: parseMyAppearance(props.context.myAppearanceType)[0],
+        appearanceType: parseMyAppearance(props.context.myAppearanceType)[1],
+        smoking: SMOKING_ENUM[props.context.mySmoking],
+      },
+      {
+        onError: () => {
+          myErrorToast.toast(1000);
+        },
+      },
+    );
+    creatingMeetingMutation.mutate(
+      {
+        teamType: 'SINGLE',
+      },
+      {
+        onSuccess: handleMeetingInfoMutation,
+        onError: (error) => {
+          handleMeetingInfoMutation();
+          counterErrorToast.toast(1000);
+          console.log(error);
+        },
+      },
+    );
+  };
 
   return (
     <S.Container className="layout-padding">
+      {myErrorToast.render('당신의 TMI를 다시 입력해주세요.')}
+      {counterErrorToast.render('이상형 정보를 다시 입력해주세요.')}
       <S.MainContainer>
         <Text
           typograph={'headlineMedium'}
@@ -259,52 +324,7 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
         </S.ContentWrapper>
       </S.MainContainer>
       <S.ButtonWrapper>
-        <Button
-          buttonColor="primary"
-          type="submit"
-          onClick={() => {
-            //context post requset
-            creatingMeetingMutation.mutate(
-              {
-                teamType: 'SINGLE',
-              },
-              {
-                onSuccess: () => {
-                  meetingInfoMutation.mutate(
-                    {
-                      context: props.context as ContextType,
-                    },
-                    {
-                      onSuccess: () => {
-                        queryClient.invalidateQueries({
-                          queryKey: ['meetingTeamInfo', 'SINGLE'],
-                        });
-                        navigate('/auth/summary');
-                      },
-                      onError: (error) => console.log(error),
-                    },
-                  );
-                },
-                onError: (error) => {
-                  meetingInfoMutation.mutate(
-                    {
-                      context: props.context as ContextType,
-                    },
-                    {
-                      onSuccess: () => {
-                        queryClient.invalidateQueries({
-                          queryKey: ['meetingTeamInfo', 'SINGLE'],
-                        });
-                        navigate('/auth/summary');
-                      },
-                    },
-                  );
-                  console.log(error);
-                },
-              },
-            );
-          }}
-        >
+        <Button buttonColor="primary" type="submit" onClick={handleClick}>
           다음
         </Button>
       </S.ButtonWrapper>
