@@ -130,7 +130,7 @@ const Second = (props: {
                 웹메일로 전송된
               </Text>
               <Text color={'Blue90'} typograph={'headlineMedium'}>
-                인증 코드를 입력해주세요.
+                인증 코드를 입력해 주세요.
               </Text>
             </div>
             <Text color={'Blue70'} typograph={'bodyMediumMedium'}>

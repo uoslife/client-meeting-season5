@@ -56,7 +56,7 @@ const First = (props: {
         inputs: [
           {
             ...name,
-            placeholder: '실명을 입력해주세요.',
+            placeholder: '실명을 입력해 주세요.',
             defaultValue: props.context.name,
           },
         ],
@@ -68,7 +68,7 @@ const First = (props: {
         inputs: [
           {
             ...genderReadOnly,
-            placeholder: '성별을 선택해주세요.',
+            placeholder: '성별을 선택해 주세요.',
             defaultValue: props.context.genderType,
           },
         ],
@@ -99,7 +99,7 @@ const First = (props: {
         inputs: [
           {
             ...age,
-            placeholder: '태어난 연도를 선택해주세요.',
+            placeholder: '태어난 연도를 선택해 주세요.',
             defaultValue: props.context.age,
           },
         ],

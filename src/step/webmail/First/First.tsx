@@ -61,14 +61,21 @@ const First = (props: {
                 서울 시립대학교 웹메일을
               </Text>
               <Text color={'Blue90'} typograph={'headlineMedium'}>
-                입력해주세요.
+                입력해 주세요.
               </Text>
             </div>
             <Text color={'Blue70'} typograph={'bodyMediumMedium'}>
               일일 인증 코드 전송 및 인증 횟수는 5회로 제한됩니다.
             </Text>
           </S.TextWrapper>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 5,
+              marginTop: '40px',
+            }}
+          >
             <div
               style={{
                 display: 'flex',

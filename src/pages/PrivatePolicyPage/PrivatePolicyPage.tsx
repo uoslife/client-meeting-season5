@@ -50,7 +50,7 @@ const First = (): ReactNode => {
             typograph={'bodyMediumMedium'}
             style={{ marginTop: 8 }}
           >
-            즐거운 시대팅을 위해 약속해주세요.
+            즐거운 시대팅을 위해 약속해 주세요.
           </Text>
           <S.PolicyWrapper>
             <S.PolicyItem

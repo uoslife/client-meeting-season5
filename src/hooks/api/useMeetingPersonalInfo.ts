@@ -18,7 +18,7 @@ export const useGetMeetingPersonalInfo = (): UseQueryResult<void, Error> => {
   const accessToken = useAtomValue(accessTokenAtom);
   return useQuery({
     queryKey: ['meetingTeamInfo', 'SINGLE'],
-    queryFn: () => getFetcher<undefined>(`api/meeting/SINGLE/application/info`),
+    queryFn: () => getFetcher<void>(`api/meeting/SINGLE/application/info`),
     refetchOnWindowFocus: false,
     select: (data) => data,
     retry: false,
