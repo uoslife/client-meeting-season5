@@ -6,9 +6,14 @@ import {
   OptionalProfileType,
 } from '../../../pages/PersonalDetailProfilePage/PersonalDetailProfilePage';
 import { useNavigate } from 'react-router-dom';
+import { ContextType, useMeetingInfo } from '../../../hooks/api/useMeetingInfo';
+import { useCreateMeetingTeam } from '../../../hooks/api/useMeeting';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();
+  const meetingInfoMutation = useMeetingInfo();
+  const creatingMeetingMutation = useCreateMeetingTeam();
+
   return (
     <S.Container className="layout-padding">
       <S.MainContainer>
@@ -257,8 +262,28 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
           type="submit"
           onClick={() => {
             //context post requset
-            console.log(props.context);
-            navigate('/auth/summary');
+            creatingMeetingMutation.mutate(
+              {
+                teamType: 'SINGLE',
+              },
+              {
+                onSuccess: () => {
+                  meetingInfoMutation.mutate({
+                    context: props.context as ContextType,
+                  });
+                },
+                onError: (error) => {
+                  console.log(error);
+
+                  console.log('Durl');
+                  meetingInfoMutation.mutate({
+                    context: props.context as ContextType,
+                  });
+                },
+              },
+            );
+
+            // navigate('/auth/summary');
           }}
         >
           다음
