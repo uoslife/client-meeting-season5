@@ -1,5 +1,4 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { errorHandler } from '../../utils/api';
 import useAuthAxios from '../axios/useAuthAxios';
 interface CreateMeetingTeamRequest {
   teamType: 'SINGLE' | 'TRIPLE';

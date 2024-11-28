@@ -7,7 +7,6 @@ import WebmailImg from '../../../lib/assets/images/webmail-result-img.png';
 import { useSetAtom } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
 import { ThirdType } from '../../../pages/WebMailPage/WebMailPage';
-import { getBearerToken } from '../../../utils/token';
 
 const Third = (props: { context: ThirdType }): ReactNode => {
   const setAccessToken = useSetAtom(accessTokenAtom);
