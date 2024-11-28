@@ -14,6 +14,41 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Pretandard-Bold';
+  src: url('../fonts/Pretandard/Pretendard-Bold.woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretandard-Light';
+  src: url('../fonts/Pretandard/Pretendard-Light.woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretandard-SemiBold';
+  src: url('../fonts/Pretandard/Pretendard-SemiBold.woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretandard-Medium';
+  src: url('../fonts/Pretandard/Pretendard-Medium.woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretandard-Regular';
+  src: url('../fonts/Pretandard/Pretendard-Regular.woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
 .layout-padding {
   padding: 0px 20px;
 }
