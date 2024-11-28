@@ -5,13 +5,15 @@ interface UserInfo {
   phoneNumber: string | null;
   name: string | null;
   kakaoTalkId: string | null;
-  genderType: 'MALE' | 'FEMALE' | null;
+  genderType: string | null;
+  age: string | null;
 }
 
 export const userInfoAtom = atom<UserInfo>({
-  email: 'string',
-  phoneNumber: 'string',
-  name: 'string',
-  kakaoTalkId: 'string',
-  genderType: 'MALE',
+  email: '',
+  phoneNumber: '',
+  name: '',
+  kakaoTalkId: '',
+  genderType: '',
+  age: '',
 });

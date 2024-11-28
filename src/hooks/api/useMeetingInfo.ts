@@ -7,6 +7,8 @@ import {
   SmokingType,
   WeightType,
 } from '../../lib/types/personalMeeting.type';
+import { useAtomValue } from 'jotai';
+import { userInfoAtom } from '../../store/userInfo';
 
 export type ContextType = {
   avoidDepartment: string;
@@ -30,29 +32,16 @@ export const useMeetingInfo = (): UseMutationResult<
   MeetingTeamInfoRequest
 > => {
   const { postFetcher } = useAuthAxios();
-
-  //추후에 전역 userInfo로 수정
+  const userInfo = useAtomValue(userInfoAtom);
+  console.log(userInfo);
 
   return useMutation<void, Error, MeetingTeamInfoRequest>({
-    //두 개로 나눠놓은거
     mutationFn: ({ context }) =>
-      // console.log({
-      //   ageMin: parseAge(context.targetAge)[0],
-      //   ageMax: parseAge(context.targetAge)[1],
-      //   heightMin: parseHeight(context.targetHeight)[0],
-      //   heightMax: parseHeight(context.targetHeight)[1],
-      //   mbti: parseMbti(context.targetMbti),
-      //   eyelidType: parseAppearance(context.targetAppearanceType)[0],
-      //   appearanceType: parseAppearance(context.targetAppearanceType)[1],
-      //   smoking: parseSmoking(context.targetSmoking),
-      //   weight: WEIGHT_ENUM[context.prefer],
-      //   avoidDepartment: context.avoidDepartment,
-      //   avoidNumber: context.avoidStudentId.slice(-2),
-      //   course: context.course,
-      // });
       postFetcher(`/api/meeting/SINGLE/info`, {
-        ageMin: parseAge(context.targetAge)[0],
-        ageMax: parseAge(context.targetAge)[1],
+        ageMin:
+          parseInt(userInfo.age as string) + parseAge(context.targetAge)[0],
+        ageMax:
+          parseInt(userInfo.age as string) + parseAge(context.targetAge)[1],
         heightMin: parseHeight(context.targetHeight)[0],
         heightMax: parseHeight(context.targetHeight)[1],
         mbti: parseMbti(context.targetMbti),
@@ -61,7 +50,9 @@ export const useMeetingInfo = (): UseMutationResult<
         smoking: parseSmoking(context.targetSmoking),
         weight: WEIGHT_ENUM[context.prefer],
         avoidanceDepartment: context.avoidDepartment,
-        avoidanceNumber: context.avoidStudentId.slice(-2),
+        avoidanceNumber: context.avoidStudentId
+          ? context.avoidStudentId.slice(-2)
+          : null,
         course: context.course,
       }),
     onSuccess: () => {},
@@ -69,19 +60,19 @@ export const useMeetingInfo = (): UseMutationResult<
   });
 };
 
-const EYELID_ENUM: { [key: string]: EyelidType } = {
+export const EYELID_ENUM: { [key: string]: EyelidType } = {
   속쌍: 'INNER',
   유쌍: 'DOUBLE',
   무쌍: 'SINGLE',
 };
 
-const APPEARANCE_ENUM: { [key: string]: AppearanceType } = {
+export const APPEARANCE_ENUM: { [key: string]: AppearanceType } = {
   또렷: 'ARAB',
   순한: 'TOFU',
   중간: 'NORMAL',
 };
 
-const SMOKING_ENUM: { [key: string]: SmokingType } = {
+export const SMOKING_ENUM: { [key: string]: SmokingType } = {
   전자담배: 'E_CIGARETTE',
   연초: 'CIGARETTE',
   비흡연: 'FALSE',
@@ -96,12 +87,18 @@ const WEIGHT_ENUM: { [key: string]: WeightType } = {
 };
 
 const parseMbti = (targetMbti: string): string => {
+  if (targetMbti === '상관없음') return 'EINSTFJP';
   return targetMbti.replaceAll('/', '').replaceAll(',', '');
 };
 
 const parseAppearance = (
   targetAppearance: string,
 ): [EyelidType[], AppearanceType[]] => {
+  if (targetAppearance === '상관없음')
+    return [
+      ['DOUBLE', 'INNER', 'SINGLE'],
+      ['ARAB', 'NORMAL', 'TOFU'],
+    ];
   const [left, right] = targetAppearance.split('/').map((str) => str.trim());
   const eyelidArr = left.split(',').map((str) => str.trim());
   const appearanceArr = right.split(',').map((str) => str.trim());
@@ -117,6 +114,8 @@ const parseAppearance = (
 };
 
 const parseSmoking = (targetSmoking: string): SmokingType[] => {
+  if (targetSmoking === '상관없음')
+    return ['CIGARETTE', 'E_CIGARETTE', 'FALSE'];
   const smokingArr = targetSmoking.split(',').map((item) => item.trim());
 
   return smokingArr.map((item) => {

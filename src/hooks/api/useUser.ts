@@ -13,7 +13,7 @@ import useAuthAxios from '../axios/useAuthAxios';
 type UserProfileResponseType = {
   name: string | null;
   genderType: 'MALE' | 'FEMALE' | null;
-  age: number | null;
+  age: string | null;
   phoneNumber: string | null;
   kakaoTalkId: string | null;
   email: string | null;
