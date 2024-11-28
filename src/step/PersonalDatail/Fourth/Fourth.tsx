@@ -38,7 +38,7 @@ const Fourth = (props: {
         inputs: [
           {
             ...avoidDepartment,
-            placeholder: '학과를 선택해주세요.',
+            placeholder: '학과를 선택해 주세요.',
             defaultValue: props.context.avoidDepartment,
           },
         ],

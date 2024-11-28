@@ -100,7 +100,7 @@ const useAuthAxios = () => {
         // request, response 둘 다 없는 경우
         // url이 존재하지 않거나 인자 값이 없는 경우
         // 설정문제, 프로토콜 문제, cors에러 등등
-        logOnDev('axios 설정을 확인해주세요');
+        logOnDev('axios 설정을 확인해 주세요');
       }
     } else {
       // AxiosError가 아닌 경우
