@@ -8,31 +8,55 @@ interface RangeSliderPropsType {
   setValue: React.Dispatch<SetStateAction<number[]>>;
 }
 
+export const AGE_ENUM: { [key: number]: string } = {
+  1: '-5살',
+  2: '-3살',
+  3: '동갑',
+  4: '+3살',
+  5: '+5살',
+};
+
 const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
   const marks = {
-    20: {
-      label: '20',
+    1: {
+      label: '-5살',
       style: {
         top: 5,
         color: COLORS.Blue30,
         fontSize: 14,
       },
     },
-    21: '',
-    22: '',
-    23: '',
-    24: '',
-    25: '',
-    26: '',
-    27: '',
-    28: '',
-    29: '',
-    30: {
-      label: '30+',
+    2: {
+      label: '-3살',
       style: {
         top: 5,
         color: COLORS.Blue30,
         fontSize: 14,
+      },
+    },
+    3: {
+      label: '동갑',
+      style: {
+        top: 5,
+        color: COLORS.Blue30,
+        fontSize: 14,
+      },
+    },
+    4: {
+      label: '+3살',
+      style: {
+        top: 5,
+        color: COLORS.Blue30,
+        fontSize: 14,
+      },
+    },
+    5: {
+      label: '-5살',
+      style: {
+        top: 5,
+        color: COLORS.Blue30,
+        fontSize: 14,
+        right: -25,
       },
     },
   };
@@ -44,8 +68,8 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
   return (
     <Slider
       range
-      min={20}
-      max={30}
+      min={1}
+      max={5}
       step={1}
       value={value}
       marks={marks}

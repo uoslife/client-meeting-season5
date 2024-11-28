@@ -18,6 +18,8 @@ import useCounterSmokingForm from '../../../hooks/useCounterSmokingForm';
 import SmokingBottomSheet from '../../../components/feature/SmokingBottomSheet';
 import HeightRangeSlider from '../../../components/feature/HeightRangeSlider';
 import AgeRangeSlider from '../../../components/feature/AgeRangeSlider';
+import { AGE_ENUM } from '../../../components/feature/AgeRangeSlider/AgeRangeSlider';
+
 const Second = (props: {
   context: SecondType;
   onNext: ({
@@ -40,7 +42,7 @@ const Second = (props: {
   const appearanceForm = useAppearanceForm();
   const smokingForm = useCounterSmokingForm();
 
-  const [ageValue, setAgeValue] = useState<number[]>([20, 30]);
+  const [ageValue, setAgeValue] = useState<number[]>([1, 5]);
   const [heightValue, setHeightValue] = useState<number[]>([160, 190]);
 
   const submitHandler = async () => {
@@ -321,12 +323,11 @@ const Second = (props: {
   }, [smokingForm]);
   const ageBottomSheet = useBottomSheet({
     title: '나이',
-    description: '희망하는 선택지를 모두 선택해 주세요.',
     mainButtonText: '선택',
     mainButtonCallback: () => {
       idealForm.setValue(
         'counterAge',
-        `연나이 ${ageValue[0]}세 ~ ${ageValue[1] === 30 ? '30+' : ageValue[1]}세`,
+        `${AGE_ENUM[ageValue[0]]} ~ ${AGE_ENUM[ageValue[1]]}`,
       );
     },
     isSideButton: false,
@@ -508,7 +509,7 @@ const Second = (props: {
             typograph={'titleSmall'}
             style={{ fontWeight: 600, width: '100%' }}
           >
-            {`연나이 ${ageValue[0]}세 ~ ${ageValue[1] === 30 ? ageValue[1] + '+' : ageValue[1]}세`}
+            {`${AGE_ENUM[ageValue[0]]} ~ ${AGE_ENUM[ageValue[1]]}`}
           </Text>
           <div
             style={{
