@@ -49,7 +49,7 @@ const PersonalDetailProfilePage = () => {
   const meetingPersonalInfo = useGetMeetingPersonalInfo();
   useEffect(() => {
     if (meetingPersonalInfo.isSuccess) {
-      navigate('/auth/summary');
+      navigate('/auth/summary?type=personal');
     }
   }, [meetingPersonalInfo.isSuccess]);
 

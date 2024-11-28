@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Text from '../../../components/common/Text';
 import useModal from '../../../hooks/useModal';
 import { useState } from 'react';
-import { useJoinMeetingTeam } from '../../../hooks/api/useMeetingGroupInfo';
 
 interface CodeType {
   code: string;

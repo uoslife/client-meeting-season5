@@ -46,7 +46,14 @@ const SummaryPage = () => {
 
   return (
     <S.Background>
-      <Header title={HEADER_TITLE[headerTitleType]} isGoBackButton={true} />
+      <Header
+        title={HEADER_TITLE[headerTitleType]}
+        isGoBackButton={false}
+        rightButtonType="logout"
+        rightButtonCallback={() => {
+          navigate('/auth/main');
+        }}
+      />
       <S.Container className="layout-padding">
         <S.MainContainer>
           <Text

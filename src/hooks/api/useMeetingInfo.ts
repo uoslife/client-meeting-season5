@@ -29,11 +29,12 @@ export const useMeetingInfo = (): UseMutationResult<
   Error,
   MeetingTeamInfoRequest
 > => {
-  const { putFetcher } = useAuthAxios();
+  const { postFetcher } = useAuthAxios();
 
   //추후에 전역 userInfo로 수정
 
   return useMutation<void, Error, MeetingTeamInfoRequest>({
+    //두 개로 나눠놓은거
     mutationFn: ({ context }) =>
       // console.log({
       //   ageMin: parseAge(context.targetAge)[0],
@@ -49,7 +50,7 @@ export const useMeetingInfo = (): UseMutationResult<
       //   avoidNumber: context.avoidStudentId.slice(-2),
       //   course: context.course,
       // });
-      putFetcher(`/api/meeting/SINGLE/info`, {
+      postFetcher(`/api/meeting/SINGLE/info`, {
         ageMin: parseAge(context.targetAge)[0],
         ageMax: parseAge(context.targetAge)[1],
         heightMin: parseHeight(context.targetHeight)[0],

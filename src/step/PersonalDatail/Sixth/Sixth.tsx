@@ -8,11 +8,13 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { ContextType, useMeetingInfo } from '../../../hooks/api/useMeetingInfo';
 import { useCreateMeetingTeam } from '../../../hooks/api/useMeeting';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();
   const meetingInfoMutation = useMeetingInfo();
   const creatingMeetingMutation = useCreateMeetingTeam();
+  const queryClient = useQueryClient();
 
   return (
     <S.Container className="layout-padding">
@@ -274,6 +276,9 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
                     },
                     {
                       onSuccess: () => {
+                        queryClient.invalidateQueries({
+                          queryKey: ['meetingTeamInfo', 'SINGLE'],
+                        });
                         navigate('/auth/summary');
                       },
                       onError: (error) => console.log(error),
@@ -287,6 +292,9 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
                     },
                     {
                       onSuccess: () => {
+                        queryClient.invalidateQueries({
+                          queryKey: ['meetingTeamInfo', 'SINGLE'],
+                        });
                         navigate('/auth/summary');
                       },
                     },
