@@ -34,7 +34,7 @@ export const useMeetingInfo = (): UseMutationResult<
   //추후에 전역 userInfo로 수정
 
   return useMutation<void, Error, MeetingTeamInfoRequest>({
-    mutationFn: ({ context }) => {
+    mutationFn: ({ context }) =>
       // console.log({
       //   ageMin: parseAge(context.targetAge)[0],
       //   ageMax: parseAge(context.targetAge)[1],
@@ -62,8 +62,7 @@ export const useMeetingInfo = (): UseMutationResult<
         avoidanceDepartment: context.avoidDepartment,
         avoidanceNumber: context.avoidStudentId.slice(-2),
         course: context.course,
-      });
-    },
+      }),
     onSuccess: () => {},
     onError: (error) => errorHandler(error),
   });
