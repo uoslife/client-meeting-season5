@@ -50,9 +50,15 @@ const MainPage = () => {
           </S.Period>
           <MainBUttonWrapper
             isPersonalComplete={
-              userStatus.data?.singleTeamBranch || 'NOT_CREATED'
+              userStatus.data?.singleTeamBranch
+                ? userStatus.data?.singleTeamBranch
+                : 'NOT_CREATED'
             }
-            isGroupComplete={userStatus.data?.tripleTeamBranch || 'NOT_CREATED'}
+            isGroupComplete={
+              userStatus.data?.tripleTeamBranch
+                ? userStatus.data?.tripleTeamBranch
+                : 'NOT_CREATED'
+            }
           />
           <S.Snowman>
             <img src={snowman} width={312} />
