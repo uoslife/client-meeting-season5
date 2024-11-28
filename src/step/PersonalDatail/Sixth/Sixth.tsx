@@ -268,22 +268,33 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
               },
               {
                 onSuccess: () => {
-                  meetingInfoMutation.mutate({
-                    context: props.context as ContextType,
-                  });
+                  meetingInfoMutation.mutate(
+                    {
+                      context: props.context as ContextType,
+                    },
+                    {
+                      onSuccess: () => {
+                        navigate('/auth/summary');
+                      },
+                      onError: (error) => console.log(error),
+                    },
+                  );
                 },
                 onError: (error) => {
+                  meetingInfoMutation.mutate(
+                    {
+                      context: props.context as ContextType,
+                    },
+                    {
+                      onSuccess: () => {
+                        navigate('/auth/summary');
+                      },
+                    },
+                  );
                   console.log(error);
-
-                  console.log('Durl');
-                  meetingInfoMutation.mutate({
-                    context: props.context as ContextType,
-                  });
                 },
               },
             );
-
-            // navigate('/auth/summary');
           }}
         >
           다음
