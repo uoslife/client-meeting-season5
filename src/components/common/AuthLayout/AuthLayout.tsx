@@ -2,15 +2,17 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { S } from '../BasicLayout/style';
 import { useReissue } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
 import { useGetUserInfo } from '../../../hooks/api/useUser';
+import { userInfoAtom } from '../../../store/userInfo';
 
 const AuthLayout = () => {
   const navigate = useNavigate();
   const accessToken = useAtomValue(accessTokenAtom);
   const reissueMutation = useReissue();
   const userInfo = useGetUserInfo();
+  const [contextUserInfo, setContextUserInfo] = useAtom(userInfoAtom);
 
   useEffect(() => {
     if (!accessToken)
@@ -23,6 +25,7 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (userInfo.isSuccess) {
+      setContextUserInfo(userInfo.data);
       if (
         userInfo.data.phoneNumber &&
         userInfo.data.name &&
@@ -36,7 +39,7 @@ const AuthLayout = () => {
       }
       navigate('/auth/profile');
     }
-  }, [userInfo.isSuccess]);
+  }, [userInfo.isSuccess, contextUserInfo]);
 
   return (
     <S.OuterStyle>

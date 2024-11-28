@@ -11,21 +11,21 @@ import { getBearerToken } from '../../utils/token';
 import useAuthAxios from '../axios/useAuthAxios';
 
 type UserProfileResponseType = {
-  name?: string | null;
-  genderType?: 'MALE' | 'FEMALE' | null;
-  age?: number | null;
-  phoneNumber?: string | null;
-  kakaoTalkId?: string | null;
-  email?: string | null;
-  department?: string | null;
-  studentNumber?: number | null;
-  height?: number | null;
-  smoking?: boolean | null;
-  mbti?: string | null;
+  name: string | null;
+  genderType: 'MALE' | 'FEMALE' | null;
+  age: number | null;
+  phoneNumber: string | null;
+  kakaoTalkId: string | null;
+  email: string | null;
+  department: string | null;
+  studentNumber: number | null;
+  height: number | null;
+  smoking: boolean | null;
+  mbti: string | null;
   interest: string[];
-  appearanceType?: string | null;
-  eyelidType?: string | null;
-  studentType?: string | null;
+  appearanceType: string | null;
+  eyelidType: string | null;
+  studentType: string | null;
 };
 
 interface UserInfoRequestType {
