@@ -1,10 +1,15 @@
+import { useAtomValue } from 'jotai';
 import Button from '../../components/common/Button';
 import Header from '../../components/common/Header';
 import Text from '../../components/common/Text';
+import usePayment from '../../hooks/usePayment';
 import { S } from './style';
+import { accessTokenAtom } from '../../store/accessTokenAtom';
 
 const PaymentPage = () => {
-  const paymentHandler = () => {};
+  const { requestPayment, verifyPayment } = usePayment();
+  const accessToken = useAtomValue(accessTokenAtom);
+  // const paymentHandler = () => {};
 
   return (
     <S.Container>
@@ -52,7 +57,36 @@ const PaymentPage = () => {
         </S.ProductWrapper>
       </S.MainContainer>
       <S.ButtonWrapper className="layout-padding">
-        <Button buttonColor="primary" type="button" onClick={paymentHandler}>
+        <Button
+          buttonColor="primary"
+          type="button"
+          onClick={async () => {
+            //결제 전 결제 여부 확인
+            await verifyPayment({
+              teamType: 'SINGLE',
+              accessToken: accessToken,
+            })
+              .then((res) => {
+                //결제 pending 상태인 경우 PENDING
+                //결제 success 상태인 경우 SUCCESS
+                //만약 결제중이라면 IMP에 결제 안보냄
+                //결제 대기중이므로 결제 대기 페이지 혹은 Suspense 처리 해줘야함
+                console.log('여기서 PENDING, SUCCESS 상태면 리다이렉트');
+                console.log(res);
+              })
+              .catch((err) => {
+                //에러 났으면 밑에 requestPayment 함수 실행
+                //결제 정보 없는 경우 : 서버에서 에러 throw
+                console.log(err);
+              });
+
+            //결제
+            requestPayment({
+              teamType: 'SINGLE',
+              accessToken: accessToken,
+            });
+          }}
+        >
           결제하기
         </Button>
       </S.ButtonWrapper>

@@ -112,7 +112,7 @@ const usePayment = () => {
       name: name,
       buyer_tel: buyer_tel,
       buyer_name: buyer_name,
-      m_redirect_url: 'http://localhost:5173/payment-test',
+      m_redirect_url: import.meta.env.VITE_PAYMENT_REDIRECT_URL,
       app_scheme: 'uoslife',
     };
 
