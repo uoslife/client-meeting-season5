@@ -1,15 +1,32 @@
 import S from './style';
 import Button from '../../../components/common/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Text from '../../../components/common/Text';
 import Refresh from '../../../lib/assets/icon/refresh-icon.svg';
 import { COLORS } from '../../../lib/constants';
 import ApplicantItem from '../../../components/feature/ApplicantItem';
+import { useCreateMeetingTeam } from '../../../hooks/api/useMeetingPersonalInfo';
 const Third = (props: {
   isTeamLeader: boolean;
   onNext: (userList: string[]) => void;
 }) => {
+  const [tingCode, setTingCode] = useState('');
   const [userList, _] = useState<string[]>(['우채윤', '우채윤', '우채윤']);
+  const createTeamMutation = useCreateMeetingTeam();
+
+  useEffect(() => {
+    createTeamMutation.mutate(undefined, {
+      onSuccess: (data) => {
+        console.log(data);
+        setTingCode(data.code);
+      },
+      onError: (error) => {
+        // info 가져오기 -> userlist 가져옴
+        console.log(error);
+      },
+    });
+  }, []);
+
   return (
     <>
       <S.Container>
@@ -19,17 +36,11 @@ const Third = (props: {
               코드를 팅원들에게 공유해주세요.
             </Text>
             <S.CodeWrapper>
-              <S.Code>4</S.Code>
-              <S.Code>4</S.Code>
-              <S.Code>4</S.Code>
-              <S.Code>4</S.Code>
+              <S.Code>{tingCode}</S.Code>
+              <S.Code>{tingCode}</S.Code>
+              <S.Code>{tingCode}</S.Code>
+              <S.Code>{tingCode}</S.Code>
             </S.CodeWrapper>
-            <S.TextWrapper>
-              <Text typograph={'bodyMediumMedium'} color={'Blue40'}>
-                코드 재발급
-              </Text>
-              <img src={Refresh} alt="refresh" />
-            </S.TextWrapper>
           </S.CodeContainer>
           <S.HorizonBar />
           <S.Container className="layout-padding">

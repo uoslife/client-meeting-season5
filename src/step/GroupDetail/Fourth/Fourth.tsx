@@ -13,7 +13,9 @@ const Fourth = (props: { context: FourthType }) => {
     isSideButton: false,
     description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
   });
-  const handleClick = () => {};
+  const handleClick = () => {
+    console.log(props.context);
+  };
   return (
     <>
       <S.Container className="layout-padding">

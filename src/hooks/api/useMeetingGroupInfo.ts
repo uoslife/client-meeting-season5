@@ -44,7 +44,7 @@ export const useGetMeetingGroupInfo = () => {
   const { getFetcher } = useAuthAxios();
   const accessToken = useAtomValue(accessTokenAtom);
   return useQuery({
-    queryKey: ['getMeetingUserList'],
+    queryKey: ['meetingTeamInfo', 'TRIPLE'],
     queryFn: () => getFetcher<undefined>(`api/meeting/TRIPLE/application/info`),
     refetchOnWindowFocus: false,
     select: (data) => data,
