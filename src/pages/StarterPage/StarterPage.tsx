@@ -18,9 +18,6 @@ const StarterPage = () => {
       .then(() => {
         console.log('성공');
         setToastMessage('텍스트가 클립보드에 복사되었습니다.');
-        setTimeout(() => {
-          navigate('/payment-test');
-        }, 2000);
       })
       .catch(() => {
         console.log('실패');
