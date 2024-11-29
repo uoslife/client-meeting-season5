@@ -20,8 +20,8 @@ const PaymentResultPage = (): ReactNode => {
   });
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (data) navigate('/payment-success', { replace: true });
-      if (isError) navigate('/payment-failed', { replace: true });
+      if (data) navigate('/auth/payment/success', { replace: true });
+      if (isError) navigate('/auth/payment/failed', { replace: true });
     }, 4000);
 
     return () => clearTimeout(timer);

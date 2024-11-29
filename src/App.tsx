@@ -17,6 +17,7 @@ import EditProfilePage from './pages/EditProfilePage';
 import BasicProfilePage from './pages/BasicProfilePage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
 import PaymentFailedPage from './pages/PaymentFailedPage';
+import PaymentTestPage from './pages/PaymentTestPage';
 import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: 'start',
         element: <StarterPage />,
       },
+      {
+        path: 'payment-test',
+        element: <PaymentTestPage />,
+      },
     ],
   },
   {
@@ -46,18 +51,6 @@ const router = createBrowserRouter([
       {
         path: 'webmail',
         element: <WebMailPage />,
-      },
-      {
-        path: 'payment-result',
-        element: <PaymentResultPage />,
-      },
-      {
-        path: 'payment-success',
-        element: <PaymentSuccessPage />,
-      },
-      {
-        path: 'payment-failed',
-        element: <PaymentFailedPage />,
       },
     ],
   },
@@ -106,6 +99,18 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <PaymentPage />,
+          },
+          {
+            path: 'result',
+            element: <PaymentResultPage />,
+          },
+          {
+            path: 'success',
+            element: <PaymentSuccessPage />,
+          },
+          {
+            path: 'failed',
+            element: <PaymentFailedPage />,
           },
         ],
       },
