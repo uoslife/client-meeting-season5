@@ -3,7 +3,7 @@ import Text from '../../components/common/Text';
 import { S } from './style';
 import EditIcon from '../../lib/assets/images/edit-16-icon.svg';
 import logout from '../../lib/assets/icon/logout.svg';
-import { useLogout } from '../../hooks/api/useUser';
+import { useGetUserInfo, useLogout } from '../../hooks/api/useUser';
 import useModal from '../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ const EditProfilePage = () => {
     isSideButton: true,
     sideButtonText: '취소',
   });
+  const userInfo = useGetUserInfo();
   return (
     <S.Container>
       <Header
@@ -49,7 +50,7 @@ const EditProfilePage = () => {
                   이름
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`df`}
+                  {`${userInfo.data?.name}`}
                 </Text>
               </div>
               <div style={{ display: 'flex', gap: 20 }}>
@@ -61,7 +62,7 @@ const EditProfilePage = () => {
                   성별
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`sdf`}
+                  {userInfo.data?.genderType == 'MALE' ? '남자' : '여자'}
                 </Text>
               </div>
               <div style={{ display: 'flex', gap: 20 }}>
@@ -73,7 +74,7 @@ const EditProfilePage = () => {
                   나이
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`2d`}
+                  {`${userInfo.data?.age}`}
                 </Text>
               </div>
               <div style={{ display: 'flex', gap: 20 }}>
@@ -85,7 +86,7 @@ const EditProfilePage = () => {
                   전화번호
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`df`}
+                  {`${userInfo.data?.phoneNumber}`}
                 </Text>
               </div>
               <div style={{ display: 'flex', gap: 20 }}>
@@ -97,7 +98,7 @@ const EditProfilePage = () => {
                   카카오톡 ID
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`df`}
+                  {`${userInfo.data?.kakaoTalkId}`}
                 </Text>
               </div>
             </S.TextWrapper>
@@ -123,7 +124,7 @@ const EditProfilePage = () => {
                   신분
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`df`}
+                  {`${userInfo.data?.studentType}`}
                 </Text>
               </div>
               <div style={{ display: 'flex', gap: 20 }}>
@@ -135,7 +136,7 @@ const EditProfilePage = () => {
                   학과
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`sdf`}
+                  {`${userInfo.data?.department}`}
                 </Text>
               </div>
               <div style={{ display: 'flex', gap: 20 }}>
@@ -147,7 +148,7 @@ const EditProfilePage = () => {
                   학번
                 </Text>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`2d`}
+                  {`${userInfo.data?.studentNumber}`}
                 </Text>
               </div>
             </S.TextWrapper>
@@ -166,7 +167,7 @@ const EditProfilePage = () => {
             <S.TextWrapper>
               <div style={{ display: 'flex', gap: 20 }}>
                 <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                  {`df`}
+                  {`${userInfo.data?.interest}`}
                 </Text>
               </div>
             </S.TextWrapper>
@@ -177,7 +178,7 @@ const EditProfilePage = () => {
             logoutModal.open();
           }}
         >
-          로그아웃 <img src={logout} />
+          로그아웃 <img src={logout} width={14} />
         </S.LogoutText>
         {logoutModal.render({})}
       </S.MainContainer>
