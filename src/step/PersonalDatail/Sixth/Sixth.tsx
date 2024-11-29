@@ -17,6 +17,7 @@ import { useCreateMeetingTeam } from '../../../hooks/api/useMeeting';
 import { useQueryClient } from '@tanstack/react-query';
 import { usePatchUserInfo } from '../../../hooks/api/useUser';
 import useToast from '../../../hooks/useToast';
+import useBottomSheet from '../../../hooks/useBottomSheet';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();
@@ -26,6 +27,13 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const queryClient = useQueryClient();
   const myErrorToast = useToast();
   const counterErrorToast = useToast();
+  const PersonDetailResultBottomSheet = useBottomSheet({
+    title: '신청하시겠습니까?',
+    mainButtonText: '신청하기',
+    mainButtonCallback: () => handleClick,
+    isSideButton: false,
+    description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
+  });
 
   const handleMeetingInfoMutation = () => {
     meetingInfoMutation.mutate(
@@ -324,10 +332,17 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
         </S.ContentWrapper>
       </S.MainContainer>
       <S.ButtonWrapper>
-        <Button buttonColor="primary" type="submit" onClick={handleClick}>
+        <Button
+          buttonColor="primary"
+          type="submit"
+          onClick={() => {
+            PersonDetailResultBottomSheet.open();
+          }}
+        >
           다음
         </Button>
       </S.ButtonWrapper>
+      {PersonDetailResultBottomSheet.render(<></>)}
     </S.Container>
   );
 };
