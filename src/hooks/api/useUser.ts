@@ -4,7 +4,7 @@ import {
   useQuery,
   UseQueryResult,
 } from '@tanstack/react-query';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
 import { errorHandler } from '../../utils/api';
 import { getBearerToken } from '../../utils/token';
@@ -117,4 +117,22 @@ const useGetUserStatus = (): UseQueryResult<UserStatusResponseType, Error> => {
     enabled: !!accessToken,
   });
 };
-export { usePatchUser, usePatchUserInfo, useGetUserInfo, useGetUserStatus };
+
+const useLogout = (): UseMutationResult<void, Error, void> => {
+  const { postFetcher } = useAuthAxios();
+  const setAccessToken = useSetAtom(accessTokenAtom);
+  return useMutation({
+    mutationFn: () => postFetcher('/api/auth/logout'),
+    onSuccess: () => {
+      setAccessToken('');
+    },
+  });
+};
+
+export {
+  usePatchUser,
+  usePatchUserInfo,
+  useGetUserInfo,
+  useGetUserStatus,
+  useLogout,
+};
