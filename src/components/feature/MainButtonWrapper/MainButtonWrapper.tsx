@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface MainButtonWrapperPropsType {
   isPersonalComplete: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
-  isGroupComplete: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
+  isGroupComplete: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED' | 'JOINED';
 }
 
 const MainBUttonWrapper = ({
@@ -86,7 +86,20 @@ const MainBUttonWrapper = ({
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {isGroupComplete === 'COMPLETED' ? (
+          {/* {isGroupComplete === 'COMPLETED' ? (
+            <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
+              신청 정보 확인
+            </Text>
+          ) : (
+            <Text color={'Red60'} typograph={'bodyLargeMedium'}>
+              신청하기
+            </Text>
+          )} */}
+          {isGroupComplete === 'JOINED' ? (
+            <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
+              팅장이 진행중..
+            </Text>
+          ) : isGroupComplete === 'COMPLETED' ? (
             <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
               신청 정보 확인
             </Text>
@@ -97,7 +110,11 @@ const MainBUttonWrapper = ({
           )}
 
           <img
-            src={isGroupComplete === 'COMPLETED' ? arrowFront : arrowFrontRed}
+            src={
+              isGroupComplete === 'COMPLETED' || isGroupComplete === 'JOINED'
+                ? arrowFront
+                : arrowFrontRed
+            }
             alt="arrow-front"
             width={20}
             height={20}

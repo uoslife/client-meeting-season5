@@ -72,19 +72,16 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
         },
       },
     );
-    creatingMeetingMutation.mutate(
-      {
-        teamType: 'SINGLE',
+    creatingMeetingMutation.mutate(undefined, {
+      onSuccess: () => {
+        handleMeetingInfoMutation();
       },
-      {
-        onSuccess: handleMeetingInfoMutation,
-        onError: (error) => {
-          handleMeetingInfoMutation();
-          counterErrorToast.toast(1000);
-          console.log(error);
-        },
+      onError: (error) => {
+        handleMeetingInfoMutation();
+        counterErrorToast.toast(1000);
+        console.log(error);
       },
-    );
+    });
   };
 
   return (
