@@ -89,7 +89,9 @@ const SummaryPage = () => {
           buttonColor="white"
           type="submit"
           onClick={() => {
-            navigate('/auth/private-policy');
+            if (headerTitleType === 'personal')
+              navigate('/auth/private-policy?type=personal');
+            else navigate('/auth/private-policy?type=group');
           }}
         >
           다음

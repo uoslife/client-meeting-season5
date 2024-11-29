@@ -5,15 +5,22 @@ import Text from '../../components/common/Text';
 import usePayment from '../../hooks/usePayment';
 import { S } from './style';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
+import { useSearchParams } from 'react-router-dom';
 
 const PaymentPage = () => {
   const { requestPayment, verifyPayment } = usePayment();
   const accessToken = useAtomValue(accessTokenAtom);
-  // const paymentHandler = () => {};
+  const [searchParams] = useSearchParams();
+  const headerTitleType = searchParams.get('type') as 'personal' | 'group';
+
+  const headerTitle = () => {
+    if (headerTitleType === 'personal') return '1대1';
+    return '3대3';
+  };
 
   return (
     <S.Container>
-      <Header title="1대1 신청하기" />
+      <Header title={headerTitle() + ' 신청하기'} />
       <S.MainContainer className="layout-padding">
         <Text
           typograph={'headlineMedium'}
@@ -39,7 +46,7 @@ const PaymentPage = () => {
               color={'Blue90'}
               style={{ fontWeight: 600 }}
             >
-              상품명
+              {headerTitle() + ' 미팅'}
             </Text>
           </S.ProductItem>
           <S.ProductItem>

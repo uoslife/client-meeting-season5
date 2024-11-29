@@ -4,13 +4,15 @@ import PlainCheckbox from '../../components/common/PlainCheckbox';
 import Text from '../../components/common/Text';
 import S from './style';
 import Header from '../../components/common/Header';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const First = (): ReactNode => {
   const navigate = useNavigate();
   const check1 = useRef<HTMLInputElement>(null);
   const check2 = useRef<HTMLInputElement>(null);
   const check3 = useRef<HTMLInputElement>(null);
+  const [searchParams] = useSearchParams();
+  const headerTitleType = searchParams.get('type') as 'personal' | 'group';
 
   const [checkedState, setCheckedState] = useState({
     check1: false,
@@ -150,7 +152,9 @@ const First = (): ReactNode => {
             buttonColor="primary"
             type="submit"
             onClick={() => {
-              navigate('/auth/payment');
+              if (headerTitleType === 'personal')
+                navigate('/auth/payment?type=personal');
+              else navigate('/auth/payment?type=group');
             }}
             disabled={!isFormValid}
           >
