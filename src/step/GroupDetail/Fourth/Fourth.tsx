@@ -4,10 +4,8 @@ import useBottomSheet from '../../../hooks/useBottomSheet';
 import { COLORS } from '../../../lib/constants';
 import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailProfilePage';
 import S from './style';
-import { useNavigate } from 'react-router-dom';
 
 const Fourth = (props: { context: FourthType }) => {
-  const navigate = useNavigate();
   const PersonDetailResultBottomSheet = useBottomSheet({
     title: '신청하시겠습니까?',
     mainButtonText: '신청하기',
