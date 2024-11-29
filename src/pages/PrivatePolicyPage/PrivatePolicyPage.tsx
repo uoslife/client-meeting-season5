@@ -81,7 +81,7 @@ const First = (): ReactNode => {
                 ref={check1}
                 checked={checkedState.check1}
                 onChange={(e) => {
-                  handleCheckboxChange('check2', !e.target.checked);
+                  handleCheckboxChange('check1', !e.target.checked);
                 }}
               />
             </S.PolicyItem>
@@ -107,7 +107,7 @@ const First = (): ReactNode => {
                 ref={check2}
                 checked={checkedState.check2}
                 onChange={(e) => {
-                  handleCheckboxChange('check3', !e.target.checked);
+                  handleCheckboxChange('check2', !e.target.checked);
                 }}
               />
             </S.PolicyItem>
