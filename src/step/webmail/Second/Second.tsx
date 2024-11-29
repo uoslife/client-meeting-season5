@@ -25,7 +25,7 @@ const Second = (props: {
   const verifyEmailMutation = useVerifyEmail();
   const sendEmailMutation = useSendEmail();
 
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState(600);
   const [errorText, setErrorText] = useState('');
   const [errorTimeText, setErrorTimeText] = useState('');
   const [exceedErrorText, setExceedErrorText] = useState('');
@@ -103,7 +103,7 @@ const Second = (props: {
           setExceedErrorText('');
           setErrorText('');
           setErrorTimeText('');
-          setTimeLeft(180);
+          setTimeLeft(600);
         },
         onError: (error) => {
           setExceedErrorText(error.message);

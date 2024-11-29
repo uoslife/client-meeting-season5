@@ -34,5 +34,23 @@ export const S = {
     flex-direction: column;
     gap: 12px;
   `,
+  CustomText: styled.div`
+    color: ${COLORS.Blue90};
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.35px;
+  `,
+  CustomStrongText: styled.span`
+    color: ${COLORS.Red60};
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.35px;
+  `,
 };
 export default S;
