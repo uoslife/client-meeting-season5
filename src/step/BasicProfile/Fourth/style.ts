@@ -9,6 +9,7 @@ export const S = {
   MainContainer: styled.div`
     width: 100%;
     min-height: calc(100vh - 108px);
+    min-height: calc(100dvh - 108px);
     display: table;
   `,
   Wrapper: styled.div`

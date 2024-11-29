@@ -11,6 +11,7 @@ const S = {
   Container: styled.div`
     width: 100%;
     min-height: calc(100vh - 88px - 4rem);
+    min-height: calc(100dvh - 88px - 4rem);
   `,
   IndicatorBox: styled.div`
     width: 100%;
