@@ -27,17 +27,16 @@ const AuthLayout = () => {
     if (userInfo.isSuccess) {
       setContextUserInfo(userInfo.data);
       if (
-        userInfo.data.phoneNumber &&
-        userInfo.data.name &&
-        userInfo.data.kakaoTalkId &&
-        userInfo.data.genderType &&
-        userInfo.data.age &&
-        userInfo.data.interest.length > 0
-      ) {
-        navigate('/auth/main');
-        return;
-      }
-      navigate('/auth/profile');
+        !(
+          userInfo.data.phoneNumber &&
+          userInfo.data.name &&
+          userInfo.data.kakaoTalkId &&
+          userInfo.data.genderType &&
+          userInfo.data.age &&
+          userInfo.data.interest.length > 0
+        )
+      )
+        navigate('/auth/profile');
     }
   }, [userInfo.isSuccess, contextUserInfo]);
 
