@@ -9,6 +9,7 @@ export const S = {
   MainContainer: styled.div`
     width: 100%;
     min-height: calc(100vh - 88px - 4rem);
+    min-height: calc(100dvh - 88px - 4rem);
   `,
   ButtonWrapper: styled.div`
     display: flex;
