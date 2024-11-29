@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Text from '../../components/common/Text';
 import Button from '../../components/common/Button';
 import snowmanAndBird from '../../lib/assets/images/snowman-and-bird.png';
@@ -7,6 +7,8 @@ import S from './style';
 
 const PaymentFailed = (): ReactNode => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const teamType = searchParams.get('type') as 'personal' | 'group';
   return (
     <S.Wrapper>
       <div
@@ -53,7 +55,7 @@ const PaymentFailed = (): ReactNode => {
       >
         <Button
           buttonColor={'primary'}
-          onClick={() => navigate('/auth/payment')}
+          onClick={() => navigate(`/auth/payment?type=${teamType}`)}
         >
           다시결제하기
         </Button>
