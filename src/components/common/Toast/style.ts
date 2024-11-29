@@ -7,7 +7,13 @@ const S = {
   ToastBox: styled.div<ToastBoxPropsType>`
     position: fixed;
     padding: 8px;
-
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 300px;
+    overflow-wrap: break-word;
+    overflow: auto;
+    white-space: nowrap;
+    word-break: break-word;
     top: 50px;
 
     background: ${COLORS.Blue70};

@@ -11,7 +11,7 @@ export const S = {
     width: 100%;
     min-height: calc(100vh - 88px - 4rem);
     min-height: calc(100dvh - 88px - 4rem);
-    margin-top: 20px;
+    padding-top: 20px;
   `,
   ButtonWrapper: styled.div`
     width: 100%;
