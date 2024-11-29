@@ -15,36 +15,36 @@ body {
 }
 
 @font-face {
-  font-family: 'Pretandard-Bold';
-  src: url('../fonts/Pretandard/Pretendard-Bold.woff2');
+  font-family: 'Pretendard-Bold';
+  src: url('../fonts/Pretendard/Pretendard-Bold.woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretandard-Light';
-  src: url('../fonts/Pretandard/Pretendard-Light.woff2');
+  font-family: 'Pretendard-Light';
+  src: url('../fonts/Pretendard/Pretendard-Light.woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretandard-SemiBold';
-  src: url('../fonts/Pretandard/Pretendard-SemiBold.woff2');
+  font-family: 'Pretendard-SemiBold';
+  src: url('../fonts/Pretendard/Pretendard-SemiBold.woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretandard-Medium';
-  src: url('../fonts/Pretandard/Pretendard-Medium.woff2');
+  font-family: 'Pretendard-Medium';
+  src: url('../fonts/Pretendard/Pretendard-Medium.woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretandard-Regular';
-  src: url('../fonts/Pretandard/Pretendard-Regular.woff2');
+  font-family: 'Pretendard-Regular';
+  src: url('../fonts/Pretendard/Pretendard-Regular.woff2');
   font-weight: 400;
   font-style: normal;
 }
