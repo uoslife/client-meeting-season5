@@ -18,6 +18,7 @@ import BasicProfilePage from './pages/BasicProfilePage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
 import PaymentFailedPage from './pages/PaymentFailedPage';
 import PaymentTestPage from './pages/PaymentTestPage';
+import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <PaymentPage />,
+          },
+          {
+            path: 'result',
+            element: <PaymentResultPage />,
           },
           {
             path: 'success',

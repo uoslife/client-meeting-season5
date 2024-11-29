@@ -87,11 +87,13 @@ interface RequestPaymentPropsType {
 }
 
 const usePayment = () => {
-  const ID = 'imp04325748';
+  const ID = import.meta.env.VITE_PAYMENT_ID;
 
   const IMP = useMemo(() => {
     if (typeof window !== 'undefined') {
       return window.IMP;
+    } else {
+      alert('네트워크 상태가 불안정합니다. 새로고침 후 이용해주세요.');
     }
   }, []);
 
@@ -112,7 +114,10 @@ const usePayment = () => {
       name: name,
       buyer_tel: buyer_tel,
       buyer_name: buyer_name,
-      m_redirect_url: import.meta.env.VITE_PAYMENT_REDIRECT_URL,
+      m_redirect_url:
+        teamType === 'SINGLE'
+          ? import.meta.env.VITE_PERSONAL_PAYMENT_REDIRECT_URL
+          : import.meta.env.VITE_GROUP_PAYMENT_REDIRECT_URL,
       app_scheme: 'uoslife',
     };
 
