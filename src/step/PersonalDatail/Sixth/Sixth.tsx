@@ -45,7 +45,7 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
           queryClient.invalidateQueries({
             queryKey: ['meetingTeamInfo', 'SINGLE'],
           });
-          navigate('/auth/summary');
+          navigate('/auth/summary?type=personal');
         },
         onError: (error) => console.log(error),
       },
