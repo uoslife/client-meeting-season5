@@ -51,6 +51,14 @@ const router = createBrowserRouter([
         path: 'payment-result',
         element: <PaymentResultPage />,
       },
+      {
+        path: 'payment-success',
+        element: <PaymentSuccessPage />,
+      },
+      {
+        path: 'payment-failed',
+        element: <PaymentFailedPage />,
+      },
     ],
   },
   {
@@ -98,14 +106,6 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <PaymentPage />,
-          },
-          {
-            path: 'success',
-            element: <PaymentSuccessPage />,
-          },
-          {
-            path: 'failed',
-            element: <PaymentFailedPage />,
           },
         ],
       },
