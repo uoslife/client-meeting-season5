@@ -20,6 +20,7 @@ export const S = {
     gap: 12px;
     transform: translateY(-10%);
     min-height: calc(100vh - 88px - 4rem);
+    min-height: calc(100dvh - 88px - 4rem);
   `,
   ButtonWrapper: styled.div`
     width: 100%;

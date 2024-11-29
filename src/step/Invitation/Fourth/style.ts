@@ -22,6 +22,7 @@ export const S = {
   MainContainer: styled.div`
     width: 100%;
     min-height: calc(100vh - 88px);
+    min-height: calc(100dvh - 88px);
   `,
   EntryContainer: styled.div`
     margin-top: 100px;

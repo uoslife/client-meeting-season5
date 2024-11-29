@@ -13,6 +13,7 @@ export const S = {
     flex-direction: column;
     gap: 40px;
     min-height: calc(100vh - 88px - 4rem);
+    min-height: calc(100dvh - 88px - 4rem);
   `,
   HeaderContainer: styled.div`
     width: 100%;
