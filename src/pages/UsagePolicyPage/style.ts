@@ -10,6 +10,7 @@ export const S = {
   MainContainer: styled.div`
     width: 100%;
     min-height: calc(100vh - 108px - 4rem);
+    min-height: calc(100dvh - 108px - 4rem);
   `,
   PolicyHeaderWrapper: styled.div`
     width: 100%;

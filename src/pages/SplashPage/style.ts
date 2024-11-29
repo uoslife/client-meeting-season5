@@ -14,6 +14,7 @@ export const S = {
   MainContainer: styled.div`
     width: 100%;
     min-height: calc(100vh - 168px);
+    min-height: calc(100dvh - 168px);
   `,
   HeartWrapper: styled.div`
     display: flex;
