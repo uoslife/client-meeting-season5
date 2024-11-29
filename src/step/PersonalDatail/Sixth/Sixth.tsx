@@ -13,11 +13,11 @@ import {
   SMOKING_ENUM,
   useMeetingInfo,
 } from '../../../hooks/api/useMeetingInfo';
-import { useCreateMeetingTeam } from '../../../hooks/api/useMeeting';
 import { useQueryClient } from '@tanstack/react-query';
 import { usePatchUserInfo } from '../../../hooks/api/useUser';
 import useToast from '../../../hooks/useToast';
 import useBottomSheet from '../../../hooks/useBottomSheet';
+import { useCreateMeetingTeam } from '../../../hooks/api/useMeetingPersonalInfo';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();

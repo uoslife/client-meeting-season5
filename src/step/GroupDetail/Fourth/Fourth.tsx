@@ -1,5 +1,6 @@
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
+import useBottomSheet from '../../../hooks/useBottomSheet';
 import { COLORS } from '../../../lib/constants';
 import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailProfilePage';
 import S from './style';
@@ -7,6 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Fourth = (props: { context: FourthType }) => {
   const navigate = useNavigate();
+  const PersonDetailResultBottomSheet = useBottomSheet({
+    title: '신청하시겠습니까?',
+    mainButtonText: '신청하기',
+    mainButtonCallback: () => handleClick,
+    isSideButton: false,
+    description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
+  });
+  const handleClick = () => {};
   return (
     <>
       <S.Container className="layout-padding">
@@ -69,14 +78,13 @@ const Fourth = (props: { context: FourthType }) => {
           <Button
             buttonColor="primary"
             type="submit"
-            onClick={() => {
-              navigate('/auth/summary');
-            }}
+            onClick={PersonDetailResultBottomSheet.open}
             disabled={false}
           >
             다음
           </Button>
         </S.ButtonWrapper>
+        {PersonDetailResultBottomSheet.render(<></>)}
       </S.Container>
     </>
   );
