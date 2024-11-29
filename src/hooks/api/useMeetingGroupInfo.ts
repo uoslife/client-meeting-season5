@@ -19,7 +19,7 @@ export const useCreateMeetingTeam = (): UseMutationResult<
 > => {
   const { postFetcher } = useAuthAxios();
   return useMutation<CreateMeetingTeamResponse, Error, void>({
-    mutationFn: () => postFetcher(`/api/meeting/group/create`),
+    mutationFn: () => postFetcher(`/api/meeting/TRIPLE/create`),
     onSuccess: (data) => {
       console.log(data.code);
     },
@@ -52,20 +52,6 @@ export const useGetMeetingGroupInfo = () => {
     enabled: !!accessToken,
   });
 };
-
-export const useGetMeetingGroupInfoWhile = () => {
-  const { getFetcher } = useAuthAxios();
-  const accessToken = useAtomValue(accessTokenAtom);
-  return useQuery({
-    queryKey: ['getMeetingUserList'],
-    queryFn: () => getFetcher<undefined>(`api/meeting/TRIPLE/application/info`),
-    refetchOnWindowFocus: false,
-    select: (data) => data,
-    retry: false,
-    enabled: !!accessToken,
-  });
-};
-
 // export const useDeleteMeetingGroup = () => {
 //   const { deleteFetcher } = useAuthAxios();
 // };
