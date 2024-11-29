@@ -13,6 +13,7 @@ export const S = {
     border-radius: 8px;
   `,
   TextWrapper: styled.div`
+    position: relative;
     display: flex;
     gap: 4px;
     align-items: center;

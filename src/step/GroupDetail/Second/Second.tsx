@@ -4,7 +4,8 @@ import Indicator from '../../../components/common/Indicator';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
 import S from './style';
-import AgeRangeSlider from '../../../components/feature/AgeRangeSlider';
+
+import AbsoluteAgeRangeSlider from '../../../components/feature/AbsoluteAgeRangeSlider';
 
 const Second = (props: {
   context: Partial<FourthType>;
@@ -47,7 +48,7 @@ const Second = (props: {
               gap: 30,
             }}
           >
-            <AgeRangeSlider value={ageValue} setValue={setAgeValue} />
+            <AbsoluteAgeRangeSlider value={ageValue} setValue={setAgeValue} />
           </div>
         </S.MainContainer>
 

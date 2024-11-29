@@ -27,7 +27,7 @@ const Third = (props: {
       (value) => value === undefined || value === '' || errors.mood,
     );
     if (checkValues) return;
-    props.onNext({ mood: '이런 분위기' });
+    props.onNext({ mood: data.mood });
   };
 
   return (
@@ -51,10 +51,12 @@ const Third = (props: {
             <Radio
               {...register('mood', { required: true })}
               label={'술 게임을 하면서 신나게 놀고 싶어요.'}
+              value={'ACTIVE'}
             />
             <Radio
               {...register('mood', { required: true })}
               label={'차분하게 대화하고 싶어요.'}
+              value={'CALM'}
             />
           </S.RadioWrapper>
         </S.MainContainer>

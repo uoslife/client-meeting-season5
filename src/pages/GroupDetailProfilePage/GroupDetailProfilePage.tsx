@@ -7,6 +7,8 @@ import Header from '../../components/common/Header';
 import useModal from '../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 
+export type MoodType = 'ACTICE' | 'CALM';
+
 type FirstType = {
   name?: string;
   minAge?: number;
@@ -140,7 +142,7 @@ const GroupDatailProfilePage = () => {
               rightButtonType={'logout'}
               rightButtonCallback={() => roomBoomModal.open()}
             />
-            <Fourth />
+            <Fourth context={funnel.context} />
           </>
         );
     }
