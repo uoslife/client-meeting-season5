@@ -10,6 +10,7 @@ import { errorHandler } from '../../utils/api';
 import { getBearerToken } from '../../utils/token';
 import useAuthAxios from '../axios/useAuthAxios';
 import { useNavigate } from 'react-router-dom';
+import useBasicAxios from '../axios/useBasicAxios';
 
 type UserProfileResponseType = {
   name: string | null;
@@ -53,6 +54,19 @@ interface UserStatusResponseType {
   singleTeamBranch: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED';
   tripleTeamBranch: 'NOT_CREATED' | 'JUST_CREATED' | 'COMPLETED' | 'JOINED';
 }
+
+const useCheckKakao = (kakaoTalkId: string): UseQueryResult => {
+  const { getFetcher } = useAuthAxios();
+  return useQuery({
+    queryKey: ['kakao', kakaoTalkId],
+    queryFn: () =>
+      getFetcher(`/api/user/check/kakao-talk-id?kakaoTalkId=${kakaoTalkId}`),
+    refetchOnWindowFocus: false,
+    select: (data) => data,
+    retry: false,
+    enabled: false,
+  });
+};
 
 const usePatchUser = (): UseMutationResult<null, Error, UserRequestType> => {
   const accessToken = useAtomValue(accessTokenAtom);
@@ -138,4 +152,5 @@ export {
   useGetUserInfo,
   useGetUserStatus,
   useLogout,
+  useCheckKakao,
 };

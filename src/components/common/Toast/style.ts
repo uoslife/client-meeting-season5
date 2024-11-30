@@ -16,8 +16,8 @@ const S = {
     word-break: break-word;
     top: 50px;
 
-    background: ${COLORS.Blue70};
-    border-radius: 6px;
+    background: ${COLORS.Blue50};
+    border-radius: 8px;
 
     opacity: 0;
     ${(props) =>

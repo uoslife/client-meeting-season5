@@ -15,6 +15,9 @@ import {
 import Picker from '../../../components/common/Picker';
 import useModal from '../../../hooks/useModal';
 import KakaoContent from '../../../components/feature/KakaoContent';
+import { useCheckKakao } from '../../../hooks/api/useUser';
+import { useQueryClient } from '@tanstack/react-query';
+import useToast from '../../../hooks/useToast';
 
 const First = (props: {
   context: BaseProfileType;
@@ -27,6 +30,8 @@ const First = (props: {
   }: BaseProfileType) => void;
 }): ReactNode => {
   const [cnt, setCnt] = useState(0);
+  const errorToast = useToast();
+
   const kakaoModal = useModal({
     //API 호출
     title: `잠깐! 꼭 알아두세요`,
@@ -170,23 +175,34 @@ const First = (props: {
     profileForm.watch('phoneNumber') &&
     String(profileForm.watch('phoneNumber')).length > 0
   );
+  const queryClient = useQueryClient();
+  const kakaoQuery = useCheckKakao(profileForm.getValues('kakaoID'));
   return (
     <S.Form
       className="layout-padding"
       onSubmit={async (data) => {
         await profileForm.handleSubmit(data);
-        if (!profileForm.errors.phoneNumber)
-          props.onNext({
-            name: profileForm.getValues('name'),
-            genderType: profileForm.getValues('genderReadOnly') as
-              | '남성'
-              | '여성',
-            age: parseInt(profileForm.getValues('age')) as number,
-            phoneNumber: profileForm.getValues('phoneNumber'),
-            kakaoTalkId: profileForm.getValues('kakaoID'),
-          });
+        await queryClient.invalidateQueries({ queryKey: ['kakao'] });
+        const refetchResult = await kakaoQuery.refetch();
+
+        if (refetchResult.data && !refetchResult.error) {
+          if (!profileForm.errors.phoneNumber) {
+            props.onNext({
+              name: profileForm.getValues('name'),
+              genderType: profileForm.getValues('genderReadOnly') as
+                | '남성'
+                | '여성',
+              age: parseInt(profileForm.getValues('age')) as number,
+              phoneNumber: profileForm.getValues('phoneNumber'),
+              kakaoTalkId: profileForm.getValues('kakaoID'),
+            });
+          }
+        } else {
+          errorToast.toast(1000);
+        }
       }}
     >
+      {errorToast.render('이미 존재하는 카카오톡 ID입니다.')}
       <S.Container>
         <S.IndicatorBox>
           <Indicator depth={3} currentLevel={1} />
