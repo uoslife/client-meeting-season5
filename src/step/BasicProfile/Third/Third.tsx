@@ -23,6 +23,7 @@ const Third = (props: {
       setInterestOptions((prev) => [...prev, value]);
     } else {
       alert('최대 5개까지만 선택할 수 있습니다.');
+      return;
     }
   };
 
@@ -78,8 +79,14 @@ const Third = (props: {
     mainButtonDisabled: !createInterestForm.watch('customInterest'),
     mainButtonCallback: () => {
       const item = createInterestForm.getValues('customInterest');
+      if (item.trimStart() === '' || item.startsWith(' ')) {
+        alert('잘못된 값입니다.');
+        createInterestForm.setValue('customInterest', '');
+        return;
+      }
       if (createInterestForm.getValues('customInterest').length > 10) {
         alert('최대 10자까지만 입력할 수 있습니다.');
+        createInterestForm.setValue('customInterest', '');
         return;
       }
       if (
@@ -93,22 +100,23 @@ const Third = (props: {
       if (!interestOptions.includes(item)) {
         if (interestOptions.length >= 5) {
           alert('최대 5개까지만 선택할 수 있습니다.');
+          return;
         } else {
-          setInterestOptions([
-            ...interestOptions,
-            createInterestForm.getValues('customInterest'),
-          ]);
-          setCustomOption([
-            ...customOptions,
-            createInterestForm.getValues('customInterest'),
-          ]);
+          setInterestOptions((prev) => {
+            return [...prev, item];
+          });
+          setCustomOption((customOptions) => {
+            return [...customOptions, item];
+          });
           createInterestForm.setValue('customInterest', '');
           createInterestBottomSheet.close();
           interestBottomSheet.open();
         }
       } else {
         alert('이미 선택한 데이터입니다!');
+        return;
       }
+      return;
     },
     isSideButton: false,
   });
