@@ -21,6 +21,9 @@ const useReissue = (): UseMutationResult<
     onSuccess: (data) => {
       setAccessToken(data.accessToken);
     },
+    onError: () => {
+      setAccessToken('');
+    },
   });
 };
 
