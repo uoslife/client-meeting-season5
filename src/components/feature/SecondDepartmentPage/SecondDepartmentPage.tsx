@@ -9,12 +9,16 @@ import Picker from '../../common/Picker';
 import DepartmentPicker from '../DepartmentPicker';
 import { OptionalProfileType } from '../../../pages/BasicProfilePage/BasicProfilePage';
 import S from './style';
-
+import { AcademicStatusType } from '../../../step/BasicProfile/Second/Second';
 const SecondDepartmentPage = (props: {
+  academicStatus: AcademicStatusType;
   onNext: ({
     department,
     studentId,
-  }: Pick<OptionalProfileType, 'department' | 'studentId'>) => void;
+  }: Pick<
+    OptionalProfileType,
+    'department' | 'studentId' | 'studentType'
+  >) => void;
 }) => {
   const [department, setDepartment] = useState<string>('');
   const [studentId, setStudentId] = useState<string>('');
@@ -119,7 +123,12 @@ const SecondDepartmentPage = (props: {
             )
           }
           onClick={() => {
-            props.onNext({ department: department, studentId: studentId });
+            console.log(props.academicStatus);
+            props.onNext({
+              studentType: props.academicStatus,
+              department: department,
+              studentId: studentId,
+            });
           }}
         >
           다음
