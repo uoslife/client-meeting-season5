@@ -25,8 +25,8 @@ export const S = {
     width: 100%;
   `,
   Wrapper: styled.div`
-    min-height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(var(--dvh, 1dvh) * 100);
+    min-height: 100vh;
+    min-height: 100dvh;
 
     display: flex;
     flex-direction: column;
