@@ -35,7 +35,7 @@ const MainBUttonWrapper = ({
             <Text
               color={'Blue40'}
               typograph={'labelMediumMedium'}
-              style={{ fontWeight: 600 }}
+              style={{ fontWeight: 500 }}
             >
               (완료)
             </Text>

@@ -14,6 +14,7 @@ export const S = {
   `,
 
   ContentWrapper: styled.div`
+    margin-top: 20px;
     width: 100%;
     padding: 16px 20px;
     display: flex;
