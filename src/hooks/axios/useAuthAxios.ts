@@ -149,6 +149,7 @@ const useAuthAxios = () => {
               return axiosInstance(config);
             } catch (reissueError) {
               handleError('세션만료');
+              setAccessToken('');
               navigate('/'); // 홈 화면으로 이동
               return Promise.reject(reissueError);
             }
