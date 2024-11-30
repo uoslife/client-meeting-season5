@@ -51,13 +51,13 @@ const StarterPage = () => {
                   </Text>
                   <S.DateBox>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      2024.12.04
+                      2024.12.02
                     </Text>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
                       -
                     </Text>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      2025.1.1
+                      2024.12.04
                     </Text>
                   </S.DateBox>
                 </S.DateWrapper>

@@ -14,7 +14,7 @@ interface CodeType {
   code: string;
 }
 
-const Second = (props: { onNext: () => void }) => {
+const Second = () => {
   const [teamLeaderName, setTeamLeaderName] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [code, setCode] = useState('');

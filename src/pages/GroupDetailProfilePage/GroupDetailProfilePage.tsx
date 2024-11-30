@@ -36,7 +36,7 @@ export type FourthType = {
   ageMin: number;
   ageMax: number;
   mood: string;
-  userList: UserInfoType[];
+  userList?: UserInfoType[];
 };
 
 const GroupDatailProfilePage = () => {

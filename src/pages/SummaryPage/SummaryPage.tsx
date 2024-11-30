@@ -1,7 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Button from '../../components/common/Button';
-import summaryTree from '../../lib/assets/images/summary-tree.png';
 import Text from '../../components/common/Text';
 import S from './style';
 import useToast from '../../hooks/useToast';

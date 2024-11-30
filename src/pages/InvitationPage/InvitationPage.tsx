@@ -70,7 +70,7 @@ const InvitationPage = () => {
               navigate(-1);
             }}
           />
-          <Second onNext={() => funnel.history.push('third')} />
+          <Second />
         </>
       );
     case 'third':
