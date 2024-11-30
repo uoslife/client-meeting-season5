@@ -47,7 +47,7 @@ export const S = {
     align-items: center;
   `,
   TimeText: styled.p`
-    color: #f6f8fe;
+    color: ${COLORS.Blue2};
     text-align: center;
     font-family: 'XmasFont';
     font-size: 76px;
@@ -62,6 +62,10 @@ export const S = {
     height: 148px;
   `,
   Button: styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
     margin-top: 20px;
     width: 100%;
     padding: 14px 10px;
