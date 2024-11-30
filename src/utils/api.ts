@@ -6,6 +6,8 @@ import axios, {
   InternalAxiosRequestConfig,
   isAxiosError,
 } from 'axios';
+import { ERROR_CODE } from '../lib/types/api';
+import { ErrorCodeType } from '../lib/types';
 
 const logOnDev = (message: string): void => {
   if (import.meta.env.MODE === 'development') {
@@ -139,13 +141,17 @@ export const patchFetcher = async <T>(
 export const errorHandler = (error: Error | AxiosError) => {
   try {
     if (isAxiosError(error)) {
-      if (error.message === undefined) throw error;
       if (error.status === 500) throw error;
-      return error.message;
+      if (error.code) {
+        return ERROR_CODE[error.code as ErrorCodeType];
+      } else {
+        throw error;
+      }
     } else {
       throw error;
     }
   } catch (error) {
+    // 500 혹은 로직에러
     console.log(error);
     return import.meta.env.VITE_FATAL_ERROR_MESSAGE;
   }

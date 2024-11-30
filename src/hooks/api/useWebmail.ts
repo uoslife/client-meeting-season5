@@ -37,11 +37,6 @@ const useVerifyEmail = (): UseMutationResult<
         email: email + '@uos.ac.kr',
         code: code,
       }),
-    onSuccess: (data) => {
-      console.log('서버콜백');
-      console.log(data);
-    },
-    onError: (error) => errorHandler(error),
   });
 };
 

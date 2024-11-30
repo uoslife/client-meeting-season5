@@ -75,12 +75,12 @@ const Second = (props: {
           if (isAxiosError(error)) {
             if (error.status === 429) {
               setTimeLeft(0);
-              setExceedErrorText(error.message);
+              setExceedErrorText('일일 인증 횟수를 초과했습니다. (5/5)');
               setErrorText('');
               setErrorTimeText('');
             }
           }
-          setErrorText(error.message);
+          setErrorText('인증 코드가 일치하지 않습니다.');
           setErrorTimeText('');
           setExceedErrorText('');
         },
@@ -105,8 +105,8 @@ const Second = (props: {
           setErrorTimeText('');
           setTimeLeft(600);
         },
-        onError: (error) => {
-          setExceedErrorText(error.message);
+        onError: () => {
+          setExceedErrorText('일일 인증 횟수를 초과했습니다. (5/5)');
           setTimeLeft(0);
           setErrorText('');
           setErrorTimeText('');
