@@ -6,11 +6,13 @@ import { S } from './style';
 import BasicImg from '../../../lib/assets/images/basic-result-img.png';
 import { FourthType } from '../../../pages/BasicProfilePage/BasicProfilePage';
 import { usePatchUser, usePatchUserInfo } from '../../../hooks/api/useUser';
+import useToast from '../../../hooks/useToast';
 
 const Fourth = (props: { context: FourthType }): ReactNode => {
   const userInfoMutation = usePatchUserInfo();
   const userMutation = usePatchUser();
   const navigate = useNavigate();
+  const errorToast = useToast();
 
   const STUDENT_TYPE_ENUM: {
     [key: string]: 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
@@ -30,7 +32,10 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
       },
       {
         onError: () => {
-          navigate('/auth/profile');
+          errorToast.toast(1000);
+          setTimeout(() => {
+            navigate('/auth/profile');
+          }, 1000);
         },
       },
       //TODO
@@ -51,7 +56,10 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
       },
       {
         onError: () => {
-          navigate('/auth/profile');
+          errorToast.toast(1000);
+          setTimeout(() => {
+            navigate('/auth/profile');
+          }, 1000);
         },
       },
     );
@@ -63,6 +71,7 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
 
   return (
     <S.Container className="layout-padding">
+      {errorToast.render('유저 정보가 없습니다. 다시 입력해주세요.')}
       <S.MainContainer>
         <S.Wrapper>
           <S.IconWrapper>

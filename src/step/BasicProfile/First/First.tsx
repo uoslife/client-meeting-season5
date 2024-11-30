@@ -184,7 +184,7 @@ const First = (props: {
         await profileForm.handleSubmit(data);
         await queryClient.invalidateQueries({ queryKey: ['kakao'] });
         const refetchResult = await kakaoQuery.refetch();
-
+        //TODO
         if (refetchResult.data && !refetchResult.error) {
           if (!profileForm.errors.phoneNumber) {
             props.onNext({
