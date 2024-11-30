@@ -4,6 +4,8 @@ import cardAngel from '../../../lib/assets/icon/card-angel.svg';
 import cardSnow from '../../../lib/assets/icon/card-snow.svg';
 import S from './style';
 import { UseToastReturnType } from '../../../hooks/useToast';
+import { EyelidType } from '../../../lib/types/personalMeeting.type';
+import { personalUserInfoType } from '../../../pages/SummaryPage/SummaryPage';
 
 export interface SummaryInfoType {
   height: string;
@@ -12,9 +14,9 @@ export interface SummaryInfoType {
   gender: '여성' | '남성';
   department: string;
   studentId: string;
-  appearaceType: '순함' | '또렷' | '중간';
+  appearanceType: '순함' | '또렷' | '중간';
   mbti: string;
-  eyelid: '쌍커풀' | '무쌍' | '속쌍';
+  eyelid: EyelidType;
   course: string;
   interest: string[];
   kakaoTalkId: string;
@@ -22,18 +24,18 @@ export interface SummaryInfoType {
 
 interface GroupSummaryCardPropsType {
   toast: UseToastReturnType;
-  userInfo: SummaryInfoType;
+  userInfo: personalUserInfoType;
 }
 
 const eyelidText = (type: string) => {
-  if (type === '쌍커풀') {
-    return '예쁜';
+  if (type === 'DOUBLE') {
+    return '예쁜 ';
   }
-  if (type === '속쌍') {
-    return '매력적인';
+  if (type === 'INNER') {
+    return '매력적인 ';
   }
 
-  return '시크한';
+  return '시크한 ';
 };
 
 const PersonalSummaryCard = ({
@@ -52,40 +54,51 @@ const PersonalSummaryCard = ({
         <S.ContentWrapper>
           <S.ContentText>
             나는{' '}
-            <S.ContentStrongText>{userInfo.department}</S.ContentStrongText>{' '}
-            <S.ContentStrongText>{userInfo.studentId}학번</S.ContentStrongText>{' '}
-            {userInfo.gender === '남성' ? '남학생' : '여학생'}.
+            <S.ContentStrongText>
+              {userInfo.department}를 다니고 있는
+              <br />
+            </S.ContentStrongText>
+            <S.ContentStrongText>
+              {userInfo.studentNumber?.toString().slice(2, 4)}학번
+            </S.ContentStrongText>{' '}
+            학생이야.
           </S.ContentText>
           <S.ContentText>
-            <S.ContentStrongText>만 {userInfo.age}세</S.ContentStrongText> 키는{' '}
-            <S.ContentStrongText>{userInfo.height}cm</S.ContentStrongText>{' '}
+            나이는 <S.ContentStrongText>{userInfo.age}세</S.ContentStrongText>
+            {', '}
+            키는 <S.ContentStrongText>{userInfo.height}cm</S.ContentStrongText>
+            {', '}
             그리고 <S.ContentStrongText>{userInfo.mbti}</S.ContentStrongText>야.
           </S.ContentText>
           <S.ContentText>
-            <S.ContentStrongText>{userInfo.appearaceType}</S.ContentStrongText>{' '}
-            정도 인상이고
+            <S.ContentStrongText>
+              {userInfo.appearanceType === 'ARAB'
+                ? '또렷한'
+                : userInfo.appearanceType === 'TOFU'
+                  ? '순한'
+                  : '순함과 또렷의 중간정도의'}
+            </S.ContentStrongText>{' '}
+            인상이고,
           </S.ContentText>
           <S.ContentText>
-            {eyelidText(userInfo.eyelid)}{' '}
-            <S.ContentStrongText>{userInfo.eyelid}</S.ContentStrongText>이
-            있어👀 나의 관심사는{' '}
+            {eyelidText(userInfo.eyelid || '')}
             <S.ContentStrongText>
-              {userInfo.interest.join(',')}
+              {userInfo.eyelid === 'DOUBLE'
+                ? '쌍커풀'
+                : userInfo.eyelid === 'INNER'
+                  ? '속쌍'
+                  : '무쌍'}
+            </S.ContentStrongText>
+            이 있어👀 나의 관심사는{' '}
+            <S.ContentStrongText>
+              {userInfo.interest && userInfo.interest.join(',')}
             </S.ContentStrongText>
             이야.
           </S.ContentText>
           <S.ContentText>
             <S.ContentRedStrongText>
-              나는 상대방과 크리스마스에
+              나는 상대방과 크리스마스에 {userInfo.course}을(를) 함께 하고싶어.
             </S.ContentRedStrongText>
-          </S.ContentText>
-          <S.ContentText>
-            <S.ContentRedStrongText>
-              {userInfo.course}을(를) 함께
-            </S.ContentRedStrongText>
-          </S.ContentText>
-          <S.ContentText>
-            <S.ContentRedStrongText>하고싶어.</S.ContentRedStrongText>
           </S.ContentText>
           <S.ContentText>우리 눈 맞을 수 있을까?☃️</S.ContentText>
         </S.ContentWrapper>
@@ -99,15 +112,15 @@ const PersonalSummaryCard = ({
         <S.CopyWrapper>
           <div style={{ display: 'flex', gap: 6 }}>
             <Text color={'Blue40'} typograph={'bodyMediumSemiBold'}>
-              카톡 ID
+              카톡ID
             </Text>
             <Text color={'Blue70'} typograph={'bodyMediumSemiBold'}>
-              {userInfo.kakaoTalkId}
+              {String(userInfo.kakaoTalkId)}
             </Text>
           </div>
           <S.CopyButton
             onClick={() => {
-              window.navigator.clipboard.writeText(userInfo.kakaoTalkId);
+              window.navigator.clipboard.writeText(userInfo.kakaoTalkId || '');
               toast.toast(1000);
             }}
           >

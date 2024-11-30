@@ -12,29 +12,30 @@ export const S = {
   `,
   ToastWrapper: styled.div`
     position: relative;
-    // top:26px;
     width: 100%;
     display: flex;
     justify-content: center;
   `,
   Container: styled.div`
-    margin-top: 20px;
+    padding-top: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
   `,
   MainContainer: styled.div`
     width: 100%;
-    min-height: calc(100vh - 120px - 4rem);
-    min-height: calc(100dvh - 120px - 4rem);
+    // TODO
+    min-height: calc(100vh - 160px - 4rem);
+    min-height: calc(100dvh - 160px - 4rem);
   `,
   ButtonWrapper: styled.div`
+    position: relative;
+    width: 100%;
     background-image: url(${summaryTree});
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 120px;
-    padding-top: 35px;
+    height: 140px;
   `,
   CardContainer: styled.div`
     margin-top: 20px;

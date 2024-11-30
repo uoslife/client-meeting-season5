@@ -83,10 +83,11 @@ const S = {
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background: ${COLORS.Blue2};
   `,
   CopyButton: styled.button`
-    padding: 0 6px 0px 6px;
+    padding: 4px 6px;
     background: ${COLORS.White};
     border: 1px solid ${COLORS.Blue30};
     border-radius: 4px;
