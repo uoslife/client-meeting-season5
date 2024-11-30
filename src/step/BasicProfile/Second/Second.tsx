@@ -3,13 +3,17 @@ import { OptionalProfileType } from '../../../pages/BasicProfilePage/BasicProfil
 import SecondDepartmentPage from '../../../components/feature/SecondDepartmentPage';
 import SecondChoicePage from '../../../components/feature/SecondChoicePage';
 
-type AcademicStatusType = '학부생' | '대학원생' | '졸업생' | undefined;
+export type AcademicStatusType = '학부생' | '대학원생' | '졸업생' | undefined;
 
 const Second = (props: {
   onNext: ({
+    studentType,
     department,
     studentId,
-  }: Pick<OptionalProfileType, 'department' | 'studentId'>) => void;
+  }: Pick<
+    OptionalProfileType,
+    'department' | 'studentId' | 'studentType'
+  >) => void;
 }): ReactNode => {
   const [isChoicePage, setIsChoisePage] = useState<boolean>(true);
   const [academicStatus, setAcademicStatus] = useState<AcademicStatusType>();
@@ -18,7 +22,11 @@ const Second = (props: {
       setIsChoisePage(false);
       return;
     }
-    props.onNext({ department: null, studentId: null });
+    props.onNext({
+      studentType: academicStatus,
+      department: null,
+      studentId: null,
+    });
   };
   return isChoicePage ? (
     <SecondChoicePage
@@ -27,7 +35,10 @@ const Second = (props: {
       handleNextButtonClick={handleNextButtonClick}
     />
   ) : (
-    <SecondDepartmentPage onNext={props.onNext} />
+    <SecondDepartmentPage
+      onNext={props.onNext}
+      academicStatus={academicStatus}
+    />
   );
 };
 export default Second;

@@ -11,6 +11,15 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
   const userInfoMutation = usePatchUserInfo();
   const userMutation = usePatchUser();
   const navigate = useNavigate();
+
+  const STUDENT_TYPE_ENUM: {
+    [key: string]: 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
+  } = {
+    학부생: 'UNDERGRADUATE',
+    대학원생: 'POSTGRADUATE',
+    졸업생: 'GRADUATE',
+  };
+  console.log(props.context);
   useEffect(() => {
     userMutation.mutate(
       {
@@ -28,6 +37,13 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
     );
     userInfoMutation.mutate(
       {
+        studentType:
+          STUDENT_TYPE_ENUM[
+            props.context.studentType as
+              | 'UNDERGRADUATE'
+              | 'POSTGRADUATE'
+              | 'GRADUATE'
+          ],
         age: String(props.context.age),
         department: props.context.department,
         studentNumber: props.context.studentId,
@@ -42,7 +58,7 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
   }, []);
 
   const nextButtonCallback = () => {
-    navigate('/auth/main');
+    navigate('/auth/main', { replace: true });
   };
 
   return (

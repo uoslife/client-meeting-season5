@@ -39,7 +39,7 @@ interface UserInfoRequestType {
   interest?: string[];
   appearanceType?: string;
   eyelidType?: string;
-  studentType?: string;
+  studentType?: 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
 }
 
 interface UserRequestType {

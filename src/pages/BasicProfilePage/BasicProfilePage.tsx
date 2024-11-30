@@ -14,6 +14,7 @@ export interface BaseProfileType {
 }
 
 export interface OptionalProfileType {
+  studentType?: string | null;
   department?: string | null;
   studentId?: string | null;
   interest?: string[];
@@ -75,8 +76,9 @@ const BasicProfilePage = () => {
             }
           />
           <Second
-            onNext={({ department, studentId }) =>
+            onNext={({ studentType, department, studentId }) =>
               funnel.history.push('third', {
+                studentType,
                 department,
                 studentId,
               })
