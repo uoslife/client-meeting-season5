@@ -31,7 +31,6 @@ const Fourth = (props: { context: FourthType }) => {
     description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
   });
   const handleClick = () => {
-    console.log(props.context);
     groupInfoMutation.mutate(props.context);
   };
   return (

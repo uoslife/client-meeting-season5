@@ -27,7 +27,6 @@ const requestMerchantUid = async ({
     name: buyer_name,
     productName: name,
   } = await getMerchantUid({ teamType, accessToken });
-  console.log(buyer_tel);
   return { merchant_uid, amount, buyer_tel, buyer_name, name };
 };
 
@@ -41,7 +40,6 @@ const verifyPayment = async ({
   const res = await getFetcher(`/api/payment/${teamType}/verify`, {
     Authorization: `Bearer ${accessToken}`,
   });
-  console.log('verify', res);
   return res;
 };
 
@@ -50,7 +48,6 @@ const getMerchantUid = async ({
   accessToken,
 }: GetMerchantUidPropsType): Promise<RequestPaymentResopnseType> => {
   try {
-    console.log(teamType, accessToken);
     const res = await postFetcher<RequestPaymentResopnseType>(
       `/api/payment/${teamType}/request`,
       {

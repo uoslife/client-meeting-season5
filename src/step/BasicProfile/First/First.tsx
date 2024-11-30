@@ -170,13 +170,6 @@ const First = (props: {
     profileForm.watch('phoneNumber') &&
     String(profileForm.watch('phoneNumber')).length > 0
   );
-  const nextButtonHandler = () => {
-    // console.log(profileForm.errors.phoneNumber);
-    // if (profileForm.errors.phoneNumber) return;
-    // else {
-    //   console.log(profileForm.errors);
-    // }
-  };
   return (
     <S.Form
       className="layout-padding"
@@ -253,9 +246,7 @@ const First = (props: {
         <Button
           type="submit"
           buttonColor="primary"
-          onClick={() => {
-            nextButtonHandler();
-          }}
+          onClick={() => {}}
           disabled={nextButtondisabled}
         >
           다음

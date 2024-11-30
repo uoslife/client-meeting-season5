@@ -47,9 +47,8 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
           });
           navigate('/auth/summary?type=personal');
         },
-        onError: (error) => {
+        onError: () => {
           counterErrorToast.toast(1000);
-          console.log(error);
         },
       },
     );
@@ -79,9 +78,8 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
       onSuccess: () => {
         handleMeetingInfoMutation();
       },
-      onError: (error) => {
+      onError: () => {
         handleMeetingInfoMutation();
-        console.log(error);
       },
     });
   };

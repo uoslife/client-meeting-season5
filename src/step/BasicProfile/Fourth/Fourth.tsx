@@ -19,7 +19,7 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
     대학원생: 'POSTGRADUATE',
     졸업생: 'GRADUATE',
   };
-  console.log(props.context);
+
   useEffect(() => {
     userMutation.mutate(
       {

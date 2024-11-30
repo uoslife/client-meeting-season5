@@ -16,11 +16,9 @@ const StarterPage = () => {
     navigator.clipboard
       .writeText(import.meta.env.VITE_SHARE_LINK)
       .then(() => {
-        console.log('성공');
         setToastMessage('텍스트가 클립보드에 복사되었습니다.');
       })
       .catch(() => {
-        console.log('실패');
         setToastMessage('클립보드 복사에 실패했습니다');
       });
     toast(1500);

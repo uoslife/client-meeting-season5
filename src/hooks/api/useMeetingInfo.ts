@@ -33,7 +33,6 @@ export const useMeetingInfo = (): UseMutationResult<
 > => {
   const { postFetcher } = useAuthAxios();
   const userInfo = useAtomValue(userInfoAtom);
-  console.log(userInfo);
 
   return useMutation<void, Error, MeetingTeamInfoRequest>({
     mutationFn: ({ context }) =>

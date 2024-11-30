@@ -133,7 +133,6 @@ const UsagePolicy = () => {
             ref={check3}
             onChange={(e) => {
               handleCheckboxChange('check3', !e.target.checked);
-              console.log(e.target.checked);
             }}
           />
         </S.SecurityWrapper>

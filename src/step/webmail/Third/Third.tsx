@@ -36,7 +36,6 @@ const Third = (props: { context: ThirdType }): ReactNode => {
         <Button
           buttonColor={'primary'}
           onClick={() => {
-            console.log('clicked!');
             setAccessToken(props.context.code);
           }}
         >

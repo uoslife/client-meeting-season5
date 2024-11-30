@@ -28,7 +28,6 @@ const useSmokingForm = () => {
       alert('항목을 모두 채워주세요.');
       return;
     }
-    console.log(data);
   };
   return {
     control,

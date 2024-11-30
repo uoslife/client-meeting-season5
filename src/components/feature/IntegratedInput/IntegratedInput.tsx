@@ -12,11 +12,6 @@ export interface RenderPropsType {
 }
 
 export const IntegratedInput = ({ type, inputs, error }: RenderPropsType) => {
-  useEffect(() => {
-    inputs.map((item) => {
-      console.log(item);
-    });
-  }, [inputs]);
   return (
     <S.BasicProfileFirstInputWrapper>
       {type === 'radio' &&

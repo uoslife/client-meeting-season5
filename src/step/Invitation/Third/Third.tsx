@@ -29,10 +29,9 @@ const Third = (props: {
     if (accessToken) {
       createTeamMutation.mutate(undefined, {
         onSuccess: (data) => {
-          console.log(data);
           setTingCode(data.code);
         },
-        onError: async (error) => {
+        onError: async () => {
           // info ->
           const { data } = await groupInfoMutation.refetch();
           if (data) {
@@ -43,10 +42,6 @@ const Third = (props: {
               );
             }
           }
-          console.log(data?.code);
-
-          // setTingCode(code);
-          console.log(error);
         },
       });
     }
@@ -76,13 +71,6 @@ const Third = (props: {
                 >
                   <S.Text
                     onClick={async () => {
-                      console.log('asdfasdfasdf');
-                      // queryClient.invalidateQueries({
-                      //   queryKey: ['meetingTeamInfo', 'TRIPLE'],
-                      // });
-                      // queryClient.removeQueries({
-                      //   queryKey: ['meetingTeamInfo', 'TRIPLE'],
-                      // });
                       const data = await groupInfoMutation.refetch();
                       setUserList(data.data?.meetingTeamUserProfiles);
                     }}

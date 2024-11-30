@@ -388,7 +388,6 @@ const Second = (props: {
     },
     isSideButton: true,
     sideButtonCallback: () => {
-      console.log(mbtiForm.getValues());
       idealForm.setValue('counterMbti', '상관없음');
       mbtiForm.setValue('mbtiFirst', 'EI');
       mbtiForm.setValue('mbtiSecond', 'NS');
@@ -436,7 +435,7 @@ const Second = (props: {
         idealForm.setValue('counterSmoking', '상관없음');
         return;
       }
-      console.log(cigarette);
+
       idealForm.setValue('counterSmoking', cigarette.join(','));
     },
     isSideButton: true,

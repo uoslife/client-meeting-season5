@@ -67,8 +67,6 @@ const Second = (props: {
       { email: props.webmail, code: data.code },
       {
         onSuccess: ({ accessToken }: { accessToken: string }) => {
-          console.log('UI콜백');
-          console.log(accessToken);
           props.onNext(accessToken);
         },
         onError: (error) => {

@@ -123,7 +123,6 @@ const SecondDepartmentPage = (props: {
             )
           }
           onClick={() => {
-            console.log(props.academicStatus);
             props.onNext({
               studentType: props.academicStatus,
               department: department,

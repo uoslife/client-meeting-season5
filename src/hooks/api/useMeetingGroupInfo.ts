@@ -21,9 +21,7 @@ export const useCreateMeetingTeam = (): UseMutationResult<
   const { postFetcher } = useAuthAxios();
   return useMutation<CreateMeetingTeamResponse, Error, void>({
     mutationFn: () => postFetcher(`/api/meeting/TRIPLE/create`),
-    onSuccess: (data) => {
-      console.log(data.code);
-    },
+
     onError: (error) => errorHandler(error),
   });
 };
