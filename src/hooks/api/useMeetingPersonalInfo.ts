@@ -8,17 +8,22 @@ import useAuthAxios from '../axios/useAuthAxios';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
 import { errorHandler } from '../../utils/api';
+import { MeetingTeamType } from '../../lib/types/meeting';
 
 interface CreateMeetingTeamResponse {
   code: string;
 }
 
-export const useGetMeetingPersonalInfo = (): UseQueryResult<void, Error> => {
+export const useGetMeetingPersonalInfo = (): UseQueryResult<
+  MeetingTeamType,
+  Error
+> => {
   const { getFetcher } = useAuthAxios();
   const accessToken = useAtomValue(accessTokenAtom);
   return useQuery({
     queryKey: ['meetingTeamInfo', 'SINGLE'],
-    queryFn: () => getFetcher<void>(`api/meeting/SINGLE/application/info`),
+    queryFn: () =>
+      getFetcher<MeetingTeamType>(`api/meeting/SINGLE/info?status=COMPLETED`),
     refetchOnWindowFocus: false,
     select: (data) => data,
     retry: false,
