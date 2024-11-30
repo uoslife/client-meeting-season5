@@ -9,6 +9,7 @@ import { accessTokenAtom } from '../../store/accessTokenAtom';
 import { errorHandler } from '../../utils/api';
 import { getBearerToken } from '../../utils/token';
 import useAuthAxios from '../axios/useAuthAxios';
+import { useNavigate } from 'react-router-dom';
 
 type UserProfileResponseType = {
   name: string | null;
@@ -120,11 +121,13 @@ const useGetUserStatus = (): UseQueryResult<UserStatusResponseType, Error> => {
 
 const useLogout = (): UseMutationResult<void, Error, void> => {
   const { postFetcher } = useAuthAxios();
+  const navigate = useNavigate();
   const setAccessToken = useSetAtom(accessTokenAtom);
   return useMutation({
     mutationFn: () => postFetcher('/api/auth/logout'),
     onSuccess: () => {
       setAccessToken('');
+      navigate('/');
     },
   });
 };

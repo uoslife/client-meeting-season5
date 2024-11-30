@@ -12,7 +12,9 @@ const EditProfilePage = () => {
   const logoutMutation = useLogout();
   const logoutModal = useModal({
     title: '로그아웃 하시겠습니까?',
-    mainButtonCallback: logoutMutation.mutate,
+    mainButtonCallback: () => {
+      logoutMutation.mutate(undefined, { onSuccess: () => {} });
+    },
     mainButtonText: '로그아웃',
     isSideButton: true,
     sideButtonText: '취소',
