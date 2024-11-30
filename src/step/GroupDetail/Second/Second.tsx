@@ -9,12 +9,12 @@ import AbsoluteAgeRangeSlider from '../../../components/feature/AbsoluteAgeRange
 
 const Second = (props: {
   context: Partial<FourthType>;
-  onNext: ({ minAge, maxAge }: { minAge: number; maxAge: number }) => void;
+  onNext: ({ ageMin, ageMax }: { ageMin: number; ageMax: number }) => void;
 }): ReactNode => {
   const [ageValue, setAgeValue] = useState<number[]>([20, 30]);
 
   const submitHandler = () => {
-    props.onNext({ minAge: ageValue[0], maxAge: ageValue[1] });
+    props.onNext({ ageMin: ageValue[0], ageMax: ageValue[1] });
   };
 
   return (

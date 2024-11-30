@@ -1,20 +1,38 @@
+import { useEffect } from 'react';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
+import {
+  useGetMeetingGroupInfo,
+  usePostGroupMeetingInfo,
+} from '../../../hooks/api/useMeetingGroupInfo';
 import useBottomSheet from '../../../hooks/useBottomSheet';
 import { COLORS } from '../../../lib/constants';
+import { UserInfoType } from '../../../lib/types/meeting';
 import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailProfilePage';
 import S from './style';
+import { useAtomValue } from 'jotai';
+import { accessTokenAtom } from '../../../store/accessTokenAtom';
 
 const Fourth = (props: { context: FourthType }) => {
+  const groupInfoQuery = useGetMeetingGroupInfo();
+  const groupInfoMutation = usePostGroupMeetingInfo();
+  const accessToken = useAtomValue(accessTokenAtom);
+  useEffect(() => {
+    if (accessToken) {
+      groupInfoQuery.refetch();
+    }
+  }, [accessToken]);
+
   const PersonDetailResultBottomSheet = useBottomSheet({
     title: '신청하시겠습니까?',
     mainButtonText: '신청하기',
-    mainButtonCallback: () => handleClick,
+    mainButtonCallback: () => handleClick(),
     isSideButton: false,
     description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
   });
   const handleClick = () => {
     console.log(props.context);
+    groupInfoMutation.mutate(props.context);
   };
   return (
     <>
@@ -37,18 +55,17 @@ const Fourth = (props: { context: FourthType }) => {
               </Text>
             </S.TeamTextWrapper>
             <S.UserListContainer>
-              {[
-                { userName: '우채윤', isTeamLeader: true },
-                { userName: '우채윤', isTeamLeader: false },
-                { userName: '우채윤', isTeamLeader: false },
-              ].map((user) => (
-                <S.UserItem key={user.userName}>
-                  <Text typograph={'bodyLargeMedium'} color="Blue90">
-                    {user.userName}
-                  </Text>
-                  {user.isTeamLeader && <S.Pill>팅장</S.Pill>}
-                </S.UserItem>
-              ))}
+              {groupInfoQuery &&
+                groupInfoQuery.data?.meetingTeamUserProfiles.map(
+                  (user: UserInfoType) => (
+                    <S.UserItem key={user.name}>
+                      <Text typograph={'bodyLargeMedium'} color="Blue90">
+                        {user.name}
+                      </Text>
+                      {user.isLeader && <S.Pill>팅장</S.Pill>}
+                    </S.UserItem>
+                  ),
+                )}
             </S.UserListContainer>
           </S.TeamUserContainer>
           <S.ContextContainer>
@@ -57,7 +74,7 @@ const Fourth = (props: { context: FourthType }) => {
                 선호 상대 팅원의 나이
               </Text>
               <S.Text>
-                {props.context.minAge} - {props.context.maxAge}{' '}
+                {props.context.ageMin} - {props.context.ageMax}
                 <span style={{ color: COLORS.Blue30 }}>세(연)</span>
               </S.Text>
             </S.ContextWrapper>
