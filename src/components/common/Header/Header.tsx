@@ -3,11 +3,13 @@ import arrowBack from '../../../lib/assets/icon/arrow-back.svg';
 import logout from '../../../lib/assets/icon/logout.svg';
 import close from '../../../lib/assets/icon/close.svg';
 import more from '../../../lib/assets/icon/more_horizon.svg';
+import logoutWhite from '../../../lib/assets/icon/logout-white.svg';
 import S from './style';
+import { ColorsType } from '../../../lib/types';
 
-type rightButtonType = 'close' | 'logout' | 'more' | 'none';
+type rightButtonType = 'close' | 'logout' | 'more' | 'logoutWhite' | 'none';
 
-interface HeaderPropsType {
+interface HeaderPropsType extends React.HTMLAttributes<HTMLElement> {
   title: string;
   isGoBackButton?: boolean;
   rightButtonType?: rightButtonType;
@@ -21,6 +23,7 @@ const Header = ({
   rightButtonType = 'none',
   leftButtonCallback,
   rightButtonCallback,
+  ...props
 }: HeaderPropsType) => {
   const rightButtonIcon = (rightButtonType: rightButtonType) => {
     switch (rightButtonType) {
@@ -30,6 +33,8 @@ const Header = ({
         return logout;
       case 'more':
         return more;
+      case 'logoutWhite':
+        return logoutWhite;
     }
   };
   const iconLocationAttribute = () => {
@@ -39,7 +44,7 @@ const Header = ({
     return 'start';
   };
   return (
-    <S.Wrapper justifyContent={iconLocationAttribute()}>
+    <S.Wrapper justifyContent={iconLocationAttribute()} {...props}>
       <div style={{ width: 20, height: 20 }}>
         {isGoBackButton && (
           <img
@@ -54,7 +59,7 @@ const Header = ({
       </div>
 
       <Text
-        color={'Blue70'}
+        color={(props.style?.color as ColorsType) ?? 'Blue70'}
         typograph={'titleMedium'}
         style={{
           width: '100%',

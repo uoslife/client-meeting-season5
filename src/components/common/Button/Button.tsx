@@ -3,7 +3,7 @@ import { ColorsType } from '../../../lib/types';
 import S from './style';
 import { ButtonHTMLAttributes } from 'react';
 
-export interface ButtonPropsType {
+export interface ButtonPropsType extends React.HTMLAttributes<HTMLElement> {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   buttonColor: 'primary' | 'secondary' | 'black' | 'yellow' | 'blue' | 'white';
   disabled?: boolean;
@@ -17,6 +17,7 @@ const Button = ({
   disabled = false,
   children,
   onClick,
+  ...props
 }: ButtonPropsType) => {
   const textColor = (
     buttonColor: ButtonPropsType['buttonColor'],
@@ -49,6 +50,7 @@ const Button = ({
       buttonColor={buttonColor}
       disabled={disabled}
       onClick={onClick}
+      {...props}
     >
       <Text
         typograph="bodyMediumMedium"
