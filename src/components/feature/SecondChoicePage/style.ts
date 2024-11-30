@@ -31,6 +31,13 @@ const S = {
     flex-direction: column;
     gap: 8px;
     padding-top: 40;
+    span {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+      letter-spacing: -0.4px;
+    }
   `,
   TextWrapper: styled.div`
     display: flex;

@@ -66,15 +66,15 @@ const InterestOptions = ({
         <S.CheckboxContainer>
           {customOptions.map((option) => {
             return (
-              <S.CheckboxWrapper key={option}>
+              <S.CheckboxWrapper key={`custom-${option}`}>
                 <Checkbox
                   value={option}
                   label={option}
                   onChange={(e) => {
                     onSelectedChange(option);
                     if (interestOptions.length > 4) {
-                      onSelectedChange(option);
                       e.currentTarget.checked = false;
+                      // onSelectedChange(option);
                     }
                   }}
                   checked={interestOptions.includes(option)}
@@ -87,14 +87,14 @@ const InterestOptions = ({
       <S.CheckboxContainer>
         {options.map((option) => {
           return (
-            <S.CheckboxWrapper key={option}>
+            <S.CheckboxWrapper key={`original-${option}`}>
               <Checkbox
                 value={option}
                 label={option}
                 onChange={(e) => {
                   onSelectedChange(option);
                   if (interestOptions.length > 4) {
-                    onSelectedChange(option);
+                    // onSelectedChange(option);
                     e.currentTarget.checked = false;
                   }
                 }}
