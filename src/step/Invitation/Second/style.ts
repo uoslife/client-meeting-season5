@@ -18,7 +18,6 @@ export const S = {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    transform: translateY(-10%);
     min-height: calc(100vh - 88px - 4rem);
     min-height: calc(100dvh - 88px - 4rem);
   `,

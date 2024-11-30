@@ -3,6 +3,7 @@ import Button from '../../../components/common/Button';
 import { FourthType } from '../../../pages/InvitationPage/InvitationPage';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
+import { UserInfoType } from '../../../lib/types/meeting';
 
 const Fourth = (props: { context: FourthType }) => {
   const navigate = useNavigate();
@@ -15,21 +16,16 @@ const Fourth = (props: { context: FourthType }) => {
               팅 결성 완료!
             </Text>
             <S.EntryList>
-              <S.EntryItem>
-                <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
-                  우채윤
-                </Text>
-              </S.EntryItem>
-              <S.EntryItem>
-                <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
-                  우채윤
-                </Text>
-              </S.EntryItem>
-              <S.EntryItem>
-                <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
-                  우채윤
-                </Text>
-              </S.EntryItem>
+              {props.context.userList.map((user: UserInfoType) => {
+                return (
+                  <S.EntryItem key={`user-${user.name}`}>
+                    {user.isLeader && user.isLeader}
+                    <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
+                      {user.name}
+                    </Text>
+                  </S.EntryItem>
+                );
+              })}
             </S.EntryList>
             <S.TextWrapper>
               <Text typograph={'bodyLargeMedium'} color={'Blue90'}>

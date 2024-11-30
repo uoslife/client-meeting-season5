@@ -7,6 +7,7 @@ import useAuthAxios from '../axios/useAuthAxios';
 import { errorHandler } from '../../utils/api';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
+import { UserInfoType } from '../../lib/types/meeting';
 
 interface CreateMeetingTeamResponse {
   code: string;
@@ -40,18 +41,66 @@ export const useJoinMeetingTeam = (): UseMutationResult<
   });
 };
 
-export const useGetMeetingGroupInfo = () => {
+export const usePostGroupMeetingInfo = (): UseMutationResult<
+  void,
+  Error,
+  { ageMin: number; ageMax: number; mood: string; name: string }
+> => {
+  const { postFetcher } = useAuthAxios();
+  return useMutation<
+    void,
+    Error,
+    { ageMin: number; ageMax: number; mood: string; name: string }
+  >({
+    mutationFn: ({ ageMax, ageMin, mood, name }) =>
+      postFetcher(`/api/meeting/TRIPLE/info`, { ageMax, ageMin, mood, name }),
+    onSuccess: () => {},
+    onError: () => {},
+  });
+};
+
+export const useGetFinalMeetingGroupInfo = () => {
   const { getFetcher } = useAuthAxios();
   const accessToken = useAtomValue(accessTokenAtom);
   return useQuery({
     queryKey: ['meetingTeamInfo', 'TRIPLE'],
-    queryFn: () => getFetcher<undefined>(`api/meeting/TRIPLE/application/info`),
+    queryFn: () =>
+      getFetcher<undefined>(`api/meeting/TRIPLE/info?status=COMPLETED`),
     refetchOnWindowFocus: false,
     select: (data) => data,
     retry: false,
     enabled: !!accessToken,
   });
 };
+export const useGetMeetingGroupInfo = () => {
+  const { getFetcher } = useAuthAxios();
+  return useQuery({
+    queryKey: ['meetingTeamInfo', 'TRIPLE'],
+    queryFn: () =>
+      getFetcher<{ code: string; meetingTeamUserProfiles: UserInfoType[] }>(
+        `api/meeting/TRIPLE/info?status=UNCOMPLETED`,
+      ),
+    refetchOnWindowFocus: false,
+    select: (data: { code: string; meetingTeamUserProfiles: UserInfoType[] }) =>
+      data,
+    retry: false,
+    enabled: false,
+  });
+};
+
+export const useGetLeaderNameByCode = ({ code }: { code: string }) => {
+  const { getFetcher } = useAuthAxios();
+  return useQuery({
+    queryKey: ['leaderName', code],
+    queryFn: async () =>
+      getFetcher<{ leaderName: string }>(`api/meeting/TRIPLE/${code}`),
+    refetchOnWindowFocus: false,
+    select: (data) => data,
+    retry: false,
+    enabled: false,
+  });
+};
+
 // export const useDeleteMeetingGroup = () => {
 //   const { deleteFetcher } = useAuthAxios();
 // };

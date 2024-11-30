@@ -38,6 +38,16 @@ export const S = {
     flex-direction: column;
     align-items: center;
   `,
+  NoApplicant: styled.div`
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: center;
+    algin-items: center;
+
+    background: ${COLORS.Blue2};
+    border-radius: 8px;
+  `,
   Code: styled.div`
     text-align: center;
     font-family: Pretendard;

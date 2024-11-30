@@ -40,6 +40,7 @@ export const S = {
   `,
   EntryItem: styled.div`
     display: flex;
+    position: relative;
     width: 101px;
     height: 101px;
     flex-direction: column;
@@ -47,6 +48,27 @@ export const S = {
     align-items: center;
     border-radius: 12px;
     background: ${COLORS.Blue2};
+  `,
+  Pill: styled.div`
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, -30%);
+
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.3px;
+    padding: 0px 6px;
+    display: flex;
+    padding: 1px 6px;
+    justify-content: center;
+    align-items: center;
+    background: ${COLORS.Red60};
+    color: ${COLORS.White};
+    border-radius: 20px;
   `,
   TextWrapper: styled.div`
     display: flex;

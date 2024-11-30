@@ -3,23 +3,39 @@ import Button from '../../../components/common/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Text from '../../../components/common/Text';
 import useModal from '../../../hooks/useModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  useGetLeaderNameByCode,
+  useJoinMeetingTeam,
+} from '../../../hooks/api/useMeetingGroupInfo';
+import { useNavigate } from 'react-router-dom';
 
 interface CodeType {
   code: string;
 }
 
 const Second = (props: { onNext: () => void }) => {
-  const [teamLeaderName, _] = useState<string>('누군가');
+  const [teamLeaderName, setTeamLeaderName] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [code, setCode] = useState('');
+
   const {
     watch,
     register,
     handleSubmit: handleSubmitWrapper,
     formState: { errors },
   } = useForm<CodeType>();
-  // const joinMutation = useJoinMeetingTeam();
-  // const meetingUserListMutation = useGetUserList();
+  useEffect(() => {
+    setCode(watch('code'));
+  }, [watch('code')]);
+  const navigate = useNavigate();
+  const leaderNameQuery = useGetLeaderNameByCode({ code: code });
+
+  useEffect(() => {
+    if (leaderNameQuery.isSuccess)
+      setTeamLeaderName(leaderNameQuery.data?.leaderName);
+  }, [leaderNameQuery.isSuccess]);
+  const joinMutation = useJoinMeetingTeam();
 
   const submitModal = useModal({
     //API 호출
@@ -27,10 +43,20 @@ const Second = (props: { onNext: () => void }) => {
     isSideButton: true,
     mainButtonText: '참여하기',
     sideButtonText: '취소',
-    mainButtonCallback: () => props.onNext(),
+    mainButtonCallback: () => {
+      joinMutation.mutate(
+        { code: code },
+        {
+          onSuccess: () => navigate('/auth/main'),
+          onError: () => {
+            alert('asdf');
+          },
+        },
+      );
+    },
   });
 
-  const handleSubmit: SubmitHandler<CodeType> = (data) => {
+  const handleSubmit: SubmitHandler<CodeType> = async (data) => {
     //submit validation 필요
     const checkValues = Object.values(data).some(
       (value) =>
@@ -40,7 +66,13 @@ const Second = (props: { onNext: () => void }) => {
         errors.code,
     );
     if (checkValues) return;
-    submitModal.open();
+    const refetchResult = await leaderNameQuery.refetch();
+    if (refetchResult?.data?.leaderName) {
+      setTeamLeaderName(refetchResult.data.leaderName);
+      submitModal.open();
+    } else {
+      alert('다시 시도해주세요');
+    }
   };
 
   const isButtonDisabled = (): boolean => {
@@ -54,44 +86,53 @@ const Second = (props: { onNext: () => void }) => {
       onSubmit={handleSubmitWrapper(handleSubmit)}
     >
       <S.MainContainer>
-        <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-          입장할 팅의 코드를 입력해 주세요.
-        </Text>
-        <S.InputWrapper>
-          {Array(4)
-            .fill(0)
-            .map((_, i) => {
-              return (
-                <S.InputDisplay
-                  key={i}
-                  isFocused={Boolean(
-                    (watch('code') && watch('code').length === i) ||
-                      (isFocused && i == 0 && !watch('code')),
-                  )}
-                >
-                  {watch('code') && watch('code')[i]}
-                </S.InputDisplay>
-              );
-            })}
-          <S.Input
-            value={watch('code')}
-            {...register('code', {
-              required: true,
-              maxLength: 4,
-              pattern: /^[A-Z]*$/,
-              setValueAs: (value) => {
-                const upperCaseValue = value.toUpperCase();
-                if (!/^[A-Za-z]*$/.test(value))
-                  return upperCaseValue.slice(0, upperCaseValue.length - 2);
-                if (upperCaseValue.length > 4)
-                  return upperCaseValue.slice(0, 4);
-                return upperCaseValue;
-              },
-            })}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-        </S.InputWrapper>
+        <div
+          style={{
+            transform: 'translateY(-10%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
+            입장할 팅의 코드를 입력해 주세요.
+          </Text>
+          <S.InputWrapper>
+            {Array(4)
+              .fill(0)
+              .map((_, i) => {
+                return (
+                  <S.InputDisplay
+                    key={i}
+                    isFocused={Boolean(
+                      (watch('code') && watch('code').length === i) ||
+                        (isFocused && i == 0 && !watch('code')),
+                    )}
+                  >
+                    {watch('code') && watch('code')[i]}
+                  </S.InputDisplay>
+                );
+              })}
+            <S.Input
+              value={watch('code')}
+              {...register('code', {
+                required: true,
+                maxLength: 4,
+                pattern: /^[A-Z0-9]*$/,
+                setValueAs: (value) => {
+                  const upperCaseValue = value.toUpperCase();
+                  if (!/^[A-Za-z0-9]*$/.test(value))
+                    return upperCaseValue.slice(0, upperCaseValue.length - 2);
+                  if (upperCaseValue.length > 4)
+                    return upperCaseValue.slice(0, 4);
+                  return upperCaseValue;
+                },
+              })}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            />
+          </S.InputWrapper>
+        </div>
       </S.MainContainer>
       {submitModal.render()}
       <S.ButtonWrapper>
