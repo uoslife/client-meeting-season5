@@ -2,7 +2,6 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import Text from '../../common/Text';
 import { S } from './style';
 import Radio from '../../common/Radio';
-import { useEffect } from 'react';
 
 export interface RenderPropsType {
   title: string;

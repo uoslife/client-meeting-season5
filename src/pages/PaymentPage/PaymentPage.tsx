@@ -86,7 +86,10 @@ const PaymentPage = () => {
       {errorToast.render(
         '결제 정보가 존재하지 않습니다. 새로고침 후 이용해주세요.',
       )}
-      <Header title={headerTitle() + ' 신청하기'} />
+      <Header
+        title={headerTitle() + ' 신청하기'}
+        leftButtonCallback={() => navigate(-1)}
+      />
       <S.MainContainer className="layout-padding">
         <Text
           typograph={'headlineMedium'}
@@ -124,7 +127,7 @@ const PaymentPage = () => {
               color={'Blue90'}
               style={{ fontWeight: 600 }}
             >
-              2,000원
+              {headerTitleType === 'personal' ? '2,000원' : '6,000원'}
             </Text>
           </S.ProductItem>
         </S.ProductWrapper>

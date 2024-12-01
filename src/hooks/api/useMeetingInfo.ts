@@ -1,6 +1,5 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import useAuthAxios from '../axios/useAuthAxios';
-import { errorHandler } from '../../utils/api';
 import {
   AppearanceType,
   EyelidType,

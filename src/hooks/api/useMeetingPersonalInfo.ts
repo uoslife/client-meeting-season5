@@ -7,7 +7,6 @@ import {
 import useAuthAxios from '../axios/useAuthAxios';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../store/accessTokenAtom';
-import { errorHandler } from '../../utils/api';
 import { MeetingTeamType } from '../../lib/types/meeting';
 
 interface CreateMeetingTeamResponse {

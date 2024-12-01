@@ -8,7 +8,6 @@ import WebMailPage from './pages/WebMailPage';
 import AuthLayout from './components/common/AuthLayout';
 import MainPage from './pages/MainPage';
 import PersonalDetailProfilePage from './pages/PersonalDetailProfilePage';
-import SummaryPage from './pages/PersonalSummaryPage';
 import PrivatePolicyPage from './pages/PrivatePolicyPage';
 import PaymentPage from './pages/PaymentPage';
 import InvitationPage from './pages/InvitationPage';

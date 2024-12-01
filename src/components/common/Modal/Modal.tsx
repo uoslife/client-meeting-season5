@@ -8,6 +8,7 @@ interface ModalProps extends UseModalPropsType {
   isOpen: boolean;
   children: ReactNode;
   handleButtonClick: () => void;
+  handleSideButtonClick: () => void;
   close: () => void;
 }
 
@@ -20,7 +21,6 @@ const Modal = ({
   handleButtonClick,
   handleSideButtonClick,
   isSideButton,
-  close,
   children,
 }: ModalProps) => {
   return (

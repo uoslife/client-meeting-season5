@@ -4,6 +4,7 @@ import S from './style';
 import { usePaymentResult } from '../../hooks/api/usePayment';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import sataFace from '../../lib/assets/images/santa-face.png';
+import santaGif from '../../lib/assets/images/santa-gif.gif';
 
 const PAYMENT_ENUM: { [key: string]: 'SINGLE' | 'TRIPLE' } = {
   personal: 'SINGLE',
@@ -37,7 +38,6 @@ const PaymentResultPage = (): ReactNode => {
           flexDirection: 'column',
           gap: 40,
           alignItems: 'center',
-          transform: 'translateY(-25%)',
         }}
       >
         <div
@@ -60,6 +60,7 @@ const PaymentResultPage = (): ReactNode => {
             {`화면을 종료하지 말고\n결제가 완료될 때까지 기다려주세요.`}
           </Text>
         </div>
+        <img src={santaGif} width={'100%'} />
       </div>
     </S.Wrapper>
   );
