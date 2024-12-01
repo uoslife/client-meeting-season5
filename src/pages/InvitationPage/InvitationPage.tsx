@@ -7,7 +7,10 @@ import Fourth from '../../step/Invitation/Fourth';
 import { useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../lib/types/meeting';
 import { useGetUserStatus } from '../../hooks/api/useUser';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import useModal from '../../hooks/useModal';
+import { useDeleteMeetingGroup } from '../../hooks/api/useMeetingGroupInfo';
+import { errorHandler } from '../../utils/api';
 
 type FirstType = { userList?: UserInfoType[]; isTeamLeader?: boolean };
 type SecondType = { userList?: UserInfoType[]; isTeamLeader: boolean };
@@ -17,7 +20,33 @@ export type FourthType = { userList: UserInfoType[]; isTeamLeader: boolean };
 const InvitationPage = () => {
   const userStatus = useGetUserStatus();
   const navigate = useNavigate();
-
+  const deleteMutation = useDeleteMeetingGroup();
+  const [errorText, setErrorText] = useState('');
+  const roomBoomModal = useModal({
+    title: '신청을 취소하시겠습니까?',
+    description: '지금까지 진행 중이던 작업이 모두 취소돼요.',
+    isSideButton: true,
+    mainButtonText: '신청 취소하기',
+    sideButtonText: '닫기',
+    mainButtonCallback: () => {
+      deleteMutation.mutate(undefined, {
+        onSuccess: () => {
+          navigate('/auth/main');
+        },
+        onError: (error) => {
+          setErrorText(errorHandler(error));
+          errorModal.open();
+        },
+      });
+    },
+  });
+  const errorModal = useModal({
+    title: errorText,
+    mainButtonCallback: () => {
+      navigate('/auth/main');
+    },
+    isSideButton: false,
+  });
   const funnel = useFunnel<{
     first: FirstType;
     second: SecondType;
@@ -41,6 +70,7 @@ const InvitationPage = () => {
       navigate('/auth/result/group');
     }
   }, [userStatus.data]);
+
   switch (funnel.step) {
     case 'first':
       return (
@@ -49,12 +79,16 @@ const InvitationPage = () => {
             title="3대3 시작하기"
             isGoBackButton={true}
             leftButtonCallback={() => {
-              navigate(-1);
+              navigate('/auth/main');
             }}
           />
           <First
-            onNextSecond={() => funnel.history.push('second')}
-            onNextThird={() => funnel.history.push('third')}
+            onNextSecond={() =>
+              funnel.history.push('second', { isTeamLeader: false })
+            }
+            onNextThird={() =>
+              funnel.history.push('third', { isTeamLeader: true })
+            }
           />
         </>
       );
@@ -65,7 +99,7 @@ const InvitationPage = () => {
             title="3대3 시작하기"
             isGoBackButton={true}
             leftButtonCallback={() => {
-              navigate(-1);
+              navigate('/auth/invite');
             }}
           />
           <Second />
@@ -77,8 +111,16 @@ const InvitationPage = () => {
           <Header
             title={funnel.context.isTeamLeader ? '팅 개설하기' : '팅 참여하기'}
             isGoBackButton={true}
-            leftButtonCallback={() => {}}
+            leftButtonCallback={() => {
+              navigate('/auth/main');
+            }}
+            rightButtonType="logout"
+            rightButtonCallback={() => {
+              roomBoomModal.open();
+            }}
           />
+          {roomBoomModal.render()}
+          {errorModal.render()}
           <Third
             isTeamLeader={funnel.context.isTeamLeader}
             onNext={(userList) =>
