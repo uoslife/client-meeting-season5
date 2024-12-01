@@ -18,6 +18,7 @@ const Modal = ({
   sideButtonText,
   mainButtonText,
   handleButtonClick,
+  handleSideButtonClick,
   isSideButton,
   close,
   children,
@@ -37,7 +38,7 @@ const Modal = ({
       {children}
       <div style={{ display: 'flex', gap: 8, width: '100%' }}>
         {isSideButton && sideButtonText && (
-          <Button buttonColor="secondary" onClick={close}>
+          <Button buttonColor="secondary" onClick={handleSideButtonClick}>
             {sideButtonText}
           </Button>
         )}

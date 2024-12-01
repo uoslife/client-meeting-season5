@@ -10,6 +10,7 @@ export interface UseModalPropsType {
   mainButtonText?: string;
   sideButtonText?: string;
   mainButtonCallback?: () => void;
+  sideButtonCallback?: () => void;
 }
 
 const useModal = ({
@@ -19,6 +20,7 @@ const useModal = ({
   mainButtonText = '확인',
   sideButtonText = '취소',
   mainButtonCallback = () => {},
+  sideButtonCallback = () => {},
 }: UseModalPropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -40,6 +42,14 @@ const useModal = ({
       mainButtonCallback();
       close();
     };
+    const handleSideButtonClick = () => {
+      if (isPending) {
+        return;
+      }
+      setIsPending(true);
+      sideButtonCallback();
+      close();
+    };
 
     const modalProps = {
       isOpen,
@@ -48,6 +58,7 @@ const useModal = ({
       sideButtonText,
       mainButtonText,
       handleButtonClick,
+      handleSideButtonClick,
       isSideButton,
       close,
     };

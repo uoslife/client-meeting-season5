@@ -9,34 +9,57 @@ import { useGetUserInfo } from '../../hooks/api/useUser';
 import Header from '../../components/common/Header';
 import close from '../../lib/assets/icon/cancel-icon.svg';
 import { errorHandler } from '../../utils/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 
 const ResultPersonalPage = () => {
   const navigate = useNavigate();
-  const { data: meetingInfo } = useGetMeetingPersonalInfo();
+  const {
+    data: meetingInfo,
+    isError: meetingIsError,
+    error: meetingError,
+  } = useGetMeetingPersonalInfo();
   const deleteMutation = useDeleteMeetingPersonal();
-  const { data: userInfo } = useGetUserInfo();
+  const {
+    data: userInfo,
+    isError: userIsError,
+    error: userError,
+  } = useGetUserInfo();
   const [errorText, setErrorText] = useState('');
+
+  useEffect(() => {
+    if (meetingIsError) {
+      setErrorText(errorHandler(meetingError));
+      errorModal.open();
+    }
+    if (userIsError) {
+      setErrorText(errorHandler(userError));
+      errorModal.open();
+    }
+  }, [meetingIsError, userIsError]);
   const modal = useModal({
     title: '미팅 신청을 취소하시겠습니까?',
     description: '이번 크리스마스도 나 홀로 집에?',
-    mainButtonCallback: () => {
+    mainButtonCallback: () => {},
+    isSideButton: true,
+    sideButtonText: '신청 취소하기',
+    mainButtonText: '다시 생각해볼래요',
+    sideButtonCallback: () => {
       deleteMutation.mutate(undefined, {
+        onSuccess: () => {
+          navigate('/auth/main');
+        },
         onError: (error) => {
           setErrorText(errorHandler(error));
           errorModal.open();
         },
       });
     },
-    isSideButton: true,
-    sideButtonText: '신청 취소하기',
-    mainButtonText: '다시 생각해볼래요',
   });
   const errorModal = useModal({
     title: errorText,
     mainButtonCallback: () => {
-      navigate(-1);
+      navigate('/auth/main');
     },
     isSideButton: false,
   });
@@ -94,21 +117,36 @@ const ResultPersonalPage = () => {
     },
     {
       label: '외모',
-      value: meetingInfo?.preference.appearanceType?.length
-        ? meetingInfo.preference.appearanceType
-            .join(', ')
-            .split(',')
-            .map((item) =>
-              item === 'ARAB' ? '또렷' : item === 'TOFU' ? '순함' : '중간',
-            )
-            .join(', ')
-        : '상관없음',
+      value:
+        (meetingInfo?.preference.appearanceType?.length
+          ? meetingInfo.preference.appearanceType
+              .join(',')
+              .split(',')
+              .map((item) =>
+                item === 'ARAB' ? '또렷' : item === 'TOFU' ? '순함' : '중간',
+              )
+              .join(', ')
+          : '상관없음') +
+        ' / ' +
+        (meetingInfo?.preference.eyelidType?.length
+          ? meetingInfo.preference.eyelidType
+              .join(',')
+              .split(',')
+              .map((item) =>
+                item === 'DOUBLE'
+                  ? '유쌍'
+                  : item === 'SINGLE'
+                    ? '무쌍'
+                    : '속쌍',
+              )
+              .join(', ')
+          : '상관없음'),
     },
     {
       label: '흡연여부',
       value: meetingInfo?.preference.smoking?.length
         ? meetingInfo.preference.smoking
-            .join(', ')
+            .join(',')
             .split(',')
             .map((item) =>
               item === 'FALSE'

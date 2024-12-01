@@ -18,10 +18,11 @@ const MainBUttonWrapper = ({
     <S.Wrapper>
       <S.Button
         onClick={() => {
-          if (isPersonalComplete !== 'COMPLETED') {
+          if (isPersonalComplete === 'COMPLETED') {
+            navigate('/auth/result/personal');
+          } else {
             navigate('/auth/detail/personal');
           }
-          navigate('/auth/result/personal');
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
