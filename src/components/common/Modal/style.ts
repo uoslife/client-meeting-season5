@@ -14,6 +14,7 @@ const S = {
     justify-content: center;
     align-items: center;
     gap: 16px;
+    max-width: 440px;
 
     background-color: ${COLORS.White};
     padding: 20px;
