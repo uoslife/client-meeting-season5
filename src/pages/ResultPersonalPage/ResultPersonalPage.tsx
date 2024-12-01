@@ -12,9 +12,11 @@ import { errorHandler } from '../../utils/api';
 import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import { COLORS } from '../../lib/constants';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ResultPersonalPage = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     data: meetingInfo,
     isError: meetingIsError,
@@ -48,6 +50,9 @@ const ResultPersonalPage = () => {
     sideButtonCallback: () => {
       deleteMutation.mutate(undefined, {
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['meetingTeamInfo', 'SINGLE'],
+          });
           navigate('/auth/main');
         },
         onError: (error) => {

@@ -12,12 +12,14 @@ import { errorHandler } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ResultGroupPage = () => {
   const navigate = useNavigate();
   const meetingInfo = useGetFinalMeetingGroupInfo();
   const deleteMutation = useDeleteMeetingGroup();
   const [errorText, setErrorText] = useState('');
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (meetingInfo.isError) {
@@ -36,6 +38,9 @@ const ResultGroupPage = () => {
     sideButtonCallback: () => {
       deleteMutation.mutate(undefined, {
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['meetingTeamInfo', 'TRIPLE'],
+          });
           navigate('/auth/main');
         },
         onError: (error) => {
