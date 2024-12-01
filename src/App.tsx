@@ -21,6 +21,7 @@ import PaymentTestPage from './pages/PaymentTestPage';
 import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ResultPersonalPage from './pages/ResultPersonalPage';
+import ResultGroupPage from './pages/ResultGroupPage';
 
 const router = createBrowserRouter([
   {
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: 'result/personal',
         element: <ResultPersonalPage />,
+      },
+      {
+        path: 'result/group',
+        element: <ResultGroupPage />,
       },
     ],
   },
