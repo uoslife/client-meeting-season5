@@ -10,9 +10,9 @@ const S = {
     left: 50%;
     transform: translateX(-50%);
     max-width: 300px;
+    word-wrap: break-word;
     overflow-wrap: break-word;
-    overflow: auto;
-    white-space: nowrap;
+    white-space: normal;
     word-break: break-word;
     top: 50px;
 

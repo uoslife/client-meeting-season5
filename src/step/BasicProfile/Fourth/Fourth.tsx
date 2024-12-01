@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import Button from '../../../components/common/Button';
@@ -32,10 +32,10 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
       },
       {
         onError: () => {
-          errorToast.toast(1000);
+          errorToast.toast(3000);
           setTimeout(() => {
             navigate('/auth/profile');
-          }, 1000);
+          }, 3500);
         },
       },
     );
@@ -55,10 +55,10 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
       },
       {
         onError: () => {
-          errorToast.toast(1000);
+          errorToast.toast(3000);
           setTimeout(() => {
             navigate('/auth/profile');
-          }, 1000);
+          }, 3800);
         },
       },
     );
@@ -70,7 +70,9 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
 
   return (
     <S.Container className="layout-padding">
-      {errorToast.render('유저 정보가 없습니다. 다시 입력해주세요.')}
+      {errorToast.render(
+        '유저 정보가 정확하지 않습니다.\n이미 프로필을 만들었다면\n기존 정보와 일치시켜주세요.',
+      )}
       <S.MainContainer>
         <S.Wrapper>
           <S.IconWrapper>
@@ -92,7 +94,16 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
         </S.Wrapper>
       </S.MainContainer>
       <S.ButtonWrapper>
-        <Button buttonColor={'primary'} onClick={nextButtonCallback}>
+        <Button
+          buttonColor={'primary'}
+          onClick={nextButtonCallback}
+          disabled={
+            userInfoMutation.isPending ||
+            userMutation.isPending ||
+            userInfoMutation.isError ||
+            userMutation.isError
+          }
+        >
           눈 맞을 짝을 찾아 떠나볼까요?
         </Button>
       </S.ButtonWrapper>

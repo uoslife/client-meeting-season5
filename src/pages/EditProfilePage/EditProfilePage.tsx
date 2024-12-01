@@ -1,7 +1,6 @@
 import Header from '../../components/common/Header';
 import Text from '../../components/common/Text';
 import { S } from './style';
-import EditIcon from '../../lib/assets/images/edit-16-icon.svg';
 import logout from '../../lib/assets/icon/logout.svg';
 import { useGetUserInfo, useLogout } from '../../hooks/api/useUser';
 import useModal from '../../hooks/useModal';
@@ -26,6 +25,13 @@ const EditProfilePage = () => {
     title: '네트워크 상태가 불안정합니다.',
     mainButtonCallback: () => navigate(-1),
   });
+  const editModal = useModal({
+    title: '프로필을 다시 만드시겠습니까?',
+    mainButtonCallback: () => navigate('/auth/profile'),
+    mainButtonText: '수정하기',
+    isSideButton: true,
+    sideButtonText: '취소',
+  });
 
   useEffect(() => {
     if (userInfo.isError) {
@@ -35,12 +41,15 @@ const EditProfilePage = () => {
   return (
     <S.Container>
       {errorModal.render()}
+      {editModal.render()}
       <Header
         title="내 프로필"
         isGoBackButton={true}
         leftButtonCallback={() => {
           navigate(-1);
         }}
+        rightButtonType="edit"
+        rightButtonCallback={() => editModal.open()}
       />
       <S.MainContainer className="layout-padding">
         {userInfo.data && userInfo.isSuccess && (
@@ -55,7 +64,6 @@ const EditProfilePage = () => {
                   >
                     기본 정보
                   </Text>
-                  <img src={EditIcon} width={16} />
                 </S.TitleWrapper>
                 <S.TextWrapper>
                   <div style={{ display: 'flex', gap: 20 }}>
@@ -129,7 +137,6 @@ const EditProfilePage = () => {
                   >
                     학적 정보
                   </Text>
-                  <img src={EditIcon} width={16} />
                 </S.TitleWrapper>
                 <S.TextWrapper>
                   <div style={{ display: 'flex', gap: 20 }}>
@@ -183,7 +190,6 @@ const EditProfilePage = () => {
                   >
                     관심사
                   </Text>
-                  <img src={EditIcon} width={16} />
                 </S.TitleWrapper>
                 <S.TextWrapper>
                   <div style={{ display: 'flex', gap: 20 }}>
