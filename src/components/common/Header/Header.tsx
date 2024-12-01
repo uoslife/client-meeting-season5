@@ -4,10 +4,17 @@ import logout from '../../../lib/assets/icon/logout.svg';
 import close from '../../../lib/assets/icon/close.svg';
 import more from '../../../lib/assets/icon/more_horizon.svg';
 import logoutWhite from '../../../lib/assets/icon/logout-white.svg';
+import edit from '../../../lib/assets/icon/edit.svg';
 import S from './style';
 import { ColorsType } from '../../../lib/types';
 
-type rightButtonType = 'close' | 'logout' | 'more' | 'logoutWhite' | 'none';
+type rightButtonType =
+  | 'close'
+  | 'logout'
+  | 'more'
+  | 'logoutWhite'
+  | 'edit'
+  | 'none';
 
 interface HeaderPropsType extends React.HTMLAttributes<HTMLElement> {
   title: string;
@@ -35,6 +42,8 @@ const Header = ({
         return more;
       case 'logoutWhite':
         return logoutWhite;
+      case 'edit':
+        return edit;
     }
   };
   const iconLocationAttribute = () => {
