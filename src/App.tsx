@@ -20,6 +20,7 @@ import PaymentFailedPage from './pages/PaymentFailedPage';
 import PaymentTestPage from './pages/PaymentTestPage';
 import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ResultPersonalPage from './pages/ResultPersonalPage';
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
       {
         path: 'edit-profile',
         element: <EditProfilePage />,
+      },
+      {
+        path: 'result/personal',
+        element: <ResultPersonalPage />,
       },
     ],
   },
