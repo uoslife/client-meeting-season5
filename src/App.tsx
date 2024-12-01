@@ -8,7 +8,7 @@ import WebMailPage from './pages/WebMailPage';
 import AuthLayout from './components/common/AuthLayout';
 import MainPage from './pages/MainPage';
 import PersonalDetailProfilePage from './pages/PersonalDetailProfilePage';
-import SummaryPage from './pages/SummaryPage';
+import SummaryPage from './pages/PersonalSummaryPage';
 import PrivatePolicyPage from './pages/PrivatePolicyPage';
 import PaymentPage from './pages/PaymentPage';
 import InvitationPage from './pages/InvitationPage';
@@ -23,6 +23,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ResultPersonalPage from './pages/ResultPersonalPage';
 import ResultGroupPage from './pages/ResultGroupPage';
 import Waiting from './pages/WaitingPage';
+import GroupSummaryPage from './pages/GroupSummaryPage';
+import PersonalSummaryPage from './pages/PersonalSummaryPage';
 
 const router = createBrowserRouter([
   {
@@ -84,8 +86,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'summary',
-        element: <SummaryPage />,
+        path: 'summary/personal',
+        element: <PersonalSummaryPage />,
+      },
+      {
+        path: 'summary/group',
+        element: <GroupSummaryPage />,
       },
       {
         path: 'invite',
