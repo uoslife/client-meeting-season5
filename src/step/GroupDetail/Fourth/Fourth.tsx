@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../../components/common/Button';
 import Text from '../../../components/common/Text';
 import {
@@ -12,11 +12,17 @@ import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailPro
 import S from './style';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
+import { errorHandler } from '../../../utils/api';
+import useModal from '../../../hooks/useModal';
+import { useNavigate } from 'react-router-dom';
 
 const Fourth = (props: { context: FourthType }) => {
   const groupInfoQuery = useGetMeetingGroupInfo();
   const groupInfoMutation = usePostGroupMeetingInfo();
   const accessToken = useAtomValue(accessTokenAtom);
+  const navigate = useNavigate();
+  const [errorText, setErrorText] = useState('');
+
   useEffect(() => {
     if (accessToken) {
       groupInfoQuery.refetch();
@@ -30,11 +36,27 @@ const Fourth = (props: { context: FourthType }) => {
     isSideButton: false,
     description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
   });
+
   const handleClick = () => {
-    groupInfoMutation.mutate(props.context);
+    groupInfoMutation.mutate(props.context, {
+      onError: (error) => {
+        setErrorText(errorHandler(error));
+        errorModal.open();
+      },
+      onSuccess: () => {
+        navigate('/auth/summary/group?type=group');
+      },
+    });
   };
+
+  const errorModal = useModal({
+    title: errorText,
+    isSideButton: false,
+  });
+
   return (
     <>
+      {errorModal.render()}
       <S.Container className="layout-padding">
         <S.MainContainer>
           <Text
