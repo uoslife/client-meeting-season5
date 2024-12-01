@@ -49,7 +49,7 @@ const Second = () => {
         {
           onSuccess: () => navigate('/auth/main'),
           onError: () => {
-            alert('asdf');
+            alert('미팅 팀 참여에 실패했습니다. 다시 시도해주세요.');
           },
         },
       );
