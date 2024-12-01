@@ -138,21 +138,28 @@ export const patchFetcher = async <T>(
   return response.data;
 };
 
-export const errorHandler = (error: Error | AxiosError) => {
-  try {
-    if (isAxiosError(error)) {
-      if (error.status === 500) throw error;
-      if (error.code) {
-        return ERROR_CODE[error.code as ErrorCodeType];
-      } else {
-        throw error;
+export const errorHandler = (error: Error | AxiosError | null): string => {
+  if (!error) return '';
+  else {
+    try {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          const { data } = error.response;
+          if (data.status === 500) throw error;
+          if (data.code) {
+            return ERROR_CODE[data.code as ErrorCodeType];
+          } else {
+            throw error;
+          }
+        }
+        // response가 없는 경우
+        // 서버의 응답이 없거나 네트워크 문제
       }
-    } else {
       throw error;
+    } catch (error) {
+      // 500 혹은 로직에러
+      console.log(error);
+      return import.meta.env.VITE_FATAL_ERROR_MESSAGE;
     }
-  } catch (error) {
-    // 500 혹은 로직에러
-    console.log(error);
-    return import.meta.env.VITE_FATAL_ERROR_MESSAGE;
   }
 };
