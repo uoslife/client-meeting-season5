@@ -75,7 +75,7 @@ const Third = (props: {
                       setUserList(data.data?.meetingTeamUserProfiles);
                     }}
                   >
-                    {userList?.length}
+                    {userList?.length !== 0 ? userList?.length : 0}
                     <span style={{ color: COLORS.Blue30 }}>/3</span>
                   </S.Text>
                   <img src={Refresh} />

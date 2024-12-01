@@ -6,6 +6,8 @@ import Third from '../../step/Invitation/Third';
 import Fourth from '../../step/Invitation/Fourth';
 import { useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../lib/types/meeting';
+import { useGetUserStatus } from '../../hooks/api/useUser';
+import { useEffect } from 'react';
 
 type FirstType = { userList?: UserInfoType[]; isTeamLeader?: boolean };
 type SecondType = { userList?: UserInfoType[]; isTeamLeader: boolean };
@@ -13,18 +15,8 @@ type ThirdType = { userList?: UserInfoType[]; isTeamLeader: boolean };
 export type FourthType = { userList: UserInfoType[]; isTeamLeader: boolean };
 
 const InvitationPage = () => {
-  // const userStatus = useGetUserStatus();
+  const userStatus = useGetUserStatus();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const userBranch = userStatus.data?.tripleTeamBranch;
-
-  //   // if (userBranch === 'JUST_CREATED') {
-
-  //   // } else if (userBranch === 'JOINED' || userBranch === 'COMPLETED') {
-  //   //   navigate('/auth/main');
-  //   // }
-  // }, [userStatus.data]);
 
   const funnel = useFunnel<{
     first: FirstType;
@@ -38,7 +30,17 @@ const InvitationPage = () => {
       context: {},
     },
   });
+  useEffect(() => {
+    const userBranch = userStatus.data?.tripleTeamBranch;
 
+    if (userBranch === 'JUST_CREATED') {
+      funnel.history.push('third', { isTeamLeader: true });
+    } else if (userBranch === 'JOINED') {
+      navigate('/auth/waiting');
+    } else if (userBranch === 'COMPLETED') {
+      navigate('/auth/result/group');
+    }
+  }, [userStatus.data]);
   switch (funnel.step) {
     case 'first':
       return (
@@ -51,12 +53,8 @@ const InvitationPage = () => {
             }}
           />
           <First
-            onNextSecond={() =>
-              funnel.history.push('second', { isTeamLeader: false })
-            }
-            onNextThird={() =>
-              funnel.history.push('third', { isTeamLeader: true })
-            }
+            onNextSecond={() => funnel.history.push('second')}
+            onNextThird={() => funnel.history.push('third')}
           />
         </>
       );

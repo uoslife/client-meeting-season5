@@ -66,7 +66,9 @@ const MainBUttonWrapper = ({
       </S.Button>
       <S.Button
         onClick={() => {
-          if (isGroupComplete !== 'COMPLETED') navigate('/auth/invite');
+          if (isGroupComplete === 'COMPLETED') navigate('/auth/result/group');
+          else if (isGroupComplete === 'JOINED') navigate('/auth/waiting');
+          else navigate('/auth/invite');
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -88,15 +90,6 @@ const MainBUttonWrapper = ({
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {/* {isGroupComplete === 'COMPLETED' ? (
-            <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
-              신청 정보 확인
-            </Text>
-          ) : (
-            <Text color={'Red60'} typograph={'bodyLargeMedium'}>
-              신청하기
-            </Text>
-          )} */}
           {isGroupComplete === 'JOINED' ? (
             <Text color={'Blue40'} typograph={'bodyLargeMedium'}>
               팅장이 진행중..

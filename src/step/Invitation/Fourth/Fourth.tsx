@@ -7,6 +7,7 @@ import { UserInfoType } from '../../../lib/types/meeting';
 
 const Fourth = (props: { context: FourthType }) => {
   const navigate = useNavigate();
+  console.log(props.context);
   return (
     <S.Background>
       <S.FormContainer className="layout-padding">
@@ -19,7 +20,7 @@ const Fourth = (props: { context: FourthType }) => {
               {props.context.userList.map((user: UserInfoType) => {
                 return (
                   <S.EntryItem key={`user-${user.name}`}>
-                    {user.isLeader && user.isLeader}
+                    {user.isLeader && <S.Pill>팅장</S.Pill>}
                     <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
                       {user.name}
                     </Text>
@@ -28,9 +29,6 @@ const Fourth = (props: { context: FourthType }) => {
               })}
             </S.EntryList>
             <S.TextWrapper>
-              <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
-                팅 결성이 완료되었어요.
-              </Text>
               <Text typograph={'bodyLargeMedium'} color={'Blue90'}>
                 질문의 답변과 결제는 팅장이 진행해요.
               </Text>
