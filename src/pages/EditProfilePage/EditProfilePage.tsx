@@ -175,7 +175,7 @@ const EditProfilePage = () => {
                         학번
                       </Text>
                       <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                        {`${userInfo.data?.studentNumber}`}
+                        {`${userInfo.data?.studentNumber}학번`}
                       </Text>
                     </div>
                   )}

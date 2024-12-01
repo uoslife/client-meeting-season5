@@ -50,7 +50,8 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
           ],
         age: String(props.context.age),
         department: props.context.department,
-        studentNumber: props.context.studentId,
+        studentNumber:
+          props.context.studentId && props.context.studentId.slice(2, 4),
         interest: props.context.interest,
       },
       {
