@@ -16,5 +16,5 @@ export const ERROR_CODE = {
   M12: '팀 코드 생성에 실패했습니다. 다시 시도해 주세요.',
 
   // api/meeting/{teamType}/info
-  M06: '팀이 존재하지 않습니다.',
+  M06: '미팅 팀이 존재하지 않습니다.',
 };
