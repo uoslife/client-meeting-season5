@@ -43,7 +43,7 @@ const Second = (props: {
   const smokingForm = useCounterSmokingForm();
 
   const [ageValue, setAgeValue] = useState<number[]>([1, 5]);
-  const [heightValue, setHeightValue] = useState<number[]>([160, 190]);
+  const [heightValue, setHeightValue] = useState<number[]>([150, 190]);
 
   const submitHandler = async () => {
     // 여기서 hook form handlesubmit

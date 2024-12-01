@@ -28,8 +28,8 @@ const First = (props: {
 }): ReactNode => {
   const [selectedHeight, setSelectedHeight] = useState<string>('');
   const list = Array.from(
-    { length: 210 - 140 + 1 },
-    (_, i) => (140 + i).toString() + 'cm',
+    { length: 190 - 150 + 1 },
+    (_, i) => (150 + i).toString() + 'cm',
   );
   const handleSelectedChange = (value: string) => {
     setSelectedHeight(value);

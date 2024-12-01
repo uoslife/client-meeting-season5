@@ -10,21 +10,23 @@ interface RangeSliderPropsType {
 
 const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
   const marks = {
-    160: {
-      label: '~160',
+    150: {
+      label: '150',
       style: {
         top: 5,
         color: COLORS.Blue30,
         fontSize: 14,
       },
     },
+    155: '',
+    160: '',
     165: '',
     170: '',
     175: '',
     180: '',
     185: '',
     190: {
-      label: '190~',
+      label: '190',
       style: {
         top: 5,
         color: COLORS.Blue30,
@@ -40,7 +42,7 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
   return (
     <Slider
       range
-      min={160}
+      min={150}
       max={190}
       step={5}
       value={value}
@@ -77,7 +79,6 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
       ]}
       dotStyle={{
         backgroundColor: '#fff',
-
         width: 9,
         height: 9,
       }}
