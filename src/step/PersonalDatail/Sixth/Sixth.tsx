@@ -18,6 +18,8 @@ import { usePatchUserInfo } from '../../../hooks/api/useUser';
 import useToast from '../../../hooks/useToast';
 import useBottomSheet from '../../../hooks/useBottomSheet';
 import { useCreateMeetingTeam } from '../../../hooks/api/useMeetingPersonalInfo';
+import { useState } from 'react';
+import { errorHandler } from '../../../utils/api';
 
 const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const navigate = useNavigate();
@@ -25,8 +27,8 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const userInfoMutation = usePatchUserInfo();
   const creatingMeetingMutation = useCreateMeetingTeam();
   const queryClient = useQueryClient();
-  const myErrorToast = useToast();
-  const counterErrorToast = useToast();
+  const errorToast = useToast();
+  const [errorText, setErrorText] = useState('');
   const PersonDetailResultBottomSheet = useBottomSheet({
     title: '신청하시겠습니까?',
     mainButtonText: '신청하기',
@@ -47,8 +49,9 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
           });
           navigate('/auth/summary?type=personal');
         },
-        onError: () => {
-          counterErrorToast.toast(1000);
+        onError: (error) => {
+          setErrorText(errorHandler(error));
+          errorToast.toast(1000);
         },
       },
     );
@@ -69,8 +72,9 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
         smoking: SMOKING_ENUM[props.context.mySmoking],
       },
       {
-        onError: () => {
-          myErrorToast.toast(1000);
+        onError: (error) => {
+          setErrorText(errorHandler(error));
+          errorToast.toast(1000);
         },
       },
     );
@@ -86,8 +90,7 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
 
   return (
     <S.Container className="layout-padding">
-      {myErrorToast.render('당신의 TMI를 다시 입력해주세요.')}
-      {counterErrorToast.render('이상형 정보를 다시 입력해주세요.')}
+      {errorToast.render(errorText)}
       <S.MainContainer>
         <Text
           typograph={'headlineMedium'}

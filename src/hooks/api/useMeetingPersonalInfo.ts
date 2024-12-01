@@ -39,6 +39,5 @@ export const useCreateMeetingTeam = (): UseMutationResult<
   const { postFetcher } = useAuthAxios();
   return useMutation<CreateMeetingTeamResponse, Error, void>({
     mutationFn: () => postFetcher(`/api/meeting/SINGLE/create`),
-    onError: (error) => errorHandler(error),
   });
 };

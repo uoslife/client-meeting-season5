@@ -54,8 +54,6 @@ export const useMeetingInfo = (): UseMutationResult<
           : null,
         course: context.course,
       }),
-    onSuccess: () => {},
-    onError: (error) => errorHandler(error),
   });
 };
 

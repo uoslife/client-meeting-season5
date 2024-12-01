@@ -9,6 +9,7 @@ import BasicInput from '../../../components/common/BasicInput';
 import useBottomSheet from '../../../hooks/useBottomSheet';
 import DepartmentPicker from '../../../components/feature/DepartmentPicker';
 import Picker from '../../../components/common/Picker';
+
 const Fourth = (props: {
   context: OptionalProfileType;
   onNext: ({
@@ -27,7 +28,6 @@ const Fourth = (props: {
   const handleSelectedChange = (value: string) => {
     setAvoidStudentId(value);
   };
-
   const avoidDepartmentForm = useAvoidDepartment();
   const avoidDepartmentMemo = useMemo(() => {
     const { avoidDepartment, avoidStudentId } = avoidDepartmentForm;
@@ -79,6 +79,7 @@ const Fourth = (props: {
 
   const submitHandler = async (
     event: React.FormEvent<HTMLFormElement>,
+    //TODO
     data: any,
   ) => {
     event.preventDefault();

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import Button from '../../../components/common/Button';
@@ -7,12 +7,14 @@ import BasicImg from '../../../lib/assets/images/basic-result-img.png';
 import { FourthType } from '../../../pages/BasicProfilePage/BasicProfilePage';
 import { usePatchUser, usePatchUserInfo } from '../../../hooks/api/useUser';
 import useToast from '../../../hooks/useToast';
+import { errorHandler } from '../../../utils/api';
 
 const Fourth = (props: { context: FourthType }): ReactNode => {
   const userInfoMutation = usePatchUserInfo();
   const userMutation = usePatchUser();
   const navigate = useNavigate();
   const errorToast = useToast();
+  const [errorText, setErrorText] = useState('');
 
   const STUDENT_TYPE_ENUM: {
     [key: string]: 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
@@ -31,14 +33,14 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
         kakaoTalkId: props.context.kakaoTalkId,
       },
       {
-        onError: () => {
+        onError: (error) => {
+          setErrorText(errorHandler(error));
           errorToast.toast(1000);
           setTimeout(() => {
             navigate('/auth/profile');
           }, 1000);
         },
       },
-      //TODO
     );
     userInfoMutation.mutate(
       {
@@ -55,7 +57,8 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
         interest: props.context.interest,
       },
       {
-        onError: () => {
+        onError: (error) => {
+          setErrorText(errorHandler(error));
           errorToast.toast(1000);
           setTimeout(() => {
             navigate('/auth/profile');

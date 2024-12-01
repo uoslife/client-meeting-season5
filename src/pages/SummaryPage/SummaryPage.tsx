@@ -4,7 +4,7 @@ import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import S from './style';
 import useToast from '../../hooks/useToast';
-import GroupSummaryCard from '../../components/feature/GroupSummaryCard';
+// import GroupSummaryCard from '../../components/feature/GroupSummaryCard';
 import PersonalSummaryCard from '../../components/feature/PersonalSummaryCard';
 import { useGetMeetingPersonalInfo } from '../../hooks/api/useMeetingPersonalInfo';
 import {
@@ -13,21 +13,13 @@ import {
   EyelidType,
   SmokingType,
 } from '../../lib/types/personalMeeting.type';
+import useModal from '../../hooks/useModal';
+import { errorHandler } from '../../utils/api';
+import { useEffect, useState } from 'react';
 
 const HEADER_TITLE = {
   personal: '1대1 신청하기',
   group: '3대3 신청하기',
-};
-
-const userInfo = {
-  height: '163',
-  age: '27',
-  name: '우채윤',
-  gender: '여성' as '여성' | '남성',
-  department: '디자인학과',
-  studentId: '17',
-  interest: ['운동', '게임', '카페', '맛집탐방'],
-  kakaoTalkId: 'woochy0827',
 };
 
 export type personalUserInfoType = {
@@ -52,12 +44,21 @@ const SummaryPage = () => {
   const navigate = useNavigate();
   const headerTitleType = searchParams.get('type') as 'personal' | 'group';
   const toast = useToast();
-  const { data } = useGetMeetingPersonalInfo();
+  const { data, isError, error } = useGetMeetingPersonalInfo();
+  const [errorText, setErrorText] = useState('');
+  const modal = useModal({
+    title: '',
+    description: errorText,
+    mainButtonCallback: () => navigate('/auth/main'),
+    isSideButton: false,
+  });
 
-  // useEffect(()=>{
-  //   if(!isSuccess) return;
-
-  // },[isSuccess])
+  useEffect(() => {
+    if (isError) {
+      setErrorText(errorHandler(error));
+      modal.open();
+    }
+  }, [isError, error]);
 
   const personalUserInfo: personalUserInfoType = {
     name: data?.meetingTeamUserProfiles[0].name,
@@ -76,6 +77,7 @@ const SummaryPage = () => {
 
   return (
     <S.Background>
+      {modal.render()}
       <Header
         title={HEADER_TITLE[headerTitleType]}
         isGoBackButton={false}
@@ -94,22 +96,27 @@ const SummaryPage = () => {
           >
             카드로 미리 보기
           </Text>
-          <S.CardContainer>
-            {headerTitleType === 'group' && (
-              <Text color="Blue2" typograph="titleMedium">
-                {`From. ${'팀이름'}`}
-              </Text>
-            )}
-            {headerTitleType === 'personal' ? (
-              <PersonalSummaryCard toast={toast} userInfo={personalUserInfo} />
-            ) : (
-              <>
+          {!isError && (
+            <S.CardContainer>
+              {headerTitleType === 'group' && (
+                <Text color="Blue2" typograph="titleMedium">
+                  {`From. ${'팀이름'}`}
+                </Text>
+              )}
+              {headerTitleType === 'personal' ? (
+                <PersonalSummaryCard
+                  toast={toast}
+                  userInfo={personalUserInfo}
+                />
+              ) : (
+                <>
+                  {/* <GroupSummaryCard toast={toast} userInfo={userInfo} />
                 <GroupSummaryCard toast={toast} userInfo={userInfo} />
-                <GroupSummaryCard toast={toast} userInfo={userInfo} />
-                <GroupSummaryCard toast={toast} userInfo={userInfo} />
-              </>
-            )}
-          </S.CardContainer>
+                <GroupSummaryCard toast={toast} userInfo={userInfo} /> */}
+                </>
+              )}
+            </S.CardContainer>
+          )}
           <S.ToastWrapper>
             {toast.render('카카오톡 ID가 복사되었습니다.')}
           </S.ToastWrapper>

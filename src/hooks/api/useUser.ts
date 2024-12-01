@@ -102,8 +102,6 @@ const usePatchUserInfo = (): UseMutationResult<
       patchFetcher<null>('/api/user/user-info', userInfo, {
         Authorization: getBearerToken(accessToken),
       }),
-    onSuccess: () => {},
-    onError: errorHandler,
   });
 };
 

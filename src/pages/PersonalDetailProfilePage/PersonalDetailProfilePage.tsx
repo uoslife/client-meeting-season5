@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
 import { useGetMeetingPersonalInfo } from '../../hooks/api/useMeetingPersonalInfo';
 import { useEffect } from 'react';
+import { COLORS } from '../../lib/constants';
 
 export interface BaseProfileType {
   myMbti: string;
@@ -216,6 +217,9 @@ const PersonalDetailProfilePage = () => {
             }
             rightButtonType="close"
             rightButtonCallback={roomBoomModal.open}
+            style={{
+              background: COLORS.Blue2,
+            }}
           />
           <Sixth context={funnel.context} />
           {roomBoomModal.render()}
