@@ -9,6 +9,9 @@ import {
   useJoinMeetingTeam,
 } from '../../../hooks/api/useMeetingGroupInfo';
 import { useNavigate } from 'react-router-dom';
+import useToast from '../../../hooks/useToast';
+import { errorHandler } from '../../../utils/api';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface CodeType {
   code: string;
@@ -18,6 +21,9 @@ const Second = () => {
   const [teamLeaderName, setTeamLeaderName] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [code, setCode] = useState('');
+  const [errorText, setErrorText] = useState<string>('');
+  const queryClient = useQueryClient();
+  const errorToast = useToast();
 
   const {
     watch,
@@ -29,12 +35,20 @@ const Second = () => {
     setCode(watch('code'));
   }, [watch('code')]);
   const navigate = useNavigate();
-  const leaderNameQuery = useGetLeaderNameByCode({ code: code });
+  // const leaderNameQuery = useGetLeaderNameByCode({ code: code });
+  const {
+    data: leaderNameData,
+    isSuccess,
+    error,
+    refetch,
+    isError,
+  } = useGetLeaderNameByCode({
+    code: code,
+  });
 
   useEffect(() => {
-    if (leaderNameQuery.isSuccess)
-      setTeamLeaderName(leaderNameQuery.data?.leaderName);
-  }, [leaderNameQuery.isSuccess]);
+    if (isSuccess) setTeamLeaderName(leaderNameData.leaderName);
+  }, [isSuccess]);
   const joinMutation = useJoinMeetingTeam();
 
   const submitModal = useModal({
@@ -48,8 +62,8 @@ const Second = () => {
         { code: code },
         {
           onSuccess: () => navigate('/auth/main'),
-          onError: () => {
-            alert('미팅 팀 참여에 실패했습니다. 다시 시도해주세요.');
+          onError: (error) => {
+            setErrorText(errorHandler(error));
           },
         },
       );
@@ -66,13 +80,15 @@ const Second = () => {
         errors.code,
     );
     if (checkValues) return;
-    const refetchResult = await leaderNameQuery.refetch();
-    if (refetchResult?.data?.leaderName) {
-      setTeamLeaderName(refetchResult.data.leaderName);
+    await queryClient.invalidateQueries({ queryKey: ['leaderName'] });
+    if (isSuccess) {
+      setTeamLeaderName(leaderNameData.leaderName);
       submitModal.open();
-    } else {
-      alert('다시 시도해주세요');
+      return;
     }
+    await queryClient.invalidateQueries({ queryKey: ['leaderName'] });
+    setErrorText(errorHandler(error));
+    errorToast.toast(2000);
   };
 
   const isButtonDisabled = (): boolean => {
@@ -85,6 +101,7 @@ const Second = () => {
       className="layout-padding"
       onSubmit={handleSubmitWrapper(handleSubmit)}
     >
+      {errorToast.render(errorText)}
       <S.MainContainer>
         <div
           style={{
