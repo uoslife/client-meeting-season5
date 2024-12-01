@@ -22,6 +22,7 @@ import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ResultPersonalPage from './pages/ResultPersonalPage';
 import ResultGroupPage from './pages/ResultGroupPage';
+import Waiting from './pages/WaitingPage';
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
       {
         path: 'result/group',
         element: <ResultGroupPage />,
+      },
+      {
+        path: 'waiting',
+        element: <Waiting />,
       },
     ],
   },
