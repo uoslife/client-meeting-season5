@@ -17,41 +17,34 @@ const Third = (props: {
   isTeamLeader: boolean;
   onNext: (userList: UserInfoType[] | undefined) => void;
 }) => {
-  const queryClient = useQueryClient();
-  const [tingCode, setTingCode] = useState('');
+  const [tingCode, setTingCode] = useState<string>('');
   const createTeamMutation = useCreateMeetingTeam();
-  const groupInfoMutation = useGetMeetingGroupInfo();
+  const { data, isPending } = useGetMeetingGroupInfo();
+  const queryClient = useQueryClient();
   const accessToken = useAtomValue(accessTokenAtom);
-  const [userList, setUserList] = useState<UserInfoType[] | undefined>(
-    groupInfoMutation.data?.meetingTeamUserProfiles,
-  );
-
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ['meetingTeamInfo', 'TRIPLE'] });
-    groupInfoMutation.refetch();
-  });
 
   useEffect(() => {
     if (accessToken) {
       createTeamMutation.mutate(undefined, {
         onSuccess: (data) => {
           setTingCode(data.code);
+          queryClient.invalidateQueries({ queryKey: ['meetingTeamInfo'] });
         },
         onError: async () => {
-          // info ->
-          const { data } = await groupInfoMutation.refetch();
-          if (data) {
-            setTingCode(data.code);
-            if (data.meetingTeamUserProfiles.length !== 0) {
-              setUserList(
-                data.meetingTeamUserProfiles.map((user: UserInfoType) => user),
-              );
-            }
-          }
+          await queryClient.invalidateQueries({
+            queryKey: ['meetingTeamInfo'],
+          });
+
+          if (data) setTingCode(data?.code);
+          console.log(data);
         },
       });
     }
   }, [accessToken]);
+
+  useEffect(() => {
+    if (data) setTingCode(data?.code);
+  }, [isPending]);
 
   return (
     <>
@@ -77,34 +70,46 @@ const Third = (props: {
                 >
                   <S.Text
                     onClick={async () => {
-                      const data = await groupInfoMutation.refetch();
-                      setUserList(data.data?.meetingTeamUserProfiles);
+                      queryClient.invalidateQueries({
+                        queryKey: ['meetingTeamInfo'],
+                      });
                     }}
                   >
-                    {userList?.length !== 0 ? userList?.length : 0}
+                    {data?.meetingTeamUserProfiles?.length !== 0
+                      ? data?.meetingTeamUserProfiles?.length
+                      : 0}
                     <span style={{ color: COLORS.Blue30 }}>/3</span>
                   </S.Text>
                   <img src={Refresh} />
                 </S.TextWrapper>
               </S.TextWrapperColumn>
-              {[0, 1, 2].map((index) => {
-                if (userList && index < userList.length) {
-                  return (
-                    <ApplicantItem
-                      key={`applicant-key-${index}`}
-                      name={userList[index].name}
-                      isLeader={userList[index].isLeader}
-                    />
-                  );
-                }
-                return (
-                  <S.NoApplicant key={`no-applicant-key-${index}`}>
-                    <Text typograph={'bodyLargeMedium'} color="Blue50">
-                      친구를 기다리는 중..
-                    </Text>
-                  </S.NoApplicant>
-                );
-              })}
+              {data?.meetingTeamUserProfiles &&
+                data.meetingTeamUserProfiles
+                  .sort((a, b) => {
+                    if (a.isLeader) return -1;
+                    if (b.isLeader) return 1;
+                    return 0;
+                  })
+                  .map((user, index) => {
+                    if (user) {
+                      return (
+                        <ApplicantItem
+                          key={`applicant-key-${index}`}
+                          name={user.name}
+                          isLeader={user.isLeader}
+                        />
+                      );
+                    }
+                  })}
+              {Array.from({
+                length: 3 - (data?.meetingTeamUserProfiles?.length || 0),
+              }).map((_, idx) => (
+                <S.NoApplicant key={`no-applicant-key-${idx}`}>
+                  <Text typograph="bodyLargeMedium" color="Blue50">
+                    친구를 기다리는 중..
+                  </Text>
+                </S.NoApplicant>
+              ))}
             </S.EntryListWrapper>
           </S.Container>
         </S.MainContainer>
@@ -114,8 +119,11 @@ const Third = (props: {
           <Button
             buttonColor="primary"
             type="button"
-            onClick={() => props.onNext(userList)}
-            disabled={!userList || userList.length !== 3}
+            onClick={() => props.onNext(data?.meetingTeamUserProfiles)}
+            disabled={
+              !data?.meetingTeamUserProfiles ||
+              data.meetingTeamUserProfiles.length !== 3
+            }
           >
             팀 결성하기
           </Button>

@@ -76,6 +76,7 @@ export const useGetFinalMeetingGroupInfo = () => {
   });
 };
 export const useGetMeetingGroupInfo = () => {
+  const accessToken = useAtomValue(accessTokenAtom);
   const { getFetcher } = useAuthAxios();
   return useQuery({
     queryKey: ['meetingTeamInfo', 'TRIPLE'],
@@ -83,11 +84,9 @@ export const useGetMeetingGroupInfo = () => {
       getFetcher<{ code: string; meetingTeamUserProfiles: UserInfoType[] }>(
         `api/meeting/TRIPLE/info?status=UNCOMPLETED`,
       ),
-    refetchOnWindowFocus: false,
     select: (data: { code: string; meetingTeamUserProfiles: UserInfoType[] }) =>
       data,
-    retry: false,
-    enabled: false,
+    enabled: !!accessToken,
   });
 };
 
