@@ -7,6 +7,7 @@ import Header from '../../components/common/Header';
 import useModal from '../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../lib/types/meeting';
+import { COLORS } from '../../lib/constants';
 
 export type MoodType = 'ACTICE' | 'CALM';
 
@@ -144,6 +145,7 @@ const GroupDatailProfilePage = () => {
               }
               rightButtonType={'logout'}
               rightButtonCallback={() => roomBoomModal.open()}
+              style={{ background: COLORS.Blue2 }}
             />
             <Fourth context={funnel.context} />
           </>
