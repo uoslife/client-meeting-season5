@@ -7,6 +7,7 @@ import Button from '../../../components/common/Button';
 import close from '../../../lib/assets/icon/close.svg';
 import S from './style';
 import { useSendEmail } from '../../../hooks/api/useWebmail';
+import { errorHandler } from '../../../utils/api';
 
 type WebmailType = {
   webmail: string;
@@ -106,7 +107,7 @@ const First = (props: {
             </div>
             {sendEmailMutation.error && (
               <Text color={'ErrorLight'} typograph={'labelMediumMedium'}>
-                {sendEmailMutation.error.message}
+                {errorHandler(sendEmailMutation.error)}
               </Text>
             )}
           </div>
