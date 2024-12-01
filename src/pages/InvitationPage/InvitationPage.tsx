@@ -14,6 +14,7 @@ import {
   useGetFinalMeetingGroupInfo,
 } from '../../hooks/api/useMeetingGroupInfo';
 import { errorHandler } from '../../utils/api';
+import { useQueryClient } from '@tanstack/react-query';
 
 type FirstType = { userList?: UserInfoType[]; isTeamLeader?: boolean };
 type SecondType = { userList?: UserInfoType[]; isTeamLeader: boolean };
@@ -25,7 +26,7 @@ const InvitationPage = () => {
   const userStatus = useGetUserStatus();
   const deleteMutation = useDeleteMeetingGroup();
   const [errorText, setErrorText] = useState('');
-
+  const queryClient = useQueryClient();
   const meetingGroupInfo = useGetFinalMeetingGroupInfo();
 
   const roomBoomModal = useModal({
@@ -37,6 +38,9 @@ const InvitationPage = () => {
     mainButtonCallback: () => {
       deleteMutation.mutate(undefined, {
         onSuccess: () => {
+          queryClient.removeQueries({
+            queryKey: ['meetingTeamInfo', 'TRIPLE'],
+          });
           navigate('/auth/main');
         },
         onError: (error) => {
@@ -46,6 +50,7 @@ const InvitationPage = () => {
       });
     },
   });
+
   const errorModal = useModal({
     title: errorText,
     mainButtonCallback: () => {

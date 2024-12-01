@@ -5,7 +5,6 @@ import Text from '../../../components/common/Text';
 import Refresh from '../../../lib/assets/icon/refresh-icon.svg';
 import { COLORS } from '../../../lib/constants';
 import ApplicantItem from '../../../components/feature/ApplicantItem';
-
 import {
   useCreateMeetingTeam,
   useGetMeetingGroupInfo,
@@ -13,10 +12,12 @@ import {
 import { UserInfoType } from '../../../lib/types/meeting';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
+import { useQueryClient } from '@tanstack/react-query';
 const Third = (props: {
   isTeamLeader: boolean;
   onNext: (userList: UserInfoType[] | undefined) => void;
 }) => {
+  const queryClient = useQueryClient();
   const [tingCode, setTingCode] = useState('');
   const createTeamMutation = useCreateMeetingTeam();
   const groupInfoMutation = useGetMeetingGroupInfo();
@@ -24,6 +25,11 @@ const Third = (props: {
   const [userList, setUserList] = useState<UserInfoType[] | undefined>(
     groupInfoMutation.data?.meetingTeamUserProfiles,
   );
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['meetingTeamInfo', 'TRIPLE'] });
+    groupInfoMutation.refetch();
+  });
 
   useEffect(() => {
     if (accessToken) {

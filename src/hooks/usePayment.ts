@@ -104,7 +104,7 @@ const usePayment = () => {
       await requestMerchantUid({ teamType, accessToken });
 
     const data: RequestPayParams = {
-      pg: 'welcome.IMP2000029',
+      pg: import.meta.env.VITE_PG_ID,
       pay_method: 'card',
       merchant_uid: merchant_uid as string,
       amount: amount as number,

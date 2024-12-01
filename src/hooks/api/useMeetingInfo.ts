@@ -121,9 +121,11 @@ const parseSmoking = (targetSmoking: string): SmokingType[] => {
 };
 
 const parseAge = (targetAge: string): number[] => {
-  const matches = targetAge.match(/-?\d+/g);
+  const matches = targetAge.match(/-?\d+|동갑/g);
   if (!matches) return [];
-  return matches.map((num) => parseInt(num, 10));
+  return matches.map((num) =>
+    isNaN(parseInt(num, 10)) ? 0 : parseInt(num, 10),
+  );
 };
 
 const parseHeight = (targetAge: string): string[] => {
