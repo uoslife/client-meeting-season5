@@ -69,7 +69,7 @@ const InvitationPage = () => {
   useEffect(() => {
     const userBranch = userStatus.data?.tripleTeamBranch;
     if (userBranch === 'JUST_CREATED') {
-      if (meetingGroupInfo.isSuccess) {
+      if (meetingGroupInfo.data?.preference) {
         navigate('/auth/summary/group');
       } else {
         funnel.history.push('third', { isTeamLeader: true });
