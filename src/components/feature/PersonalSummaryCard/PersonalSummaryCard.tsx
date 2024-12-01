@@ -5,7 +5,7 @@ import cardSnow from '../../../lib/assets/icon/card-snow.svg';
 import S from './style';
 import { UseToastReturnType } from '../../../hooks/useToast';
 import { EyelidType } from '../../../lib/types/personalMeeting.type';
-import { personalUserInfoType } from '../../../pages/SummaryPage/SummaryPage';
+import { personalUserInfoType } from '../../../pages/PersonalSummaryPage/PersonalSummaryPage';
 
 export interface SummaryInfoType {
   height: string;
