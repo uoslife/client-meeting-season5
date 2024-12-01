@@ -9,7 +9,10 @@ import { UserInfoType } from '../../lib/types/meeting';
 import { useGetUserStatus } from '../../hooks/api/useUser';
 import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
-import { useDeleteMeetingGroup } from '../../hooks/api/useMeetingGroupInfo';
+import {
+  useDeleteMeetingGroup,
+  useGetFinalMeetingGroupInfo,
+} from '../../hooks/api/useMeetingGroupInfo';
 import { errorHandler } from '../../utils/api';
 
 type FirstType = { userList?: UserInfoType[]; isTeamLeader?: boolean };
@@ -18,10 +21,18 @@ type ThirdType = { userList?: UserInfoType[]; isTeamLeader: boolean };
 export type FourthType = { userList: UserInfoType[]; isTeamLeader: boolean };
 
 const InvitationPage = () => {
-  const userStatus = useGetUserStatus();
   const navigate = useNavigate();
+  const userStatus = useGetUserStatus();
   const deleteMutation = useDeleteMeetingGroup();
   const [errorText, setErrorText] = useState('');
+
+  const meetingGroupInfo = useGetFinalMeetingGroupInfo();
+  useEffect(() => {
+    if (meetingGroupInfo.isSuccess) {
+      navigate('/auth/summary/group?type=group');
+    }
+  }, [meetingGroupInfo.isSuccess]);
+
   const roomBoomModal = useModal({
     title: '신청을 취소하시겠습니까?',
     description: '지금까지 진행 중이던 작업이 모두 취소돼요.',
@@ -61,7 +72,6 @@ const InvitationPage = () => {
   });
   useEffect(() => {
     const userBranch = userStatus.data?.tripleTeamBranch;
-
     if (userBranch === 'JUST_CREATED') {
       funnel.history.push('third', { isTeamLeader: true });
     } else if (userBranch === 'JOINED') {
