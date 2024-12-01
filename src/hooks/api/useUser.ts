@@ -10,7 +10,6 @@ import { errorHandler } from '../../utils/api';
 import { getBearerToken } from '../../utils/token';
 import useAuthAxios from '../axios/useAuthAxios';
 import { useNavigate } from 'react-router-dom';
-import useBasicAxios from '../axios/useBasicAxios';
 
 type UserProfileResponseType = {
   name: string | null;
@@ -22,7 +21,7 @@ type UserProfileResponseType = {
   department: string | null;
   studentNumber: number | null;
   height: number | null;
-  smoking: boolean | null;
+  smoking: string | null;
   mbti: string | null;
   interest: string[];
   appearanceType: string | null;

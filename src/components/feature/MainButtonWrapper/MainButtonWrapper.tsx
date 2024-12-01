@@ -21,6 +21,7 @@ const MainBUttonWrapper = ({
           if (isPersonalComplete !== 'COMPLETED') {
             navigate('/auth/detail/personal');
           }
+          navigate('/auth/result/personal');
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>

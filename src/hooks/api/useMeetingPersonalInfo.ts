@@ -14,6 +14,17 @@ interface CreateMeetingTeamResponse {
   code: string;
 }
 
+export const useDeleteMeetingPersonal = (): UseMutationResult<
+  void,
+  Error,
+  void
+> => {
+  const { deleteFetcher } = useAuthAxios();
+  return useMutation<void, Error, void>({
+    mutationFn: () => deleteFetcher('/api/meeting/SINGLE'),
+  });
+};
+
 export const useGetMeetingPersonalInfo = (): UseQueryResult<
   MeetingTeamType,
   Error

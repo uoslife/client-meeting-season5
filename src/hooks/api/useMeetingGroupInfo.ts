@@ -98,7 +98,13 @@ export const useGetLeaderNameByCode = ({ code }: { code: string }) => {
     enabled: false,
   });
 };
-
-// export const useDeleteMeetingGroup = () => {
-//   const { deleteFetcher } = useAuthAxios();
-// };
+export const useDeleteMeetingGroup = (): UseMutationResult<
+  void,
+  Error,
+  void
+> => {
+  const { deleteFetcher } = useAuthAxios();
+  return useMutation<void, Error, void>({
+    mutationFn: () => deleteFetcher('/api/meeting/TRIPLE'),
+  });
+};
