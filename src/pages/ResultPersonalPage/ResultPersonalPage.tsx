@@ -11,6 +11,7 @@ import close from '../../lib/assets/icon/cancel-icon.svg';
 import { errorHandler } from '../../utils/api';
 import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
+import { COLORS } from '../../lib/constants';
 
 const ResultPersonalPage = () => {
   const navigate = useNavigate();
@@ -163,10 +164,11 @@ const ResultPersonalPage = () => {
   return (
     <S.MainContainer>
       <Header
+        style={{ color: COLORS.Blue70 }}
         title="1대1 신청 정보"
         isGoBackButton={true}
         leftButtonCallback={() => {
-          navigate(-1);
+          navigate('/auth/main');
         }}
       />
       <S.Container className="layout-padding">

@@ -63,7 +63,12 @@ export const useGetFinalMeetingGroupInfo = () => {
   return useQuery({
     queryKey: ['meetingTeamInfo', 'TRIPLE'],
     queryFn: () =>
-      getFetcher<undefined>(`api/meeting/TRIPLE/info?status=COMPLETED`),
+      getFetcher<{
+        teamName: string;
+        code: string;
+        meetingTeamUserProfiles: UserInfoType[];
+        preference: { ageMin: string; ageMax: string; mood: string };
+      }>(`api/meeting/TRIPLE/info?status=COMPLETED`),
     refetchOnWindowFocus: false,
     select: (data) => data,
     retry: false,
