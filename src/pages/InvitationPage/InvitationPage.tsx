@@ -27,11 +27,6 @@ const InvitationPage = () => {
   const [errorText, setErrorText] = useState('');
 
   const meetingGroupInfo = useGetFinalMeetingGroupInfo();
-  useEffect(() => {
-    if (meetingGroupInfo.isSuccess) {
-      navigate('/auth/summary/group?type=group');
-    }
-  }, [meetingGroupInfo.isSuccess]);
 
   const roomBoomModal = useModal({
     title: '신청을 취소하시겠습니까?',
@@ -70,16 +65,21 @@ const InvitationPage = () => {
       context: {},
     },
   });
+
   useEffect(() => {
     const userBranch = userStatus.data?.tripleTeamBranch;
     if (userBranch === 'JUST_CREATED') {
-      funnel.history.push('third', { isTeamLeader: true });
+      if (meetingGroupInfo.isSuccess) {
+        navigate('/auth/summary/group');
+      } else {
+        funnel.history.push('third', { isTeamLeader: true });
+      }
     } else if (userBranch === 'JOINED') {
       navigate('/auth/waiting');
     } else if (userBranch === 'COMPLETED') {
       navigate('/auth/result/group');
     }
-  }, [userStatus.data]);
+  }, [userStatus.data, meetingGroupInfo.isSuccess]);
 
   switch (funnel.step) {
     case 'first':

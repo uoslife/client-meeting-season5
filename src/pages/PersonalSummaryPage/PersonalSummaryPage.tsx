@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
@@ -16,12 +16,6 @@ import {
 import useModal from '../../hooks/useModal';
 import { errorHandler } from '../../utils/api';
 import { useEffect, useState } from 'react';
-import { useGetMeetingGroupInfo } from '../../hooks/api/useMeetingGroupInfo';
-
-const HEADER_TITLE = {
-  personal: '1대1 신청하기',
-  group: '3대3 신청하기',
-};
 
 export type personalUserInfoType = {
   course?: string;
@@ -51,8 +45,6 @@ export type groupUserInfoType = {
 
 const SummaryPage = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const headerTitleType = searchParams.get('type') as 'personal' | 'group';
   const [errorText, setErrorText] = useState('');
 
   const {
@@ -95,7 +87,7 @@ const SummaryPage = () => {
     <S.Background>
       {modal.render()}
       <Header
-        title={HEADER_TITLE[headerTitleType]}
+        title={'1대1 신청하기'}
         isGoBackButton={false}
         rightButtonType="logoutWhite"
         rightButtonCallback={() => {
@@ -114,23 +106,7 @@ const SummaryPage = () => {
           </Text>
           {!isPersonalError && (
             <S.CardContainer>
-              {headerTitleType === 'group' && (
-                <Text color="Blue2" typograph="titleMedium">
-                  {`From. ${'팀이름'}`}
-                </Text>
-              )}
-              {headerTitleType === 'personal' ? (
-                <PersonalSummaryCard
-                  toast={toast}
-                  userInfo={personalUserInfo}
-                />
-              ) : (
-                <>
-                  {/* <GroupSummaryCard toast={toast} userInfo={userInfo} />
-                <GroupSummaryCard toast={toast} userInfo={userInfo} />
-                <GroupSummaryCard toast={toast} userInfo={userInfo} /> */}
-                </>
-              )}
+              <PersonalSummaryCard toast={toast} userInfo={personalUserInfo} />
             </S.CardContainer>
           )}
           <S.ToastWrapper>
@@ -152,9 +128,7 @@ const SummaryPage = () => {
             buttonColor="white"
             type="submit"
             onClick={() => {
-              if (headerTitleType === 'personal')
-                navigate('/auth/private-policy?type=personal');
-              else navigate('/auth/private-policy?type=group');
+              navigate('/auth/private-policy?type=personal');
             }}
           >
             다음

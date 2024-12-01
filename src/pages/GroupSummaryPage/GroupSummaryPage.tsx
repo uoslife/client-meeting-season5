@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
@@ -11,11 +11,6 @@ import { useEffect, useState } from 'react';
 import { useGetFinalMeetingGroupInfo } from '../../hooks/api/useMeetingGroupInfo';
 import GroupSummaryCard from '../../components/feature/GroupSummaryCard';
 
-const HEADER_TITLE = {
-  personal: '1대1 신청하기',
-  group: '3대3 신청하기',
-};
-
 export type groupUserInfoType = {
   name: string;
   department?: DepartmentType | null;
@@ -27,8 +22,6 @@ export type groupUserInfoType = {
 
 const GroupSummaryPage = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const headerTitleType = searchParams.get('type') as 'personal' | 'group';
   const [errorText, setErrorText] = useState('');
 
   const {
@@ -68,7 +61,7 @@ const GroupSummaryPage = () => {
     <S.Background>
       {modal.render()}
       <Header
-        title={HEADER_TITLE[headerTitleType]}
+        title={'3대3 신청하기'}
         isGoBackButton={false}
         rightButtonType="logoutWhite"
         rightButtonCallback={() => {
@@ -121,9 +114,7 @@ const GroupSummaryPage = () => {
             buttonColor="white"
             type="submit"
             onClick={() => {
-              if (headerTitleType === 'personal')
-                navigate('/auth/private-policy?type=personal');
-              else navigate('/auth/private-policy?type=group');
+              navigate('/auth/private-policy?type=group');
             }}
           >
             다음

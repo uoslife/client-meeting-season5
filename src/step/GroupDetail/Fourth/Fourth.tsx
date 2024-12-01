@@ -44,7 +44,7 @@ const Fourth = (props: { context: FourthType }) => {
         errorModal.open();
       },
       onSuccess: () => {
-        navigate('/auth/summary/group?type=group');
+        navigate('/auth/summary/group');
       },
     });
   };

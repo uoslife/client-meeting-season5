@@ -50,7 +50,7 @@ const PersonalDetailProfilePage = () => {
   const meetingPersonalInfo = useGetMeetingPersonalInfo();
   useEffect(() => {
     if (meetingPersonalInfo.isSuccess) {
-      navigate('/auth/summary/personal?type=personal');
+      navigate('/auth/summary/personal');
     }
   }, [meetingPersonalInfo.isSuccess]);
 
