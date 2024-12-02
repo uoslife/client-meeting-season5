@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Text from '../../../components/common/Text';
 import Button from '../../../components/common/Button';
@@ -49,9 +49,14 @@ const Fourth = (props: { context: FourthType }): ReactNode => {
               | 'GRADUATE'
           ],
         age: String(props.context.age),
-        department: props.context.department,
+        department:
+          props.context.studentType === '학부생'
+            ? props.context.department
+            : null,
         studentNumber:
-          props.context.studentId && props.context.studentId.slice(2, 4),
+          props.context.studentType === '학부생'
+            ? props.context.studentId && props.context.studentId.slice(2, 4)
+            : null,
         interest: props.context.interest,
       },
       {
