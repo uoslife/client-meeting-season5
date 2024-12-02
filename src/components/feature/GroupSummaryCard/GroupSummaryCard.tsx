@@ -30,8 +30,7 @@ const GroupSummaryCard = ({ toast, userInfo }: GroupSummaryCardPropsType) => {
             </S.ContentText>
             <S.ContentText>
               <S.ContentStrongText>
-                {userInfo.studentNumber &&
-                  String(userInfo.studentNumber).slice(2, 4)}
+                {userInfo.studentNumber && String(userInfo.studentNumber)}
                 학번 학생이야.
               </S.ContentStrongText>{' '}
             </S.ContentText>
