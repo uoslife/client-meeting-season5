@@ -13,6 +13,7 @@ import { UserInfoType } from '../../../lib/types/meeting';
 import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
 import { useQueryClient } from '@tanstack/react-query';
+import Tooltip from '../../../components/common/Tooltip';
 const Third = (props: {
   isTeamLeader: boolean;
   onNext: (userList: UserInfoType[] | undefined) => void;
@@ -22,6 +23,7 @@ const Third = (props: {
   const { data, isPending } = useGetMeetingGroupInfo();
   const queryClient = useQueryClient();
   const accessToken = useAtomValue(accessTokenAtom);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     if (accessToken) {
@@ -80,7 +82,20 @@ const Third = (props: {
                       : 0}
                     <span style={{ color: COLORS.Blue30 }}>/3</span>
                   </S.Text>
-                  <img src={Refresh} />
+
+                  <img
+                    src={Refresh}
+                    onClick={async () => {
+                      queryClient.invalidateQueries({
+                        queryKey: ['meetingTeamInfo'],
+                      });
+                    }}
+                  />
+                  <Tooltip
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    text={`오류가 발생하면 \n새로고침 버튼을 눌러주세요.`}
+                  />
                 </S.TextWrapper>
               </S.TextWrapperColumn>
               {data?.meetingTeamUserProfiles &&
