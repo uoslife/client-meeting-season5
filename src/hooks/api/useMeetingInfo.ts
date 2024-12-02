@@ -37,9 +37,15 @@ export const useMeetingInfo = (): UseMutationResult<
     mutationFn: ({ context }) =>
       postFetcher(`/api/meeting/SINGLE/info`, {
         ageMin:
-          parseInt(userInfo.age as string) + parseAge(context.targetAge)[0],
+          parseInt(userInfo.age as string) +
+          (parseAge(context.targetAge)[0] === -5
+            ? parseAge(context.targetAge)[0] - 5
+            : parseAge(context.targetAge)[0]),
         ageMax:
-          parseInt(userInfo.age as string) + parseAge(context.targetAge)[1],
+          parseInt(userInfo.age as string) +
+          (parseAge(context.targetAge)[1] === 5
+            ? parseAge(context.targetAge)[1] + 5
+            : parseAge(context.targetAge)[1]),
         heightMin: parseHeight(context.targetHeight)[0],
         heightMax: parseHeight(context.targetHeight)[1],
         mbti: parseMbti(context.targetMbti),
