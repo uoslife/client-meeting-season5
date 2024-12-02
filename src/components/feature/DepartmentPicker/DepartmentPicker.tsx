@@ -1,6 +1,6 @@
 import { collegeList } from '../../../lib/constants/college.const';
 import Text from '../../../components/common/Text';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import S from './style';
 
 interface DepartmentPickerPropsType {
@@ -13,9 +13,7 @@ const DepartmentPicker = ({
   department,
 }: DepartmentPickerPropsType) => {
   const [college, setCollege] = useState<string>('');
-  useEffect(() => {
-    setDepartment('');
-  }, [college]);
+
   const temp = collegeList.filter((item) => item.college === college);
   const departmentList = temp && temp[0] && temp[0].department;
 
@@ -40,7 +38,10 @@ const DepartmentPicker = ({
               <S.Box
                 key={item.college}
                 isClicked={college === item.college}
-                onClick={() => setCollege(item.college)}
+                onClick={() => {
+                  setDepartment('');
+                  setCollege(item.college);
+                }}
                 type="college"
               >
                 {college === item.college ? (
