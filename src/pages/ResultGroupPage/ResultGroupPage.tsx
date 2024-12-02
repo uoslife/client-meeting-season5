@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAtomValue } from 'jotai';
+import { userInfoAtom } from '../../store/userInfo';
 
 const ResultGroupPage = () => {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const ResultGroupPage = () => {
   const deleteMutation = useDeleteMeetingGroup();
   const [errorText, setErrorText] = useState('');
   const queryClient = useQueryClient();
+  const userInfo = useAtomValue(userInfoAtom);
 
   useEffect(() => {
     if (meetingInfo.isError) {
@@ -114,13 +117,17 @@ const ResultGroupPage = () => {
               </S.Text>
             </S.ContextWrapper>
           </S.ContextContainer>
-          <S.CustomText
-            onClick={() => {
-              modal.open();
-            }}
-          >
-            신청 취소 <img src={close} width={14} />
-          </S.CustomText>
+          {meetingInfo.data?.meetingTeamUserProfiles.filter(
+            (user) => user.name === userInfo.name,
+          )[0].isLeader && (
+            <S.CustomText
+              onClick={() => {
+                modal.open();
+              }}
+            >
+              신청 취소 <img src={close} width={14} />
+            </S.CustomText>
+          )}
         </S.MainContainer>
         {modal.render()}
         {errorModal.render()}
