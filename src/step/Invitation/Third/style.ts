@@ -50,7 +50,7 @@ export const S = {
   `,
   Code: styled.div`
     text-align: center;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 68px;
     font-style: normal;
     font-weight: 600;
@@ -74,7 +74,7 @@ export const S = {
   Text: styled.p`
     color: ${COLORS.Blue90};
     text-align: right;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 1.6rem;
     font-style: normal;
     font-weight: 600;

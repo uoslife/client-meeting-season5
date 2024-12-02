@@ -55,7 +55,7 @@ export const S = {
     left: 50%;
     transform: translate(-50%, -30%);
 
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;

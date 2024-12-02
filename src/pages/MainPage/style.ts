@@ -36,7 +36,7 @@ export const S = {
     margin-top: 4px;
   `,
   GradientText: styled.span`
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 28px;
     font-style: normal;
     font-weight: 700;

@@ -32,7 +32,7 @@ export const S = {
   `,
   CustomText: styled.div`
     color: ${COLORS.Blue90};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -41,7 +41,7 @@ export const S = {
   `,
   CustomStrongText: styled.span`
     color: ${COLORS.Red60};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -50,7 +50,7 @@ export const S = {
   `,
   Text: styled.div`
     color: ${COLORS.Blue40};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

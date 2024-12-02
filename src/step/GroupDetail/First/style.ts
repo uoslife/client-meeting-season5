@@ -26,7 +26,7 @@ export const S = {
     outline: none;
     border: none;
     padding: 1.2rem 0;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 16px;
     color: ${COLORS.Blue90};
 

@@ -40,7 +40,7 @@ export const S = {
     margin-top: 20px;
 
     color: ${COLORS.Blue40};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

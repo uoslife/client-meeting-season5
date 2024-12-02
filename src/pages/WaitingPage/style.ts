@@ -53,7 +53,7 @@ export const S = {
   CustomText: styled.span`
     color: ${COLORS.Blue70};
     text-align: center;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -62,7 +62,7 @@ export const S = {
   `,
   CustomStrongText: styled.span`
     color: ${COLORS.Red60};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;

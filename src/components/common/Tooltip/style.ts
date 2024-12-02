@@ -34,7 +34,7 @@ export const S = {
   TooltipText: styled.div`
     color: ${COLORS.White};
 
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

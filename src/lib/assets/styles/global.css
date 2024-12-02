@@ -15,35 +15,35 @@ body {
 
 @font-face {
   font-family: 'Pretendard-Bold';
-  src: url('../fonts/Pretandards/Pretendard-Bold.woff');
+  src: url('../fonts/Pretendards/Pretendard-Bold.woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Pretendard-Light';
-  src: url('../fonts/Pretandards/Pretendard-Light.woff');
+  src: url('../fonts/Pretendards/Pretendard-Light.woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Pretendard-SemiBold';
-  src: url('../fonts/Pretandards/Pretendard-SemiBold.woff');
+  src: url('../fonts/Pretendards/Pretendard-SemiBold.woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Pretendard-Medium';
-  src: url('../fonts/Pretandards/Pretendard-Medium.woff');
+  src: url('../fonts/Pretendards/Pretendard-Medium.woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Pretendard-Regular';
-  src: url('../fonts/Pretandards/Pretendard-Regular.woff');
+  src: url('../fonts/Pretendards/Pretendard-Regular.woff');
   font-weight: 400;
   font-style: normal;
 }
@@ -63,4 +63,25 @@ input[type='number'] {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   font-family: Pretendard-Regular;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='submit'],
+input[type='search'],
+input[type='tel'],
+input[type='email'],
+input[type='button'],
+input[type='reset'] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  outline: 0;
 }

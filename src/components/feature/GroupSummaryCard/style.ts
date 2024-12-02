@@ -23,7 +23,7 @@ const S = {
     gap: 4px;
   `,
   GradientText: styled.p`
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
@@ -50,7 +50,7 @@ const S = {
   `,
   ContentText: styled.span`
     color: ${COLORS.Blue90};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -59,7 +59,7 @@ const S = {
   `,
   ContentStrongText: styled.span`
     color: ${COLORS.Blue60};
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;

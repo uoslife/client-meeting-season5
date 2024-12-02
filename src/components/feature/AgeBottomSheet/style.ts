@@ -23,7 +23,7 @@ export const S = {
     flex-direction: column;
     gap: 8px;
     span {
-      font-family: Pretendard;
+      font-family: Pretendard-Regular;
       font-size: 16px;
       font-style: normal;
       font-weight: 500;

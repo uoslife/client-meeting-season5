@@ -11,7 +11,7 @@ const S = {
   `,
   GradientText: styled.span`
     text-align: center;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
