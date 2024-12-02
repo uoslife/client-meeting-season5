@@ -37,11 +37,16 @@ const InvitationPage = () => {
     sideButtonText: '닫기',
     mainButtonCallback: () => {
       deleteMutation.mutate(undefined, {
-        onSuccess: () => {
-          queryClient.removeQueries({
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
             queryKey: ['meetingTeamInfo', 'TRIPLE'],
           });
-          navigate('/auth/main');
+          if (meetingGroupInfo.isSuccess) {
+            navigate('/auth/main');
+          } else {
+            setErrorText('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+            errorModal.open();
+          }
         },
         onError: (error) => {
           setErrorText(errorHandler(error));
@@ -73,11 +78,14 @@ const InvitationPage = () => {
 
   useEffect(() => {
     const userBranch = userStatus.data?.tripleTeamBranch;
+
     if (userBranch === 'JUST_CREATED') {
-      if (meetingGroupInfo.data?.preference) {
-        navigate('/auth/summary/group');
-      } else {
-        funnel.history.push('third', { isTeamLeader: true });
+      if (meetingGroupInfo.isSuccess) {
+        if (meetingGroupInfo.data?.preference) {
+          navigate('/auth/summary/group');
+        } else {
+          funnel.history.push('third', { isTeamLeader: true });
+        }
       }
     } else if (userBranch === 'JOINED') {
       navigate('/auth/waiting');
