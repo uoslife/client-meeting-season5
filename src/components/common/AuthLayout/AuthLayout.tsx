@@ -38,7 +38,8 @@ const AuthLayout = () => {
       )
         navigate('/auth/profile');
     }
-  }, [userInfo.isSuccess, contextUserInfo]);
+    if (userInfo.isError) navigate('/');
+  }, [userInfo.isSuccess, contextUserInfo, userInfo.isError]);
 
   return (
     <S.OuterStyle>
