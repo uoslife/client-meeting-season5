@@ -49,29 +49,23 @@ const StarterPage = () => {
                   </Text>
                   <S.DateBox>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      2024.12.02
+                      2024.12.02(월)
                     </Text>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
                       -
                     </Text>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      2024.12.04
+                      2024.12.04(수)
                     </Text>
                   </S.DateBox>
                 </S.DateWrapper>
                 <S.DateWrapper>
                   <Text typograph={'bodyMediumRegular'} color={'Blue90'}>
-                    신청기간
+                    발표기간
                   </Text>
                   <S.DateBox>
                     <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      2024.12.04
-                    </Text>
-                    <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      -
-                    </Text>
-                    <Text typograph={'bodyMediumSemiBold'} color={'Blue90'}>
-                      2025.1.1
+                      2024.12.7(토)
                     </Text>
                   </S.DateBox>
                 </S.DateWrapper>

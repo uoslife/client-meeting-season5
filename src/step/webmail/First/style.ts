@@ -7,13 +7,13 @@ const S = {
     outline: none;
     border: none;
     padding: 1.2rem 0;
-    font-family: Pretendard;
     font-size: 16px;
     color: ${COLORS.Blue90};
 
     &::placeholder {
       color: ${COLORS.Blue20};
     }
+    font-family: Pretendard-Regular;
   `,
   UOSAdress: styled.div`
     align-items: center;
