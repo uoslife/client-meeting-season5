@@ -51,7 +51,7 @@ const HeightRangeSlider = ({ value, setValue }: RangeSliderPropsType) => {
       },
     },
     5: {
-      label: '-5살',
+      label: '+5살',
       style: {
         top: 5,
         color: COLORS.Blue30,
