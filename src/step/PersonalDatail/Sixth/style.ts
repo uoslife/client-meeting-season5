@@ -62,7 +62,7 @@ export const S = {
   BottomSheetText: styled.span`
     color: ${COLORS.Blue70}
     font-family: Pretendard-Regular;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
@@ -71,7 +71,7 @@ export const S = {
   BottomStringSheetText: styled.span`
     color: ${COLORS.Red60};
     font-family: Pretendard-Regular;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;

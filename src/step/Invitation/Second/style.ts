@@ -61,6 +61,7 @@ export const S = {
       ${(props) => (props.isFocused ? COLORS.Blue90 : COLORS.Blue20)};
     font-weight: 600;
     font-size: 6.8rem;
+    font-family: Pretendard-Regular
     color: ${COLORS.Blue90};
   `,
 };

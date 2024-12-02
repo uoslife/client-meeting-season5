@@ -14,6 +14,11 @@ const First = (): ReactNode => {
   const [searchParams] = useSearchParams();
   const headerTitleType = searchParams.get('type') as 'personal' | 'group';
 
+  const headerTitle = () => {
+    if (headerTitleType === 'personal') return '1대1';
+    return '3대3';
+  };
+
   const [checkedState, setCheckedState] = useState({
     check1: false,
     check2: false,
@@ -32,7 +37,7 @@ const First = (): ReactNode => {
   return (
     <>
       <Header
-        title="1대1 신청하기"
+        title={headerTitle() + ' 신청하기'}
         isGoBackButton={true}
         rightButtonType="close"
         leftButtonCallback={() => history.back()}
