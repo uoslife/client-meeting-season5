@@ -40,8 +40,6 @@ const Second = () => {
     data: leaderNameData,
     isSuccess,
     error,
-    refetch,
-    isError,
   } = useGetLeaderNameByCode({
     code: code,
   });

@@ -22,6 +22,7 @@ export const S = {
     font-size: 1.6rem;
     font-weight: 500;
     line-height: 2.4rem;
+    font-family: Pretendard-Regular;
 
     color: ${COLORS.Blue90};
     &::placeholder {
