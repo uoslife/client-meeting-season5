@@ -91,6 +91,7 @@ export const useGetMeetingGroupInfo = () => {
 };
 
 export const useGetLeaderNameByCode = ({ code }: { code: string }) => {
+  const accessToken = useAtomValue(accessTokenAtom);
   const { getFetcher } = useAuthAxios();
   return useQuery({
     queryKey: ['leaderName', code],
@@ -99,7 +100,7 @@ export const useGetLeaderNameByCode = ({ code }: { code: string }) => {
     refetchOnWindowFocus: false,
     select: (data) => data,
     retry: false,
-    enabled: false,
+    enabled: !!accessToken,
   });
 };
 export const useDeleteMeetingGroup = (): UseMutationResult<

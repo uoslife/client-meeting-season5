@@ -79,6 +79,7 @@ const Second = () => {
     );
     if (checkValues) return;
     await queryClient.invalidateQueries({ queryKey: ['leaderName'] });
+
     if (isSuccess) {
       setTeamLeaderName(leaderNameData.leaderName);
       submitModal.open();
