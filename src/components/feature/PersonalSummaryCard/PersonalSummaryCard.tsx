@@ -42,6 +42,7 @@ const PersonalSummaryCard = ({
   toast,
   userInfo,
 }: GroupSummaryCardPropsType) => {
+  console.log('#', userInfo);
   return (
     <S.CardWrapper>
       <S.TextWrapper>

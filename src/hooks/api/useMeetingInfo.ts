@@ -79,7 +79,7 @@ const WEIGHT_ENUM: { [key: string]: WeightType } = {
   키: 'HEIGHT',
   MBTI: 'MBTI',
   외모: 'APPEARANCE',
-  '흡연 여부': 'SMOKING',
+  흡연여부: 'SMOKING',
 };
 
 const parseMbti = (targetMbti: string): string => {

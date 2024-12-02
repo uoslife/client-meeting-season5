@@ -115,12 +115,12 @@ const Second = (props: {
         errors: errors.counterAppearanceType?.message,
       },
       {
-        title: '흡연 여부',
+        title: '흡연여부',
         type: 'readOnly',
         inputs: [
           {
             ...counterSmoking,
-            placeholder: '흡연 여부를 선택해 주세요.',
+            placeholder: '흡연여부를 선택해 주세요.',
             defaultValue: props.context.targetSmoking,
           },
         ],
@@ -423,7 +423,7 @@ const Second = (props: {
     },
   });
   const smokingBottomSheet = useBottomSheet({
-    title: '흡연 여부',
+    title: '흡연여부',
     mainButtonText: '선택',
     mainButtonDisabled: !(
       smokingForm.watch('cigarette') &&
@@ -487,7 +487,7 @@ const Second = (props: {
                       if (title === 'MBTI') mbtiDetailBottomSheet.open();
                       if (title === '키') heightBottomSheet.open();
                       if (title === '외모') appearanceBottomSheet.open();
-                      if (title === '흡연 여부') smokingBottomSheet.open();
+                      if (title === '흡연여부') smokingBottomSheet.open();
                     }}
                   />
                 ))}

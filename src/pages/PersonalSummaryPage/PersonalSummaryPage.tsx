@@ -73,6 +73,7 @@ const SummaryPage = () => {
     gender: personalData?.gender,
     department: personalData?.meetingTeamUserProfiles[0].department,
     studentNumber: personalData?.meetingTeamUserProfiles[0].studentNumber,
+    studentType: personalData?.meetingTeamUserProfiles[0].studentType,
     appearanceType: personalData?.meetingTeamUserProfiles[0].appearanceType,
     mbti: personalData?.meetingTeamUserProfiles[0].mbti,
     eyelid: personalData?.meetingTeamUserProfiles[0].eyelidType,

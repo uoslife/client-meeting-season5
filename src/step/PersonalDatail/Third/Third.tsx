@@ -40,7 +40,7 @@ const Third = (props: {
         input: prefer,
       },
       {
-        title: '흡연 여부',
+        title: '흡연여부',
         value: '흡연여부',
         description:
           (props.context && String(props.context.targetSmoking)) ?? '_',
