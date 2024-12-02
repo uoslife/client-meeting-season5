@@ -34,10 +34,15 @@ const Second = (props: {
   useEffect(() => {
     if (timeLeft <= 0) {
       setErrorText('');
-      setExceedErrorText('');
-      setErrorTimeText('인증 시간이 만료되었습니다.');
-
-      return;
+      if (exceedErrorText) {
+        setExceedErrorText('일일 인증 횟수를 초과했습니다. (5/5)');
+        setTimeLeft(0);
+        setErrorTimeText('');
+      } else {
+        setExceedErrorText('');
+        setErrorTimeText('인증 시간이 만료되었습니다.');
+        return;
+      }
     }
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
@@ -72,15 +77,16 @@ const Second = (props: {
         onError: (error) => {
           if (isAxiosError(error)) {
             if (error.status === 429) {
-              setTimeLeft(0);
               setExceedErrorText('일일 인증 횟수를 초과했습니다. (5/5)');
+              setTimeLeft(0);
               setErrorText('');
               setErrorTimeText('');
+            } else {
+              setErrorText('인증 코드가 일치하지 않습니다.');
+              setErrorTimeText('');
+              setExceedErrorText('');
             }
           }
-          setErrorText('인증 코드가 일치하지 않습니다.');
-          setErrorTimeText('');
-          setExceedErrorText('');
         },
       },
     );
@@ -93,24 +99,26 @@ const Second = (props: {
 
   // 5번 이상 재전송
   const handleResendCode = () => {
-    sendEmailMutation.mutate(
-      { email: props.webmail },
-      {
-        onSuccess: () => {
-          reset({ code: '' });
-          setExceedErrorText('');
-          setErrorText('');
-          setErrorTimeText('');
-          setTimeLeft(600);
+    if (!exceedErrorText) {
+      sendEmailMutation.mutate(
+        { email: props.webmail },
+        {
+          onSuccess: () => {
+            reset({ code: '' });
+            setExceedErrorText('');
+            setErrorText('');
+            setErrorTimeText('');
+            setTimeLeft(600);
+          },
+          onError: () => {
+            setExceedErrorText('일일 인증 횟수를 초과했습니다. (5/5)');
+            setTimeLeft(0);
+            setErrorText('');
+            setErrorTimeText('');
+          },
         },
-        onError: () => {
-          setExceedErrorText('일일 인증 횟수를 초과했습니다. (5/5)');
-          setTimeLeft(0);
-          setErrorText('');
-          setErrorTimeText('');
-        },
-      },
-    );
+      );
+    }
   };
 
   return (

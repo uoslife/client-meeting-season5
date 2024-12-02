@@ -68,6 +68,7 @@ const S = {
     font-weight: 600;
     font-size: 6.8rem;
     color: ${(props) => (props.isError ? COLORS.Error : COLORS.Blue90)};
+    font-family: Pretendard-Regular;
   `,
 };
 
