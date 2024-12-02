@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { FourthType } from '../../../pages/GroupDetailProfilePage/GroupDetailProfilePage';
 import Indicator from '../../../components/common/Indicator';
 import Button from '../../../components/common/Button';
@@ -7,6 +7,7 @@ import S from './style';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import close from '../../../lib/assets/icon/close.svg';
 import { COLORS } from '../../../lib/constants';
+import useToast from '../../../hooks/useToast';
 
 interface NameFormType {
   name: string;
@@ -23,17 +24,24 @@ const First = (props: {
     formState: { errors },
     reset,
   } = useForm<NameFormType>();
-
+  const toast = useToast();
+  const [errorText, setErrorText] = useState('');
   const handleSubmit: SubmitHandler<NameFormType> = (data) => {
+    if (data.name.length < 2 || data.name.length > 8) {
+      setErrorText('팀이름은 2자리 이상 8자리 이하여야 합니다.');
+      toast.toast(2000);
+    }
     const checkValues = Object.values(data).some(
       (value) => value === undefined || value === '' || errors.name,
     );
     if (checkValues) return;
+
     props.onNext({ name: data.name });
   };
 
   return (
     <>
+      {toast.render(errorText)}
       <S.FormContainer
         className="layout-padding"
         onSubmit={handleSubmitWrapper(handleSubmit)}
