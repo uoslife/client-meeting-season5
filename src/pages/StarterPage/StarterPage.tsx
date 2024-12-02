@@ -72,11 +72,9 @@ const StarterPage = () => {
               </S.SubTitleWrapper>
             </S.HeaderWrapper>
             <div
-              className="layout-padding"
               style={{
-                position: 'absolute',
-                top: '50%',
-                transform: 'translateY(-20%)',
+                display: 'table-cell',
+                verticalAlign: 'center',
               }}
             >
               <img width={'100%'} src={MainIMG} alt="눈사람 아이콘" />
