@@ -1,4 +1,8 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationResult,
+  useQueryClient,
+} from '@tanstack/react-query';
 import useAuthAxios from '../axios/useAuthAxios';
 import {
   AppearanceType,
@@ -6,8 +10,10 @@ import {
   SmokingType,
   WeightType,
 } from '../../lib/types/personalMeeting.type';
-import { useAtomValue } from 'jotai';
-import { userInfoAtom } from '../../store/userInfo';
+// import { useAtomValue } from 'jotai';
+// import { userInfoAtom } from '../../store/userInfo';
+import { useGetUserInfo } from './useUser';
+// import { useEffect } from 'react';
 
 export type ContextType = {
   avoidDepartment: string;
@@ -31,18 +37,24 @@ export const useMeetingInfo = (): UseMutationResult<
   MeetingTeamInfoRequest
 > => {
   const { postFetcher } = useAuthAxios();
-  const userInfo = useAtomValue(userInfoAtom);
+  const queryClient = useQueryClient();
+
+  const loadUserInfo = async () => {
+    await queryClient.invalidateQueries({ queryKey: ['userInfo'] });
+  };
+  loadUserInfo();
+  const { data: userInfo } = useGetUserInfo();
 
   return useMutation<void, Error, MeetingTeamInfoRequest>({
     mutationFn: ({ context }) =>
       postFetcher(`/api/meeting/SINGLE/info`, {
         ageMin:
-          parseInt(userInfo.age as string) +
+          parseInt(userInfo?.age as string) +
           (parseAge(context.targetAge)[0] === -5
             ? parseAge(context.targetAge)[0] - 5
             : parseAge(context.targetAge)[0]),
         ageMax:
-          parseInt(userInfo.age as string) +
+          parseInt(userInfo?.age as string) +
           (parseAge(context.targetAge)[1] === 5
             ? parseAge(context.targetAge)[1] + 5
             : parseAge(context.targetAge)[1]),
