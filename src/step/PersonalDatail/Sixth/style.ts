@@ -53,5 +53,29 @@ export const S = {
     line-height: 20px; /* 142.857% */
     letter-spacing: -0.35px;
   `,
+  BottomSheetWrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `,
+  BottomSheetText: styled.span`
+    color: ${COLORS.Blue70}
+    font-family: Pretendard-Regular;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+  `,
+  BottomStringSheetText: styled.span`
+    color: ${COLORS.Red60};
+    font-family: Pretendard-Regular;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+  `,
 };
 export default S;

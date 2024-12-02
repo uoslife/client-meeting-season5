@@ -122,7 +122,18 @@ const Fourth = (props: { context: FourthType }) => {
             다음
           </Button>
         </S.ButtonWrapper>
-        {PersonDetailResultBottomSheet.render(<></>)}
+        {PersonDetailResultBottomSheet.render(
+          <S.BottomSheetWrapper>
+            <S.BottomSheetText>
+              <S.BottomStringSheetText>{"'신청하기'"}</S.BottomStringSheetText>
+              를 누르면 더이상{' '}
+              <S.BottomStringSheetText>
+                신청 정보를 수정할 수 없습니다.
+              </S.BottomStringSheetText>
+            </S.BottomSheetText>
+            <S.BottomSheetText>꼭 다시 한번 확인해주세요.</S.BottomSheetText>
+          </S.BottomSheetWrapper>,
+        )}
       </S.Container>
     </>
   );

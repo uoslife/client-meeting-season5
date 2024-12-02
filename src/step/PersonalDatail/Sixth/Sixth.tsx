@@ -30,11 +30,10 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const errorToast = useToast();
   const [errorText, setErrorText] = useState('');
   const PersonDetailResultBottomSheet = useBottomSheet({
-    title: '신청하시겠습니까?',
+    title: '정말 신청하시겠습니까?',
     mainButtonText: '신청하기',
     mainButtonCallback: () => handleClick(),
     isSideButton: false,
-    description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
   });
 
   const handleMeetingInfoMutation = () => {
@@ -338,7 +337,20 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
           다음
         </Button>
       </S.ButtonWrapper>
-      {PersonDetailResultBottomSheet.render(<></>)}
+      {PersonDetailResultBottomSheet.render(
+        <S.BottomSheetWrapper>
+          <S.BottomSheetText>
+            <S.BottomStringSheetText>{"'신청하기'"}</S.BottomStringSheetText>를
+            누르면 더이상
+          </S.BottomSheetText>
+          <S.BottomStringSheetText>
+            {'나의 추가 정보 및 상대의 이상형 정보 수정이 불가합니다. '}
+          </S.BottomStringSheetText>
+          <S.BottomSheetText>
+            꼭 다시 한번 확인하고 수정해주세요.
+          </S.BottomSheetText>
+        </S.BottomSheetWrapper>,
+      )}
     </S.Container>
   );
 };
