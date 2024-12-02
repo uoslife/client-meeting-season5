@@ -25,7 +25,7 @@ const PaymentResultPage = (): ReactNode => {
         navigate(`/auth/payment/success?type=${teamType}`, { replace: true });
       if (isError)
         navigate(`/auth/payment/failed?type=${teamType}`, { replace: true });
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [data, isError, error]);
