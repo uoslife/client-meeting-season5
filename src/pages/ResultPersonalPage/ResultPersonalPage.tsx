@@ -82,7 +82,7 @@ const ResultPersonalPage = () => {
     AGE: '나이',
     MBTI: 'MBTI',
     HEIGHT: '키',
-    APPEARNACE: '외모',
+    APPEARANCE: '외모',
     SMOKING: '흡연여부',
   };
 
@@ -94,11 +94,17 @@ const ResultPersonalPage = () => {
     {
       label: '외모',
       value:
-        userInfo?.appearanceType === 'ARAB'
+        (userInfo?.appearanceType === 'ARAB'
           ? '또렷'
           : userInfo?.appearanceType === 'TOFU'
             ? '순한'
-            : '중간',
+            : '중간') +
+        ' / ' +
+        (userInfo?.eyelidType === 'DOUBLE'
+          ? '유쌍'
+          : userInfo?.eyelidType === 'SINGLE'
+            ? '무쌍'
+            : '속쌍'),
     },
     {
       label: '흡연여부',
