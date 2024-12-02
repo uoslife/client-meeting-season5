@@ -194,7 +194,7 @@ const EditProfilePage = () => {
                 <S.TextWrapper>
                   <div style={{ display: 'flex', gap: 20 }}>
                     <Text color={'Blue90'} typograph={'bodyMediumMedium'}>
-                      {`${userInfo.data?.interest}`}
+                      {`${userInfo.data?.interest.toString().replaceAll(',', ', ')}`}
                     </Text>
                   </div>
                 </S.TextWrapper>
