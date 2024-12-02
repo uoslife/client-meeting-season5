@@ -38,13 +38,13 @@ const MainPage = () => {
             </Text>
             <div style={{ display: 'flex', gap: 4 }}>
               <Text color={'Blue90'} typograph={'bodyMediumSemiBold'}>
-                2024.12.2
+                2024.12.2(월)
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumSemiBold'}>
                 -
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumSemiBold'}>
-                2025.12.4
+                2024.12.4(수) 자정
               </Text>
             </div>
           </S.Period>

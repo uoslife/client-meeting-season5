@@ -34,7 +34,6 @@ const Fourth = (props: { context: FourthType }) => {
     mainButtonText: '신청하기',
     mainButtonCallback: () => handleClick(),
     isSideButton: false,
-    description: '잘못 답변한 부분이 있다면 뒤로 돌아가서 수정해 주세요.',
   });
 
   const handleClick = () => {

@@ -69,28 +69,20 @@ const Third = (props: {
                 </Text>
                 <S.TextWrapper
                   style={{ width: '100%', justifyContent: 'flex-end' }}
+                  onClick={async () => {
+                    queryClient.invalidateQueries({
+                      queryKey: ['meetingTeamInfo'],
+                    });
+                  }}
                 >
-                  <S.Text
-                    onClick={async () => {
-                      queryClient.invalidateQueries({
-                        queryKey: ['meetingTeamInfo'],
-                      });
-                    }}
-                  >
+                  <S.Text>
                     {data?.meetingTeamUserProfiles?.length !== 0
                       ? data?.meetingTeamUserProfiles?.length
                       : 0}
                     <span style={{ color: COLORS.Blue30 }}>/3</span>
                   </S.Text>
 
-                  <img
-                    src={Refresh}
-                    onClick={async () => {
-                      queryClient.invalidateQueries({
-                        queryKey: ['meetingTeamInfo'],
-                      });
-                    }}
-                  />
+                  <img src={Refresh} />
                   <Tooltip
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
