@@ -23,17 +23,34 @@ const GroupSummaryCard = ({ toast, userInfo }: GroupSummaryCardPropsType) => {
           </S.IconWrapper>
           <S.GradientText>{`안녕, 내 이름은 ${userInfo.name}이야!`}</S.GradientText>
           <S.ContentWrapper>
-            <S.ContentText>
-              나는{' '}
-              <S.ContentStrongText>{userInfo.department}</S.ContentStrongText>를
-              다니고 있는
-            </S.ContentText>
-            <S.ContentText>
-              <S.ContentStrongText>
-                {userInfo.studentNumber && String(userInfo.studentNumber)}
-                학번 학생이야.
-              </S.ContentStrongText>{' '}
-            </S.ContentText>
+            {userInfo.studentType === 'UNDERGRADUATE' ? (
+              <>
+                <S.ContentText>
+                  나는{' '}
+                  <S.ContentStrongText>
+                    {userInfo.department}
+                  </S.ContentStrongText>
+                  를 다니고 있는
+                </S.ContentText>
+                <S.ContentText>
+                  <S.ContentStrongText>
+                    {userInfo.studentNumber && String(userInfo.studentNumber)}
+                    학번 학생이야.
+                  </S.ContentStrongText>{' '}
+                </S.ContentText>
+              </>
+            ) : userInfo.studentType === 'GRADUATE' ? (
+              <S.ContentText>
+                나는 <S.ContentStrongText>학교를 졸업</S.ContentStrongText>
+                했어.
+              </S.ContentText>
+            ) : (
+              <S.ContentText>
+                나는 <S.ContentStrongText>대학원</S.ContentStrongText>을 다니고
+                있어.
+              </S.ContentText>
+            )}
+
             <S.ContentText>
               나이는
               <S.ContentStrongText>{userInfo.age}세</S.ContentStrongText> 나의

@@ -53,6 +53,7 @@ const GroupSummaryPage = () => {
       age: user.age,
       interest: user.interest,
       kakaoTalkId: user.kakaoTalkId,
+      studentType: user.studentType,
     };
   });
 

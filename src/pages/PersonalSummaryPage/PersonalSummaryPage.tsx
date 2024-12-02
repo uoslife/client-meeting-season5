@@ -41,6 +41,7 @@ export type groupUserInfoType = {
   age?: number;
   interest?: string[];
   kakaoTalkId?: string;
+  studentType?: string;
 };
 
 const SummaryPage = () => {
