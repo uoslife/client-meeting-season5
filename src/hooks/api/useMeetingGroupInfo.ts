@@ -71,7 +71,7 @@ export const useGetFinalMeetingGroupInfo = () => {
       }>(`api/meeting/TRIPLE/info?status=COMPLETED`),
     refetchOnWindowFocus: false,
     select: (data) => data,
-    retry: false,
+    retry: 2,
     enabled: !!accessToken,
   });
 };

@@ -135,14 +135,6 @@ const SummaryPage = () => {
             다음
           </Button>
         </div>
-        {/* <img
-          src={summaryTree}
-          style={{
-            height: 120,
-            width: '100vw',
-            objectFit: 'contain',
-          }}
-        /> */}
       </S.ButtonWrapper>
     </S.Background>
   );

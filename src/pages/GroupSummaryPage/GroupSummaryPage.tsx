@@ -55,7 +55,6 @@ const GroupSummaryPage = () => {
       kakaoTalkId: user.kakaoTalkId,
     };
   });
-  console.log(groupData);
 
   return (
     <S.Background>
