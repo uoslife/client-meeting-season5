@@ -1,8 +1,4 @@
-import {
-  useMutation,
-  UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import useAuthAxios from '../axios/useAuthAxios';
 import {
   AppearanceType,
@@ -12,7 +8,7 @@ import {
 } from '../../lib/types/personalMeeting.type';
 // import { useAtomValue } from 'jotai';
 // import { userInfoAtom } from '../../store/userInfo';
-import { useGetUserInfo } from './useUser';
+import { UserProfileResponseType } from './useUser';
 // import { useEffect } from 'react';
 
 export type ContextType = {
@@ -29,6 +25,7 @@ export type ContextType = {
 
 interface MeetingTeamInfoRequest {
   context: ContextType;
+  userInfo: UserProfileResponseType;
 }
 
 export const useMeetingInfo = (): UseMutationResult<
@@ -37,16 +34,9 @@ export const useMeetingInfo = (): UseMutationResult<
   MeetingTeamInfoRequest
 > => {
   const { postFetcher } = useAuthAxios();
-  const queryClient = useQueryClient();
-
-  const loadUserInfo = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['userInfo'] });
-  };
-  loadUserInfo();
-  const { data: userInfo } = useGetUserInfo();
 
   return useMutation<void, Error, MeetingTeamInfoRequest>({
-    mutationFn: ({ context }) =>
+    mutationFn: ({ context, userInfo }) =>
       postFetcher(`/api/meeting/SINGLE/info`, {
         ageMin:
           parseInt(userInfo?.age as string) +

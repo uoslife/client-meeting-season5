@@ -11,7 +11,7 @@ import { getBearerToken } from '../../utils/token';
 import useAuthAxios from '../axios/useAuthAxios';
 import { useNavigate } from 'react-router-dom';
 
-type UserProfileResponseType = {
+export type UserProfileResponseType = {
   name: string | null;
   genderType: 'MALE' | 'FEMALE' | null;
   age: string | null;

@@ -14,7 +14,7 @@ import {
   useMeetingInfo,
 } from '../../../hooks/api/useMeetingInfo';
 import { useQueryClient } from '@tanstack/react-query';
-import { usePatchUserInfo } from '../../../hooks/api/useUser';
+import { useGetUserInfo, usePatchUserInfo } from '../../../hooks/api/useUser';
 import useToast from '../../../hooks/useToast';
 import useBottomSheet from '../../../hooks/useBottomSheet';
 import { useCreateMeetingTeam } from '../../../hooks/api/useMeetingPersonalInfo';
@@ -29,6 +29,7 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
   const queryClient = useQueryClient();
   const errorToast = useToast();
   const [errorText, setErrorText] = useState('');
+  const { data: userInfo, isSuccess } = useGetUserInfo();
   const PersonDetailResultBottomSheet = useBottomSheet({
     title: '정말 신청하시겠습니까?',
     mainButtonText: '신청하기',
@@ -36,24 +37,32 @@ const Sixth = (props: { context: OptionalProfileType & BaseProfileType }) => {
     isSideButton: false,
   });
 
-  const handleMeetingInfoMutation = () => {
-    meetingInfoMutation.mutate(
-      {
-        context: props.context as ContextType,
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ['meetingTeamInfo', 'SINGLE'],
-          });
-          navigate('/auth/summary/personal');
+  const handleMeetingInfoMutation = async () => {
+    await queryClient.invalidateQueries({ queryKey: ['userInfo'] });
+    if (isSuccess) {
+      meetingInfoMutation.mutate(
+        {
+          context: props.context as ContextType,
+          userInfo: userInfo,
         },
-        onError: (error) => {
-          setErrorText(errorHandler(error));
-          errorToast.toast(1000);
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ['meetingTeamInfo', 'SINGLE'],
+            });
+            navigate('/auth/summary/personal');
+          },
+          onError: (error) => {
+            setErrorText(errorHandler(error));
+            errorToast.toast(1000);
+          },
         },
-      },
-    );
+      );
+    } else {
+      setErrorText('유저 정보를 확인할 수 없습니다. 재시도해주세요.');
+      errorToast.toast(1000);
+      return;
+    }
   };
 
   const parseMyAppearance = (myAppearance: string) => {
