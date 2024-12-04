@@ -44,7 +44,7 @@ const MainPage = () => {
                 -
               </Text>
               <Text color={'Blue90'} typograph={'bodyMediumSemiBold'}>
-                2024.12.4(수) 자정
+                2024.12.5(목) 자정
               </Text>
             </div>
           </S.Period>

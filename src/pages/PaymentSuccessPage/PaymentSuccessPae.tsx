@@ -39,7 +39,7 @@ const PaymentSuccessPage = (): ReactNode => {
         <img src={santaAndRudolf} alt="tree" width={264} height={162} />
         <Text color={'Blue30'} typograph={'labelMediumMedium'}>
           {/* TODO: 신청 취소 기한 알려주소 */}
-          신청 취소 기한 12월 4일 오후 11시 59분까지
+          신청 취소 기한 12월 5일 오후 11시 59분까지
         </Text>
       </div>
 
