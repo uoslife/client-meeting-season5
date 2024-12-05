@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import summaryTree from '../../lib/assets/images/summary-tree.png';
 import summaryBackground from '../../lib/assets/images/summary-background.png';
+import { COLORS } from '../../lib/constants';
 
 export const S = {
   Background: styled.div`
@@ -38,10 +39,33 @@ export const S = {
     height: 140px;
   `,
   CardContainer: styled.div`
+    width: 100%;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+  `,
+  ContentWrapper: styled.div`
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  `,
+  TextWrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `,
+  CloseWrapper: styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    width: 32px;
+    height: 32px;
+    background: ${COLORS.Red90};
   `,
 };
 
