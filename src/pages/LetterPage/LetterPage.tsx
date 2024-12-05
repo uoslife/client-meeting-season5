@@ -15,6 +15,7 @@ const LetterPage = () => {
       <Header
         title={teamType === 'personal' ? '1대1 매칭결과' : '3대3 매칭결과'}
         isGoBackButton={true}
+        leftButtonCallback={() => navigate('/auth/final')}
         style={{ color: 'White' }}
       />
       <S.Container className="layout-padding">
@@ -39,7 +40,7 @@ const LetterPage = () => {
           </Text>
           <Button
             buttonColor={'white'}
-            onClick={() => navigate('/auth/profile')}
+            onClick={() => navigate(`/auth/final/result/${teamType}`)}
           >
             {teamType === 'group' ? '초대장 열어보기' : '편지 열어보기'}
           </Button>

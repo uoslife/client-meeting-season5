@@ -29,7 +29,9 @@ const MainPage = () => {
           </S.MainText>
 
           <S.ResultButtonWrapper>
-            <S.ResultButton onClick={() => console.log('1대1 이동')}>
+            <S.ResultButton
+              onClick={() => navigate('/auth/final/letter?type=personal')}
+            >
               <Text color={'Blue90'} typograph={'titleLarge'}>
                 1대1
               </Text>
@@ -40,7 +42,9 @@ const MainPage = () => {
                 <img src={arrowRed} width={12} height={12} />
               </S.RightTextWrapper>
             </S.ResultButton>
-            <S.ResultButton onClick={() => console.log('3대3 이동')}>
+            <S.ResultButton
+              onClick={() => navigate('/auth/final/letter?type=group')}
+            >
               <Text color={'Blue90'} typograph={'titleLarge'}>
                 3대3
               </Text>

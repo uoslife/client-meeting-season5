@@ -22,6 +22,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import FinalResult from './pages/FinalResultPage';
 import FinalPersonalPage from './pages/FinalPersonalPage';
 import FinalGroupPage from './pages/FinalGroupPage';
+import LetterPage from './pages/LetterPage';
 // import ResultPersonalPage from './pages/ResultPersonalPage';
 // import ResultGroupPage from './pages/ResultGroupPage';
 // import Waiting from './pages/WaitingPage';
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'letter',
-            element: <>letter</>,
+            element: <LetterPage />,
           },
           {
             path: 'result',
