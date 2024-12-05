@@ -4,15 +4,15 @@ import { useReissue } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
-import { useGetUserInfo } from '../../../hooks/api/useUser';
-import { userInfoAtom } from '../../../store/userInfo';
+// import { useGetUserInfo } from '../../../hooks/api/useUser';
+// import { userInfoAtom } from '../../../store/userInfo';
 
 const AuthLayout = () => {
   const navigate = useNavigate();
   const accessToken = useAtomValue(accessTokenAtom);
   const reissueMutation = useReissue();
-  const userInfo = useGetUserInfo();
-  const [contextUserInfo, setContextUserInfo] = useAtom(userInfoAtom);
+  // const userInfo = useGetUserInfo();
+  // const [contextUserInfo, setContextUserInfo] = useAtom(userInfoAtom);
 
   useEffect(() => {
     if (!accessToken)
@@ -23,23 +23,23 @@ const AuthLayout = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (userInfo.isSuccess) {
-      setContextUserInfo(userInfo.data);
-      if (
-        !(
-          userInfo.data.phoneNumber &&
-          userInfo.data.name &&
-          userInfo.data.kakaoTalkId &&
-          userInfo.data.genderType &&
-          userInfo.data.age &&
-          userInfo.data.interest.length > 0
-        )
-      )
-        navigate('/auth/profile');
-    }
-    if (userInfo.isError) navigate('/');
-  }, [userInfo.isSuccess, contextUserInfo, userInfo.isError]);
+  // useEffect(() => {
+  //   if (userInfo.isSuccess) {
+  //     setContextUserInfo(userInfo.data);
+  //     if (
+  //       !(
+  //         userInfo.data.phoneNumber &&
+  //         userInfo.data.name &&
+  //         userInfo.data.kakaoTalkId &&
+  //         userInfo.data.genderType &&
+  //         userInfo.data.age &&
+  //         userInfo.data.interest.length > 0
+  //       )
+  //     )
+  //       navigate('/auth/profile');
+  //   }
+  //   if (userInfo.isError) navigate('/');
+  // }, [userInfo.isSuccess, contextUserInfo, userInfo.isError]);
 
   return (
     <S.OuterStyle>

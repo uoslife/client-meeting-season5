@@ -14,7 +14,7 @@ const NoAuthLayout = () => {
   }, []);
 
   if (accessToken) {
-    navigate('/auth/main');
+    navigate('/auth/final');
   }
 
   return (
