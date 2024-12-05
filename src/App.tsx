@@ -19,6 +19,7 @@ import BasicLayout from './components/common/BasicLayout';
 // import PaymentTestPage from './pages/PaymentTestPage';
 // import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import LoungePage from './pages/LoungePage';
 // import ResultPersonalPage from './pages/ResultPersonalPage';
 // import ResultGroupPage from './pages/ResultGroupPage';
 // import Waiting from './pages/WaitingPage';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <BasicLayout />,
     children: [
+      {
+        path: '',
+        element: <LoungePage />,
+      },
       // {
       //   path: '',
       //   element: <SplashPage />,
