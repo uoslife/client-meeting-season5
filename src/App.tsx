@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import BasicLayout from './components/common/BasicLayout';
 import SplashPage from './pages/SplashPage';
 import StarterPage from './pages/StarterPage';
@@ -20,6 +20,8 @@ import MainPage from './pages/MainPage';
 // import PaymentResultPage from './pages/PaymentResultPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import FinalResult from './pages/FinalResultPage';
+import FinalPersonalPage from './pages/FinalPersonalPage';
+import FinalGroupPage from './pages/FinalGroupPage';
 // import ResultPersonalPage from './pages/ResultPersonalPage';
 // import ResultGroupPage from './pages/ResultGroupPage';
 // import Waiting from './pages/WaitingPage';
@@ -73,7 +75,31 @@ const router = createBrowserRouter([
       },
       {
         path: 'final',
-        element: <FinalResult />,
+        element: <Outlet />,
+        children: [
+          {
+            path: '',
+            element: <FinalResult />,
+          },
+          {
+            path: 'letter',
+            element: <>letter</>,
+          },
+          {
+            path: 'result',
+            element: <Outlet />,
+            children: [
+              {
+                path: 'personal',
+                element: <FinalPersonalPage />,
+              },
+              {
+                path: 'group',
+                element: <FinalGroupPage />,
+              },
+            ],
+          },
+        ],
       },
       // {
       //   path: 'detail',
