@@ -3,6 +3,7 @@ import Header from '../../components/common/Header';
 import { S } from './style';
 import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
+import PersonalResult from '../../lib/assets/images/personal-result.png';
 import GroupResult from '../../lib/assets/images/group-result.png';
 
 const LetterPage = () => {
@@ -26,10 +27,11 @@ const LetterPage = () => {
               도착했어요!
             </Text>
           </S.TextWrapper>
-          <S.ImgBox>
-            {teamType === 'group' && <img src={GroupResult} width={'72%'} />}
-            {teamType === 'personal' && <img src={GroupResult} width={'72%'} />}
-          </S.ImgBox>
+
+          {teamType === 'group' && <img src={GroupResult} width={'100%'} />}
+          {teamType === 'personal' && (
+            <img src={PersonalResult} width={'100%'} />
+          )}
         </S.MainContainer>
         <S.ButtonWrapper>
           <Text typograph={'titleMedium'} color={'White'}>
