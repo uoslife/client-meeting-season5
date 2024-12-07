@@ -54,14 +54,13 @@ const PaymentPage = () => {
       teamType: PAYMENT_ENUM[headerTitleType],
       accessToken: accessToken,
     })
-      .then((res) => {
+      .then(() => {
         //성공 시 결과 페이지로 리다이렉팅
         navigate(`/auth/payment/result?type=${headerTitleType}`);
-        console.log(res);
       })
       .catch((err) => {
         //P01 에러만 결제로 연결
-        console.log(err);
+
         switch (err.response.data.code) {
           case 'U02':
             navigate('/auth/main');

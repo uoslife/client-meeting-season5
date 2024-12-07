@@ -77,7 +77,6 @@ const PersonalDetailProfilePage = () => {
       context: {},
     },
   });
-  console.log(funnel.context);
   switch (funnel.step) {
     case 'first':
       return (

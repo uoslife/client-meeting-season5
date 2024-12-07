@@ -38,7 +38,6 @@ const Third = (props: {
           });
 
           if (data) setTingCode(data?.code);
-          console.log(data);
         },
       });
     }

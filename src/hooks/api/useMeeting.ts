@@ -21,9 +21,6 @@ export const useCreateMeetingTeam = (): UseMutationResult<
   >({
     mutationFn: ({ teamType }) =>
       postFetcher(`/api/meeting/${teamType}/create`),
-    onSuccess: (data) => {
-      console.log(data.code);
-    },
     onError: (error) => error,
   });
 };

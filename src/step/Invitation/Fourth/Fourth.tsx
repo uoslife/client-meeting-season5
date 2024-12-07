@@ -7,7 +7,6 @@ import { UserInfoType } from '../../../lib/types/meeting';
 
 const Fourth = (props: { context: FourthType }) => {
   const navigate = useNavigate();
-  console.log(props.context);
   return (
     <S.Background>
       <S.FormContainer className="layout-padding">
