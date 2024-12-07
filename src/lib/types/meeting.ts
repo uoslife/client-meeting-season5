@@ -40,6 +40,7 @@ export interface PreferenceType {
 }
 
 export interface MeetingTeamType {
+  isMatched: boolean;
   teamType: TeamType;
   teamName: string | null;
   course: string;
@@ -47,4 +48,10 @@ export interface MeetingTeamType {
   code: string | null;
   meetingTeamUserProfiles: UserInfoType[];
   preference: PreferenceType;
+  userProfiles: UserInfoType[];
+}
+
+export interface MatchResultType {
+  isMatched: boolean;
+  partnerTeam: MeetingTeamType;
 }
