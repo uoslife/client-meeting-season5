@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-// import Header from '../../components/common/Header';
-// import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import S from './style';
 import useToast from '../../hooks/useToast';
 import { DepartmentType } from '../../lib/types/personalMeeting.type';
-// import useModal from '../../hooks/useModal';
-// import { errorHandler } from '../../utils/api';
-// import { useEffect, useState } from 'react';
-// import { useGetFinalMeetingGroupInfo } from '../../hooks/api/useMeetingGroupInfo';
+import useModal from '../../hooks/useModal';
+import { useEffect, useState } from 'react';
 import GroupSummaryCard from '../../components/feature/GroupSummaryCard';
 import close from '../../lib/assets/icon/close-white.svg';
+import { useMatchResult } from '../../hooks/api/useMatch';
+import { personalUserInfoType } from '../PersonalSummaryPage/PersonalSummaryPage';
 
 export type groupUserInfoType = {
   name: string;
@@ -23,7 +21,8 @@ export type groupUserInfoType = {
 
 const GroupSummaryPage = () => {
   const navigate = useNavigate();
-  // const [errorText, setErrorText] = useState('');
+  const [errorText, setErrorText] = useState('');
+  const [groupUserInfo, setGroupUserInfo] = useState<personalUserInfoType[]>();
 
   // const {
   //   data: groupData,
@@ -31,82 +30,71 @@ const GroupSummaryPage = () => {
   //   error: groupError,
   // } = useGetFinalMeetingGroupInfo();
 
+  const {
+    data: groupData,
+    isError: isGroupError,
+    isPending: isGroupPending,
+    error: groupError,
+    isSuccess: isGroupSuccess,
+  } = useMatchResult({ teamType: 'TRIPLE' });
+
   const toast = useToast();
-  // const modal = useModal({
-  //   title: '',
-  //   description: errorText,
-  //   mainButtonCallback: () => navigate('/auth/main'),
-  //   isSideButton: false,
-  // });
-
-  // useEffect(() => {
-  //   if (isGroupError) {
-  //     setErrorText(errorHandler(groupError));
-  //     modal.open();
-  //   }
-  // }, [isGroupError, groupError]);
-
-  // const groupUserInfo = groupData?.meetingTeamUserProfiles.map((user) => {
-  //   return {
-  //     name: user.name,
-  //     department: user.department,
-  //     studentNumber: user.studentNumber,
-  //     age: user.age,
-  //     interest: user.interest,
-  //     kakaoTalkId: user.kakaoTalkId,
-  //     studentType: user.studentType,
-  //   };
-  // });
-  const groupUserInfo = Array.from({ length: 3 }).map(() => {
-    return {
-      name: '조종빈',
-      department: '컴퓨터과학부',
-      studentNumber: 20,
-      age: 22,
-      interest: ['일번', '이번'],
-      kakaoTalkId: 'jongbin26',
-      studentType: 'UNDERGRADUATE',
-    } as groupUserInfoType;
+  const modal = useModal({
+    title: '',
+    description: errorText,
+    mainButtonCallback: () => navigate('/auth/final'),
+    isSideButton: false,
   });
+
+  useEffect(() => {
+    if (isGroupError) {
+      setErrorText('네트워크 상태가 불안정합니다. 새로고침 후 이용해주세요.');
+      modal.open();
+    }
+  }, [isGroupError, groupError]);
+
+  useEffect(() => {
+    if (isGroupSuccess) {
+      const groupUserInfo: personalUserInfoType[] =
+        groupData?.partnerTeam.userProfiles.map((user) => {
+          return {
+            name: user.name,
+            department: user.department,
+            studentNumber: user.studentNumber,
+            age: user.age,
+            interest: user.interest,
+            kakaoTalkId: user.kakaoTalkId,
+            studentType: user.studentType,
+          };
+        });
+      setGroupUserInfo(groupUserInfo);
+    }
+  }, [isGroupSuccess]);
 
   return (
     <S.Background>
+      {modal.render()}
       <S.Container className="layout-padding">
         <S.MainContainer>
-          {/* {!isGroupError && (
-            <S.CardContainer>
-              <Text color="Blue2" typograph="titleMedium">
-                {`From. ${groupData?.teamName}`}
-              </Text>
-
-              <>
-                {groupUserInfo?.map((userInfo) => (
-                  <GroupSummaryCard
-                    key={`userInfo-${userInfo.kakaoTalkId}`}
-                    toast={toast}
-                    userInfo={userInfo}
-                  />
-                ))}
-              </>
-            </S.CardContainer>
-          )} */}
-
           <S.ContentWrapper>
-            <S.CardContainer>
-              <Text color="Blue2" typograph="titleMedium">
-                {`From. ${'팀이름'}`}
-              </Text>
+            {!isGroupPending && !isGroupError && (
+              <S.CardContainer>
+                <Text color="Blue2" typograph="titleMedium">
+                  {`From. ${groupData?.partnerTeam.teamName}`}
+                </Text>
+                <>
+                  {groupUserInfo &&
+                    groupUserInfo?.map((userInfo) => (
+                      <GroupSummaryCard
+                        key={`userInfo-${userInfo.kakaoTalkId}`}
+                        toast={toast}
+                        userInfo={userInfo}
+                      />
+                    ))}
+                </>
+              </S.CardContainer>
+            )}
 
-              <>
-                {groupUserInfo?.map((userInfo) => (
-                  <GroupSummaryCard
-                    key={`userInfo-${userInfo.kakaoTalkId}`}
-                    toast={toast}
-                    userInfo={userInfo}
-                  />
-                ))}
-              </>
-            </S.CardContainer>
             <S.TextWrapper>
               <Text color={'Red30'} typograph={'labelMediumMedium'}>
                 상대방의 카톡ID을 찾을 수 없는 경우,

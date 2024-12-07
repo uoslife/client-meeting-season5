@@ -7,13 +7,22 @@ import snowman from '../../lib/assets/images/main-snowman-img.png';
 import snowmanIcon from '../../lib/assets/images/main-snowman-icon.png';
 // import { useGetUserStatus } from '../../hooks/api/useUser';
 import arrowRed from '../../lib/assets/icon/arrow_red.svg';
+import { useMatchStatus } from '../../hooks/api/useMatch';
+import useToast from '../../hooks/useToast';
+import { useEffect } from 'react';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  // const userStatus = useGetUserStatus();
+  const { data, isError } = useMatchStatus();
+  const toast = useToast();
+
+  useEffect(() => {
+    if (isError) toast.toast(1000);
+  }, [isError]);
 
   return (
     <S.Background>
+      {toast.render('네트워크 상태가 불안정합니다. 새로고침 후 이용해주세요.')}
       <S.Wrapper className="layout-padding">
         <div style={{ minHeight: 'calc(100vh - 40px)' }}>
           <S.TopBar>
@@ -29,37 +38,43 @@ const MainPage = () => {
           </S.MainText>
 
           <S.ResultButtonWrapper>
-            <S.ResultButton
-              onClick={() => navigate('/auth/final/letter?type=personal')}
-            >
-              <Text color={'Blue90'} typograph={'titleLarge'}>
-                1대1
-              </Text>
-              <S.RightTextWrapper>
-                <Text color={'Red60'} typograph={'bodyLargeMedium'}>
-                  매칭결과 확인하기
+            {data?.single && (
+              <S.ResultButton
+                onClick={() => navigate('/auth/final/letter?type=personal')}
+              >
+                <Text color={'Blue90'} typograph={'titleLarge'}>
+                  1대1
                 </Text>
-                <img src={arrowRed} width={12} height={12} />
-              </S.RightTextWrapper>
-            </S.ResultButton>
-            <S.ResultButton
-              onClick={() => navigate('/auth/final/letter?type=group')}
-            >
-              <Text color={'Blue90'} typograph={'titleLarge'}>
-                3대3
-              </Text>
-              <S.RightTextWrapper>
-                <Text color={'Red60'} typograph={'bodyLargeMedium'}>
-                  매칭결과 확인하기
+                <S.RightTextWrapper>
+                  <Text color={'Red60'} typograph={'bodyLargeMedium'}>
+                    매칭결과 확인하기
+                  </Text>
+                  <img src={arrowRed} width={12} height={12} />
+                </S.RightTextWrapper>
+              </S.ResultButton>
+            )}
+            {data?.triple && (
+              <S.ResultButton
+                onClick={() => navigate('/auth/final/letter?type=group')}
+              >
+                <Text color={'Blue90'} typograph={'titleLarge'}>
+                  3대3
                 </Text>
-                <img src={arrowRed} width={12} height={12} />
-              </S.RightTextWrapper>
-            </S.ResultButton>
-            <S.ResultButton>
-              <Text color={'Blue90'} typograph={'titleLarge'}>
-                신청 정보를 찾을 수 없어요😢
-              </Text>
-            </S.ResultButton>
+                <S.RightTextWrapper>
+                  <Text color={'Red60'} typograph={'bodyLargeMedium'}>
+                    매칭결과 확인하기
+                  </Text>
+                  <img src={arrowRed} width={12} height={12} />
+                </S.RightTextWrapper>
+              </S.ResultButton>
+            )}
+            {!data?.single && !data?.triple && (
+              <S.ResultButton>
+                <Text color={'Blue90'} typograph={'titleLarge'}>
+                  신청 정보를 찾을 수 없어요😢
+                </Text>
+              </S.ResultButton>
+            )}
           </S.ResultButtonWrapper>
 
           <S.Snowman>

@@ -26,8 +26,8 @@ export const S = {
   MainContainer: styled.div`
     width: 100%;
     // TODO
-    min-height: calc(100vh - 160px - 4rem);
-    min-height: calc(100dvh - 160px - 4rem);
+    min-height: calc(100vh - 160px);
+    min-height: calc(100dvh - 160px);
   `,
   ButtonWrapper: styled.div`
     position: relative;

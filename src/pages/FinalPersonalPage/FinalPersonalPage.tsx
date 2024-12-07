@@ -1,12 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/common/Header';
-import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import S from './style';
 import useToast from '../../hooks/useToast';
-// import GroupSummaryCard from '../../components/feature/GroupSummaryCard';
 import PersonalSummaryCard from '../../components/feature/PersonalSummaryCard';
-// import { useGetMeetingPersonalInfo } from '../../hooks/api/useMeetingPersonalInfo';
 import close from '../../lib/assets/icon/close-white.svg';
 import {
   AppearanceType,
@@ -14,9 +10,9 @@ import {
   EyelidType,
   SmokingType,
 } from '../../lib/types/personalMeeting.type';
-// import useModal from '../../hooks/useModal';
-// import { errorHandler } from '../../utils/api';
-// import { useEffect, useState } from 'react';
+import { useMatchResult } from '../../hooks/api/useMatch';
+import useModal from '../../hooks/useModal';
+import { useEffect, useState } from 'react';
 
 export type personalUserInfoType = {
   course?: string;
@@ -47,75 +43,57 @@ export type groupUserInfoType = {
 
 const SummaryPage = () => {
   const navigate = useNavigate();
-  // const [errorText, setErrorText] = useState('');
+  const {
+    data: personalData,
+    isError: isPersonalError,
+    error: personalError,
+    isPending: isPersonalPending,
+  } = useMatchResult({ teamType: 'SINGLE' });
 
-  // const {
-  //   data: personalData,
-  //   isError: isPersonalError,
-  //   error: personalError,
-  // } = useGetMeetingPersonalInfo();
+  const [errorText, setErrorText] = useState('');
 
   const toast = useToast();
-  // const modal = useModal({
-  //   title: '',
-  //   description: errorText,
-  //   mainButtonCallback: () => navigate('/auth/main'),
-  //   isSideButton: false,
-  // });
+  const modal = useModal({
+    title: '',
+    description: errorText,
+    mainButtonCallback: () => navigate('/auth/final'),
+    isSideButton: false,
+  });
 
-  // useEffect(() => {
-  //   if (isPersonalError) {
-  //     setErrorText(errorHandler(personalError));
-  //     modal.open();
-  //   }
-  // }, [isPersonalError, personalError]);
-
-  // const personalUserInfo: personalUserInfoType = {
-  //   name: personalData?.meetingTeamUserProfiles[0].name,
-  //   gender: personalData?.gender,
-  //   department: personalData?.meetingTeamUserProfiles[0].department,
-  //   studentNumber: personalData?.meetingTeamUserProfiles[0].studentNumber,
-  //   studentType: personalData?.meetingTeamUserProfiles[0].studentType,
-  //   appearanceType: personalData?.meetingTeamUserProfiles[0].appearanceType,
-  //   mbti: personalData?.meetingTeamUserProfiles[0].mbti,
-  //   eyelid: personalData?.meetingTeamUserProfiles[0].eyelidType,
-  //   course: personalData?.course,
-  //   interest: personalData?.meetingTeamUserProfiles[0].interest,
-  //   kakaoTalkId: personalData?.meetingTeamUserProfiles[0].kakaoTalkId,
-  //   height: personalData?.meetingTeamUserProfiles[0].height,
-  //   age: personalData?.meetingTeamUserProfiles[0].age,
-  // };
+  useEffect(() => {
+    if (isPersonalError) {
+      setErrorText('네트워크 상태가 불안정합니다. 새로고침 후 이용해주세요.');
+      modal.open();
+    }
+  }, [isPersonalError, personalError]);
 
   const personalUserInfo: personalUserInfoType = {
-    name: '조종빈',
-    gender: 'MALE',
-    department: '건축학부',
-    studentNumber: 20,
-    studentType: 'UNDERGRADUATE',
-    appearanceType: 'NORMAL',
-    mbti: 'ENTJ',
-    eyelid: 'DOUBLE',
-    course: '이런이런 코스를',
-    interest: ['일번', '이번'],
-    kakaoTalkId: 'jongbin26',
-    height: 170,
-    age: 22,
+    name: personalData?.partnerTeam.userProfiles[0].name,
+    gender: personalData?.partnerTeam.gender,
+    department: personalData?.partnerTeam.userProfiles[0].department,
+    studentNumber: personalData?.partnerTeam.userProfiles[0].studentNumber,
+    studentType: personalData?.partnerTeam.userProfiles[0].studentType,
+    appearanceType: personalData?.partnerTeam.userProfiles[0].appearanceType,
+    mbti: personalData?.partnerTeam.userProfiles[0].mbti,
+    eyelid: personalData?.partnerTeam.userProfiles[0].eyelidType,
+    course: personalData?.partnerTeam.course,
+    interest: personalData?.partnerTeam.userProfiles[0].interest,
+    kakaoTalkId: personalData?.partnerTeam.userProfiles[0].kakaoTalkId,
+    height: personalData?.partnerTeam.userProfiles[0].height,
+    age: personalData?.partnerTeam.userProfiles[0].age,
   };
 
   return (
     <S.Background>
-      {/* {modal.render()} */}
+      {modal.render()}
       <S.Container className="layout-padding">
         <S.MainContainer>
-          {/* {!isPersonalError && (
+          {!isPersonalPending && !isPersonalError && (
             <S.CardContainer>
               <PersonalSummaryCard toast={toast} userInfo={personalUserInfo} />
             </S.CardContainer>
-          )} */}
+          )}
           <S.ContentWrapper>
-            <S.CardContainer>
-              <PersonalSummaryCard toast={toast} userInfo={personalUserInfo} />
-            </S.CardContainer>
             <S.TextWrapper>
               <Text color={'Red30'} typograph={'labelMediumMedium'}>
                 상대방의 카톡ID을 찾을 수 없는 경우,

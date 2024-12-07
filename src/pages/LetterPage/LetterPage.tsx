@@ -5,12 +5,44 @@ import Button from '../../components/common/Button';
 import Text from '../../components/common/Text';
 import PersonalResult from '../../lib/assets/images/personal-result.png';
 import GroupResult from '../../lib/assets/images/group-result.png';
+import { useEffect, useState } from 'react';
+import { useMatchResult } from '../../hooks/api/useMatch';
+import useModal from '../../hooks/useModal';
+import MatchFailedPage from '../../components/feature/MatchFailedFailedPage';
 
 const LetterPage = () => {
   const [searchParams] = useSearchParams();
+  const [errorText, setErrorText] = useState('');
+  const [isMatched, setIsMatched] = useState<boolean>(true);
+
   const navigate = useNavigate();
   const teamType = searchParams.get('type') as 'personal' | 'group';
-  return (
+
+  const { data, isError, error, isSuccess } = useMatchResult({
+    teamType: teamType === 'personal' ? 'SINGLE' : 'TRIPLE',
+  });
+
+  const modal = useModal({
+    title: '',
+    description: errorText,
+    mainButtonCallback: () => navigate('/auth/final'),
+    isSideButton: false,
+  });
+
+  useEffect(() => {
+    if (isError) {
+      setErrorText('네트워크 상태가 불안정합니다. 새로고침 후 이용해주세요.');
+      modal.open();
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (!data.isMatched) setIsMatched(false);
+    }
+  }, [isSuccess]);
+
+  return isMatched ? (
     <S.Background>
       <Header
         title={teamType === 'personal' ? '1대1 매칭결과' : '3대3 매칭결과'}
@@ -47,6 +79,8 @@ const LetterPage = () => {
         </S.ButtonWrapper>
       </S.Container>
     </S.Background>
+  ) : (
+    <MatchFailedPage teamType={teamType} />
   );
 };
 

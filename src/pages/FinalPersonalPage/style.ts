@@ -45,6 +45,7 @@ export const S = {
     gap: 16px;
   `,
   ContentWrapper: styled.div`
+    padding-top: 20px;
     justify-content: center;
     align-items: center;
     display: flex;
