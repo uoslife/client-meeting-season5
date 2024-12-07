@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useMatchResult } from '../../hooks/api/useMatch';
 import useModal from '../../hooks/useModal';
 import MatchFailedPage from '../../components/feature/MatchFailedFailedPage';
+import { useQueryClient } from '@tanstack/react-query';
 
 const LetterPage = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,7 @@ const LetterPage = () => {
 
   const navigate = useNavigate();
   const teamType = searchParams.get('type') as 'personal' | 'group';
-
+  const queryClient = useQueryClient();
   const { data, isError, error, isSuccess } = useMatchResult({
     teamType: teamType === 'personal' ? 'SINGLE' : 'TRIPLE',
   });
@@ -37,6 +38,7 @@ const LetterPage = () => {
   }, [isError, error]);
 
   useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['matchResult'] });
     if (isSuccess) {
       if (!data.isMatched) setIsMatched(false);
     }
