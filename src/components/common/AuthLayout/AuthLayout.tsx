@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { S } from '../BasicLayout/style';
 import { useReissue } from '../../../hooks/api/useAuth';
 import { useEffect } from 'react';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { accessTokenAtom } from '../../../store/accessTokenAtom';
 // import { useGetUserInfo } from '../../../hooks/api/useUser';
 // import { userInfoAtom } from '../../../store/userInfo';
