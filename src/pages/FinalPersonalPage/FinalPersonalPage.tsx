@@ -48,9 +48,12 @@ const SummaryPage = () => {
     isError: isPersonalError,
     error: personalError,
     isPending: isPersonalPending,
+    isSuccess: isPersonalSuccess,
   } = useMatchResult({ teamType: 'SINGLE' });
 
   const [errorText, setErrorText] = useState('');
+  const [personalUserInfo, setPersonalUserInfo] =
+    useState<personalUserInfoType>();
 
   const toast = useToast();
   const modal = useModal({
@@ -67,28 +70,34 @@ const SummaryPage = () => {
     }
   }, [isPersonalError, personalError]);
 
-  const personalUserInfo: personalUserInfoType = {
-    name: personalData?.partnerTeam.userProfiles[0].name,
-    gender: personalData?.partnerTeam.gender,
-    department: personalData?.partnerTeam.userProfiles[0].department,
-    studentNumber: personalData?.partnerTeam.userProfiles[0].studentNumber,
-    studentType: personalData?.partnerTeam.userProfiles[0].studentType,
-    appearanceType: personalData?.partnerTeam.userProfiles[0].appearanceType,
-    mbti: personalData?.partnerTeam.userProfiles[0].mbti,
-    eyelid: personalData?.partnerTeam.userProfiles[0].eyelidType,
-    course: personalData?.partnerTeam.course,
-    interest: personalData?.partnerTeam.userProfiles[0].interest,
-    kakaoTalkId: personalData?.partnerTeam.userProfiles[0].kakaoTalkId,
-    height: personalData?.partnerTeam.userProfiles[0].height,
-    age: personalData?.partnerTeam.userProfiles[0].age,
-  };
+  useEffect(() => {
+    if (isPersonalSuccess) {
+      const personalUserInfo: personalUserInfoType = {
+        name: personalData?.partnerTeam.userProfiles[0].name,
+        gender: personalData?.partnerTeam.gender,
+        department: personalData?.partnerTeam.userProfiles[0].department,
+        studentNumber: personalData?.partnerTeam.userProfiles[0].studentNumber,
+        studentType: personalData?.partnerTeam.userProfiles[0].studentType,
+        appearanceType:
+          personalData?.partnerTeam.userProfiles[0].appearanceType,
+        mbti: personalData?.partnerTeam.userProfiles[0].mbti,
+        eyelid: personalData?.partnerTeam.userProfiles[0].eyelidType,
+        course: personalData?.partnerTeam.course,
+        interest: personalData?.partnerTeam.userProfiles[0].interest,
+        kakaoTalkId: personalData?.partnerTeam.userProfiles[0].kakaoTalkId,
+        height: personalData?.partnerTeam.userProfiles[0].height,
+        age: personalData?.partnerTeam.userProfiles[0].age,
+      };
+      setPersonalUserInfo(personalUserInfo);
+    }
+  }, [isPersonalSuccess]);
 
   return (
     <S.Background>
       {modal.render()}
       <S.Container className="layout-padding">
         <S.MainContainer>
-          {!isPersonalPending && !isPersonalError && (
+          {!isPersonalPending && !isPersonalError && personalUserInfo && (
             <S.CardContainer>
               <PersonalSummaryCard toast={toast} userInfo={personalUserInfo} />
             </S.CardContainer>
