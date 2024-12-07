@@ -24,12 +24,6 @@ const GroupSummaryPage = () => {
   const [errorText, setErrorText] = useState('');
   const [groupUserInfo, setGroupUserInfo] = useState<personalUserInfoType[]>();
 
-  // const {
-  //   data: groupData,
-  //   isError: isGroupError,
-  //   error: groupError,
-  // } = useGetFinalMeetingGroupInfo();
-
   const {
     data: groupData,
     isError: isGroupError,
